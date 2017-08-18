@@ -116,10 +116,16 @@ class PaymentDefinition(PaypalObject):
 	def clean_api_data(cls, data):
 		id, cleaned_data = super().clean_api_data(data)
 
-		# TODO
-		cleaned_data.pop("charge_models")
+		charge_models = cleaned_data.pop("charge_models")
+		# Sync payment definitions but do not fetch them (we have them in full)
+		ChargeModel.objects.sync_data(charge_models, fetch=False)
 
 		return id, cleaned_data
+
+
+class ChargeModel(PaypalObject):
+	type = models.CharField(max_length=20, choices=enums.ChargeModelType.choices)
+	amount = CurrencyAmountField()
 
 
 class Webhook(PaypalObject):
