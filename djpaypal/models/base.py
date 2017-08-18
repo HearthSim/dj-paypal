@@ -57,6 +57,11 @@ class PaypalObject(models.Model):
 
 		return db_obj, created
 
+	def __str__(self):
+		if hasattr(self, "name"):
+			return self.name
+		return "<{}: {}>".format(self.__class__.__name__, self.id)
+
 	def _sync_data_field(self, k, v):
 		if k == "links":
 			return False
