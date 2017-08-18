@@ -1,5 +1,6 @@
 from django.contrib.postgres.fields import JSONField
 from django.db import models
+from paypalrestsdk import payments as paypal_models
 from . import enums
 
 
@@ -11,8 +12,8 @@ class PaypalObjectManager(models.Manager):
 	def sync_data(self, paypal_data):
 		ret = []
 		for obj in paypal_data:
-			data = obj.__data__.copy()
-			db_obj, _ = self.model.get_or_update_from_api_data(data)
+			api_full_data = self.model.paypal_model.find(obj["id"])
+			db_obj, _ = self.model.get_or_update_from_api_data(api_full_data)
 			ret.append(db_obj)
 		return ret
 
@@ -27,9 +28,28 @@ class PaypalObject(models.Model):
 	objects = PaypalObjectManager()
 
 	@classmethod
+	def clean_api_data(cls, data):
+		if isinstance(data, dict):
+			cleaned_data = data.copy()
+		else:
+			# Paypal SDK object
+			cleaned_data = data.to_dict()
+
+		# Delete links (only useful in the API itself)
+		cleaned_data.pop("links")
+
+		# Extract the ID to return it separately
+		id = cleaned_data.pop("id")
+
+		# Set the livemode
+		cleaned_data["livemode"] = False
+
+		return id, cleaned_data
+
+	@classmethod
 	def get_or_update_from_api_data(cls, data):
-		id = data.pop("id")
-		db_obj, created = cls.objects.get_or_create(id=id, defaults=data)
+		id, cleaned_data = cls.clean_api_data(data)
+		db_obj, created = cls.objects.get_or_create(id=id, defaults=cleaned_data)
 		if not created:
 			db_obj.sync_data(id)
 			db_obj.save()
@@ -64,6 +84,17 @@ class BillingPlan(PaypalObject):
 	create_time = models.DateTimeField()
 	update_time = models.DateTimeField()
 	merchant_preferences = JSONField()
+
+	paypal_model = paypal_models.BillingPlan
+
+	@classmethod
+	def clean_api_data(cls, data):
+		id, cleaned_data = super().clean_api_data(data)
+
+		# TODO
+		cleaned_data.pop("payment_definitions")
+
+		return id, cleaned_data
 
 
 class PaymentDefinition(PaypalObject):
