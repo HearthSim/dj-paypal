@@ -48,15 +48,19 @@ class PaypalObject(models.Model):
 		# Set the livemode
 		cleaned_data["livemode"] = False
 
-		return id, cleaned_data
+		return id, cleaned_data, {}
 
 	@classmethod
 	def get_or_update_from_api_data(cls, data):
-		id, cleaned_data = cls.clean_api_data(data)
+		id, cleaned_data, m2ms = cls.clean_api_data(data)
 		db_obj, created = cls.objects.get_or_create(id=id, defaults=cleaned_data)
 		if not created:
 			db_obj.sync_data(id)
 			db_obj.save()
+
+		for field, objs in m2ms.items():
+			for obj in objs:
+				getattr(db_obj, field).add(obj)
 
 		return db_obj, created
 
@@ -89,17 +93,19 @@ class BillingPlan(PaypalObject):
 	update_time = models.DateTimeField()
 	merchant_preferences = JSONField()
 
+	payment_definitions = models.ManyToManyField("PaymentDefinition")
+
 	paypal_model = paypal_models.BillingPlan
 
 	@classmethod
 	def clean_api_data(cls, data):
-		id, cleaned_data = super().clean_api_data(data)
+		id, cleaned_data, m2ms = super().clean_api_data(data)
 
-		payment_definitions = cleaned_data.pop("payment_definitions")
+		pds = cleaned_data.pop("payment_definitions")
 		# Sync payment definitions but do not fetch them (we have them in full)
-		PaymentDefinition.objects.sync_data(payment_definitions, fetch=False)
+		m2ms["payment_definitions"] = PaymentDefinition.objects.sync_data(pds, fetch=False)
 
-		return id, cleaned_data
+		return id, cleaned_data, m2ms
 
 
 class PaymentDefinition(PaypalObject):
@@ -112,15 +118,17 @@ class PaymentDefinition(PaypalObject):
 	cycles = models.PositiveSmallIntegerField()
 	amount = CurrencyAmountField()
 
+	charge_models = models.ManyToManyField("ChargeModel")
+
 	@classmethod
 	def clean_api_data(cls, data):
-		id, cleaned_data = super().clean_api_data(data)
+		id, cleaned_data, m2ms = super().clean_api_data(data)
 
 		charge_models = cleaned_data.pop("charge_models")
 		# Sync payment definitions but do not fetch them (we have them in full)
-		ChargeModel.objects.sync_data(charge_models, fetch=False)
+		m2ms["charge_models"] = ChargeModel.objects.sync_data(charge_models, fetch=False)
 
-		return id, cleaned_data
+		return id, cleaned_data, m2ms
 
 
 class ChargeModel(PaypalObject):
