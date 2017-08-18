@@ -1,0 +1,89 @@
+{
+	"id": "P-02767725HB885221P6IAFNQA",
+	"state": "ACTIVE",
+	"name": "Testing1-Regular1",
+	"description": "Create Plan for Regular",
+	"type": "INFINITE",
+	"payment_definitions": [
+		{
+			"id": "PD-3B751762PC792592B6IAFNQA",
+			"name": "Regular 1",
+			"type": "REGULAR",
+			"frequency": "Month",
+			"amount": {
+				"currency": "USD",
+				"value": "100"
+			},
+			"cycles": "0",
+			"charge_models": [
+				{
+					"id": "CHM-4F930858A3897361N6IAFNQA",
+					"type": "TAX",
+					"amount": {
+						"currency": "USD",
+						"value": "20"
+					}
+				},
+				{
+					"id": "CHM-6LA31223GT843641L6IAFNQA",
+					"type": "SHIPPING",
+					"amount": {
+						"currency": "USD",
+						"value": "10.6"
+					}
+				}
+			],
+			"frequency_interval": "1"
+		},
+		{
+			"id": "PD-63439836K9231613U6IAFNQA",
+			"name": "Trial 1",
+			"type": "TRIAL",
+			"frequency": "Month",
+			"amount": {
+				"currency": "USD",
+				"value": "20"
+			},
+			"cycles": "4",
+			"charge_models": [
+				{
+					"id": "CHM-3H156547RL495711T6IAFNQI",
+					"type": "TAX",
+					"amount": {
+						"currency": "USD",
+						"value": "20"
+					}
+				},
+				{
+					"id": "CHM-4LE03726FG87751106IAFNQI",
+					"type": "SHIPPING",
+					"amount": {
+						"currency": "USD",
+						"value": "10.6"
+					}
+				}
+			],
+			"frequency_interval": "1"
+		}
+	],
+	"merchant_preferences": {
+		"setup_fee": {
+			"currency": "USD",
+			"value": "25"
+		},
+		"max_fail_attempts": "1",
+		"return_url": "http://www.example.com/success",
+		"cancel_url": "http://www.example.com/cancel",
+		"auto_bill_amount": "YES",
+		"initial_fail_amount_action": "CONTINUE"
+	},
+	"create_time": "2017-08-17T21:01:34.784Z",
+	"update_time": "2017-08-17T21:01:37.482Z",
+	"links": [
+		{
+			"href": "https://api.sandbox.paypal.com/v1/payments/billing-plans/P-02767725HB885221P6IAFNQA",
+			"rel": "self",
+			"method": "GET"
+		}
+	]
+}

@@ -1,0 +1,53 @@
+{
+	"plans": [
+		{
+			"id": "P-02767725HB885221P6IAFNQA",
+			"state": "ACTIVE",
+			"name": "Testing1-Regular1",
+			"description": "Create Plan for Regular",
+			"type": "INFINITE",
+			"create_time": "2017-08-17T21:01:34.784Z",
+			"update_time": "2017-08-17T21:01:37.482Z",
+			"links": [
+				{
+					"href": "https://api.sandbox.paypal.com/v1/payments/billing-plans/P-02767725HB885221P6IAFNQA",
+					"rel": "self",
+					"method": "GET"
+				}
+			]
+		},
+		{
+			"id": "P-6CG06355W0800031W6IARW3A",
+			"state": "ACTIVE",
+			"name": "test plan",
+			"description": "a test plan",
+			"type": "INFINITE",
+			"create_time": "2017-08-17T21:02:25.132Z",
+			"update_time": "2017-08-17T21:02:27.659Z",
+			"links": [
+				{
+					"href": "https://api.sandbox.paypal.com/v1/payments/billing-plans/P-6CG06355W0800031W6IARW3A",
+					"rel": "self",
+					"method": "GET"
+				}
+			]
+		}
+	],
+	"links": [
+		{
+			"href": "https://api.sandbox.paypal.com/v1/payments/billing-plans?page_size=10&page=0&start=1&status=active",
+			"rel": "start",
+			"method": "GET"
+		},
+		{
+			"href": "https://api.sandbox.paypal.com/v1/payments/billing-plans?page_size=10&page=1&status=active",
+			"rel": "next_page",
+			"method": "GET"
+		},
+		{
+			"href": "https://api.sandbox.paypal.com/v1/payments/billing-plans?page_size=10&page=1&status=active",
+			"rel": "last",
+			"method": "GET"
+		}
+	]
+}
