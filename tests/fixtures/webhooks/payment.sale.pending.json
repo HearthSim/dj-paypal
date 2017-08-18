@@ -1,0 +1,53 @@
+{
+	"id": "WH-6W4482673W002281V-61985753LP2332451",
+	"create_time": "2015-05-11T21:45:15Z",
+	"resource_type": "sale",
+	"event_type": "PAYMENT.SALE.PENDING",
+	"summary": "Payment pending for EUR 3.76 EUR",
+	"resource": {
+		"reason_code": "RECEIVING_PREFERENCE_MANDATES_MANUAL_ACTION",
+		"amount": {
+			"total": "3.76",
+			"currency": "EUR"
+		},
+		"id": "11139561TK568332L",
+		"parent_payment": "PAY-13V79659LS5126423KVISFPI",
+		"update_time": "2015-05-11T21:44:29Z",
+		"state": "pending",
+		"payment_mode": "INSTANT_TRANSFER",
+		"create_time": "2015-05-11T21:44:29Z",
+		"links": [
+			{
+				"href": "https://api.paypal.com/v1/payments/sale/11139561TK568332L",
+				"rel": "self",
+				"method": "GET"
+			},
+			{
+				"href": "https://api.paypal.com/v1/payments/sale/11139561TK568332L/refund",
+				"rel": "refund",
+				"method": "POST"
+			},
+			{
+				"href": "https://api.paypal.com/v1/payments/payment/PAY-13V79659LS5126423KVISFPI",
+				"rel": "parent_payment",
+				"method": "GET"
+			}
+		],
+		"protection_eligibility": "INELIGIBLE"
+	},
+	"links": [
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-6W4482673W002281V-61985753LP2332451",
+			"rel": "self",
+			"method": "GET",
+			"encType": "application/json"
+		},
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-6W4482673W002281V-61985753LP2332451/resend",
+			"rel": "resend",
+			"method": "POST",
+			"encType": "application/json"
+		}
+	],
+	"event_version": "1.0"
+}

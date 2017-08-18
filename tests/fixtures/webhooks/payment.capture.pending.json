@@ -1,0 +1,50 @@
+{
+	"id": "WH-0J4956174R483764T-3MK691094K212612H",
+	"create_time": "2015-05-11T21:45:16Z",
+	"resource_type": "capture",
+	"event_type": "PAYMENT.CAPTURE.PENDING",
+	"summary": "Payment pending for EUR 2.25 EUR",
+	"resource": {
+		"amount": {
+			"total": "2.25",
+			"currency": "EUR"
+		},
+		"id": "0C90432034385860N",
+		"parent_payment": "PAY-02U23179LV908860DKVISFGA",
+		"update_time": "2015-05-11T21:44:46Z",
+		"state": "pending",
+		"create_time": "2015-05-11T21:44:42Z",
+		"links": [
+			{
+				"href": "https://api.paypal.com/v1/payments/capture/0C90432034385860N",
+				"rel": "self",
+				"method": "GET"
+			},
+			{
+				"href": "https://api.paypal.com/v1/payments/capture/0C90432034385860N/refund",
+				"rel": "refund",
+				"method": "POST"
+			},
+			{
+				"href": "https://api.paypal.com/v1/payments/payment/PAY-02U23179LV908860DKVISFGA",
+				"rel": "parent_payment",
+				"method": "GET"
+			}
+		]
+	},
+	"links": [
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-0J4956174R483764T-3MK691094K212612H",
+			"rel": "self",
+			"method": "GET",
+			"encType": "application/json"
+		},
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-0J4956174R483764T-3MK691094K212612H/resend",
+			"rel": "resend",
+			"method": "POST",
+			"encType": "application/json"
+		}
+	],
+	"event_version": "1.0"
+}

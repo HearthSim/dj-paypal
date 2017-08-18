@@ -1,0 +1,41 @@
+{
+	"id": "WH-9M585274PE5867232-40C32040700472204",
+	"event_version": "1.0",
+	"create_time": "2016-06-07T22:56:55Z",
+	"resource_type": "dispute",
+	"event_type": "CUSTOMER.DISPUTE.RESOLVED",
+	"summary": "A dispute was resolved with case # PP-000-001-341-261",
+	"resource": {
+		"dispute_id": "PP-000-001-341-261",
+		"disputed_transactions": [
+			{
+				"buyer_transaction_id": "22V23554K3057852G",
+				"seller_transaction_id": "6C589962JJ4368547",
+				"seller_protection_eligible": true
+			}
+		],
+		"reason": "UNAUTHORIZED",
+		"status": "RESOLVED",
+		"dispute_amount": {
+			"currency_code": "USD",
+			"value": "9.98"
+		},
+		"create_time": "2016-06-07T22:53:25.000Z",
+		"update_time": "2016-06-07T22:56:19.000Z",
+		"dispute_outcome": {
+			"outcome_code": "RESOLVED_BUYER_FAVOUR"
+		}
+	},
+	"links": [
+		{
+			"href": "https://10.24.121.37:14084/v1/notifications/webhooks-events/WH-9M585274PE5867232-40C32040700472204",
+			"rel": "self",
+			"method": "GET"
+		},
+		{
+			"href": "https://10.24.121.37:14084/v1/notifications/webhooks-events/WH-9M585274PE5867232-40C32040700472204/resend",
+			"rel": "resend",
+			"method": "POST"
+		}
+	]
+}

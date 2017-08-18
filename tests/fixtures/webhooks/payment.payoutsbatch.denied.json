@@ -1,0 +1,49 @@
+{
+	"id": "WH-1WS771625W821303N-0FG05488C6485202W",
+	"create_time": "2015-09-07T12:49:17Z",
+	"resource_type": "payouts",
+	"event_type": "PAYMENT.PAYOUTSBATCH.DENIED",
+	"summary": "Payouts batch got denied.",
+	"resource": {
+		"batch_header": {
+			"payout_batch_id": "CHDK9ANSPBWQU",
+			"batch_status": "DENIED",
+			"time_created": "2015-09-07T12:49:17Z",
+			"time_completed": "2015-09-07T12:49:17Z",
+			"sender_batch_header": {
+				"sender_batch_id": "REL2"
+			},
+			"amount": {
+				"currency": "CAD",
+				"value": "25.0"
+			},
+			"fees": {
+				"currency": "CAD",
+				"value": "0.5"
+			},
+			"payments": 1
+		},
+		"links": [
+			{
+				"href": "https://api.paypal.com/v1/payments/payouts/CHDK9ANSPBWQU",
+				"rel": "self",
+				"method": "GET"
+			}
+		]
+	},
+	"links": [
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-1WS771625W821303N-0FG05488C6485202W",
+			"rel": "self",
+			"method": "GET",
+			"encType": "application/json"
+		},
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-1WS771625W821303N-0FG05488C6485202W/resend",
+			"rel": "resend",
+			"method": "POST",
+			"encType": "application/json"
+		}
+	],
+	"event_version": "1.0"
+}

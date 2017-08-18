@@ -1,0 +1,46 @@
+{
+	"id": "WH-3RA31609V56026446-3AM32121NY391352E",
+	"create_time": "2015-04-27T12:27:59Z",
+	"resource_type": "dispute",
+	"event_type": "RISK.DISPUTE.CREATED",
+	"summary": "A new dispute opened with Case # PP-000-001-202-018",
+	"resource": {
+		"dispute_creation_date": 1430132049000,
+		"dispute_amount": {
+			"currency": "USD",
+			"value": "1001"
+		},
+		"buyer_account_number": "1680371069474696023",
+		"buyer_email": "coolbuyer@example.com",
+		"seller_payment_id": "93U280418G152174E",
+		"dispute_category": 1,
+		"dispute_reason": 2,
+		"dispute_channel": 1,
+		"seller_account_number": "1741545641006354220",
+		"dispute_message_history": [
+			{
+				"message": "Tamil testing. Making INR to SNAD.",
+				"actor": 1
+			}
+		],
+		"buyer_payment_id": "51B54593E8586244A",
+		"seller_email": "coolseller@example.com",
+		"dispute_status": 1000,
+		"dispute_id": "PP-000-001-202-018"
+	},
+	"links": [
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-3RA31609V56026446-3AM32121NY391352E",
+			"rel": "self",
+			"method": "GET",
+			"encType": "application/json"
+		},
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-3RA31609V56026446-3AM32121NY391352E/resend",
+			"rel": "resend",
+			"method": "POST",
+			"encType": "application/json"
+		}
+	],
+	"event_version": "1.0"
+}

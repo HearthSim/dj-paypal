@@ -1,0 +1,48 @@
+{
+	"id": "WH-9J627718KS478452F-0TT97515BN811434B",
+	"create_time": "2015-09-14T13:18:15Z",
+	"resource_type": "payouts",
+	"event_type": "PAYMENT.PAYOUTSBATCH.PROCESSING",
+	"summary": "Payouts batch is getting processed.",
+	"resource": {
+		"batch_header": {
+			"payout_batch_id": "X24X9BJL2UK52",
+			"batch_status": "PROCESSING",
+			"time_created": "2015-09-14T13:18:13Z",
+			"sender_batch_header": {
+				"sender_batch_id": "ISO-22"
+			},
+			"amount": {
+				"currency": "USD",
+				"value": "12.43"
+			},
+			"fees": {
+				"currency": "USD",
+				"value": "0.5"
+			},
+			"payments": 2
+		},
+		"links": [
+			{
+				"href": "https://api.paypal.com/v1/payments/payouts/X24X9BJL2UK52",
+				"rel": "self",
+				"method": "GET"
+			}
+		]
+	},
+	"links": [
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-9J627718KS478452F-0TT97515BN811434B",
+			"rel": "self",
+			"method": "GET",
+			"encType": "application/json"
+		},
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-9J627718KS478452F-0TT97515BN811434B/resend",
+			"rel": "resend",
+			"method": "POST",
+			"encType": "application/json"
+		}
+	],
+	"event_version": "1.0"
+}

@@ -1,0 +1,110 @@
+{
+	"id": "WH-0G571461Y8752214W-8BA14884LA246194M",
+	"create_time": "2015-09-25T23:14:14Z",
+	"resource_type": "invoices",
+	"event_type": "INVOICING.INVOICE.REFUNDED",
+	"summary": "An invoice has been refunded",
+	"resource": {
+		"total_amount": {
+			"currency": "USD",
+			"value": "5.00"
+		},
+		"status": "REFUNDED",
+		"links": [
+			{
+				"rel": "self",
+				"href": "https://api.paypal.com/v1/invoicing/invoices/INV2-5U8W-GKP5-C8M5-M58R",
+				"method": "GET"
+			}
+		],
+		"number": "MM00062",
+		"invoice_date": "2015-09-28 PDT",
+		"tax_inclusive": false,
+		"merchant_info": {
+			"email": "example@outlook.com",
+			"first_name": "Dennis",
+			"last_name": "Lily",
+			"business_name": "Medical Professionals LLC ",
+			"address": {
+				"line1": "1234 Main St",
+				"line2": "Apt 415",
+				"city": "Portland",
+				"state": "OR",
+				"postal_code": "97217",
+				"country_code": "US"
+			}
+		},
+		"billing_info": [
+			{
+				"email": "example@example.com",
+				"business_name": "Medical Professional LLC",
+				"language": "en_US"
+			}
+		],
+		"payment_term": {
+			"term_type": "DUE_ON_RECEIPT",
+			"due_date": "2015-09-28 PDT"
+		},
+		"refunded_amount": {
+			"paypal": {
+				"currency": "USD",
+				"value": "5.00"
+			}
+		},
+		"id": "INV2-5U8W-GKP5-C8M5-M58R",
+		"items": [
+			{
+				"name": "Sample Item",
+				"quantity": 1,
+				"unit_price": {
+					"currency": "USD",
+					"value": "5.00"
+				},
+				"unit_of_measure": "QUANTITY"
+			}
+		],
+		"payments": [
+			{
+				"type": "PAYPAL",
+				"transaction_id": "6JE198993G620420M",
+				"transaction_type": "SALE",
+				"method": "PAYPAL",
+				"date": "2015-09-28 14:31:20 PDT"
+			}
+		],
+		"tax_calculated_after_discount": true,
+		"refunds": [
+			{
+				"type": "PAYPAL",
+				"date": "2015-09-28 14:32:15 PDT"
+			}
+		],
+		"paid_amount": {
+			"paypal": {
+				"currency": "USD",
+				"value": "5.00"
+			}
+		},
+		"metadata": {
+			"created_date": "2015-09-28 14:29:31 PDT",
+			"last_updated_date": "2015-09-28 14:31:20 PDT",
+			"first_sent_date": "2015-09-28 14:29:52 PDT",
+			"last_sent_date": "2015-09-28 14:29:52 PDT"
+		}
+	},
+	"links": [
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-0G571461Y8752214W-8BA14884LA246194M",
+			"rel": "self",
+			"method": "GET",
+			"encType": "application/json"
+		},
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-0G571461Y8752214W-8BA14884LA246194M/resend",
+			"rel": "resend",
+			"method": "POST",
+			"encType": "application/json"
+		}
+	],
+	"event_version": "1.0"
+}

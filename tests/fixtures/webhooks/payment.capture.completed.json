@@ -1,0 +1,50 @@
+{
+	"id": "WH-7Y7254563A4550640-11V2185806837105M",
+	"create_time": "2015-02-17T18:51:33Z",
+	"resource_type": "capture",
+	"event_type": "PAYMENT.CAPTURE.COMPLETED",
+	"summary": "Payment completed for $ 7.47 USD",
+	"resource": {
+		"amount": {
+			"total": "7.47",
+			"currency": "USD"
+		},
+		"id": "42311647XV020574X",
+		"parent_payment": "PAY-3YE025760C441402AKTRY2PQ",
+		"update_time": "2015-02-17T18:50:45Z",
+		"state": "completed",
+		"create_time": "2015-02-17T18:50:44Z",
+		"links": [
+			{
+				"href": "https://api.paypal.com/v1/payments/capture/42311647XV020574X",
+				"rel": "self",
+				"method": "GET"
+			},
+			{
+				"href": "https://api.paypal.com/v1/payments/capture/42311647XV020574X/refund",
+				"rel": "refund",
+				"method": "POST"
+			},
+			{
+				"href": "https://api.paypal.com/v1/payments/payment/PAY-3YE025760C441402AKTRY2PQ",
+				"rel": "parent_payment",
+				"method": "GET"
+			}
+		]
+	},
+	"links": [
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-7Y7254563A4550640-11V2185806837105M",
+			"rel": "self",
+			"method": "GET",
+			"encType": "application/json"
+		},
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-7Y7254563A4550640-11V2185806837105M/resend",
+			"rel": "resend",
+			"method": "POST",
+			"encType": "application/json"
+		}
+	],
+	"event_version": "1.0"
+}

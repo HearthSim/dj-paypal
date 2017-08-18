@@ -1,0 +1,24 @@
+{
+	"id": "WH-17W49296X1356610S-0MD256853V991784A",
+	"event_version": "1.0",
+	"create_time": "2015-10-07T16:45:17Z",
+	"resource_type": "authorization_consent_revoked",
+	"event_type": "IDENTITY.AUTHORIZATION-CONSENT.REVOKED",
+	"summary": "Users consent has been revoked",
+	"resource": {
+		"scopes": "phone email address",
+		"refresh_token": "xhye474899",
+		"links": [
+			{
+				"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-17W49296X1356610S-0MD256853V991784A",
+				"rel": "self",
+				"method": "GET"
+			},
+			{
+				"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-17W49296X1356610S-0MD256853V991784A/resend",
+				"rel": "resend",
+				"method": "POST"
+			}
+		]
+	}
+}

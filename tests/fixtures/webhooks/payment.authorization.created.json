@@ -1,0 +1,69 @@
+{
+	"id": "WH-92123065SP038570G-5JU78737W6917341N",
+	"create_time": "2014-10-22T23:48:34Z",
+	"resource_type": "authorization",
+	"event_type": "PAYMENT.AUTHORIZATION.CREATED",
+	"summary": "A successful payment authorization was created for $ 0.48 USD",
+	"resource": {
+		"amount": {
+			"total": "0.48",
+			"currency": "USD",
+			"details": {
+				"subtotal": "0.32",
+				"tax": "0.09",
+				"shipping": "0.07"
+			}
+		},
+		"id": "29R443392M774720E",
+		"parent_payment": "PAY-7PD36489JY0066936KREEERQ",
+		"update_time": "2014-10-22T23:48:28Z",
+		"state": "authorized",
+		"payment_mode": "INSTANT_TRANSFER",
+		"create_time": "2014-10-22T23:48:22Z",
+		"links": [
+			{
+				"href": "https://api.paypal.com/v1/payments/authorization/29R443392M774720E",
+				"rel": "self",
+				"method": "GET"
+			},
+			{
+				"href": "https://api.paypal.com/v1/payments/authorization/29R443392M774720E/capture",
+				"rel": "capture",
+				"method": "POST"
+			},
+			{
+				"href": "https://api.paypal.com/v1/payments/authorization/29R443392M774720E/void",
+				"rel": "void",
+				"method": "POST"
+			},
+			{
+				"href": "https://api.paypal.com/v1/payments/authorization/29R443392M774720E/reauthorize",
+				"rel": "reauthorize",
+				"method": "POST"
+			},
+			{
+				"href": "https://api.paypal.com/v1/payments/payment/PAY-7PD36489JY0066936KREEERQ",
+				"rel": "parent_payment",
+				"method": "GET"
+			}
+		],
+		"valid_until": "2014-11-20T23:48:22Z",
+		"protection_eligibility_type": "ITEM_NOT_RECEIVED_ELIGIBLE,UNAUTHORIZED_PAYMENT_ELIGIBLE",
+		"protection_eligibility": "ELIGIBLE"
+	},
+	"links": [
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-92123065SP038570G-5JU78737W6917341N",
+			"rel": "self",
+			"method": "GET",
+			"encType": "application/json"
+		},
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-92123065SP038570G-5JU78737W6917341N/resend",
+			"rel": "resend",
+			"method": "POST",
+			"encType": "application/json"
+		}
+	],
+	"event_version": "1.0"
+}

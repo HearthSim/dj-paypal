@@ -1,0 +1,52 @@
+{
+	"id": "WH-4YP718828D2768154-96229356YL4818534",
+	"create_time": "2015-10-07T16:45:17Z",
+	"resource_type": "sale",
+	"event_type": "PAYMENT.SALE.DENIED",
+	"summary": "A EUR 17.47 EUR sale payment was denied",
+	"resource": {
+		"amount": {
+			"total": "17.47",
+			"currency": "EUR"
+		},
+		"id": "0UV619993K905211J",
+		"parent_payment": "PAY-9SM48294F4717633YKYKUXNQ",
+		"update_time": "2015-10-07T16:43:35Z",
+		"state": "denied",
+		"payment_mode": "INSTANT_TRANSFER",
+		"create_time": "2015-10-07T16:43:35Z",
+		"links": [
+			{
+				"href": "https://api.paypal.com/v1/payments/sale/0UV619993K905211J",
+				"rel": "self",
+				"method": "GET"
+			},
+			{
+				"href": "https://api.paypal.com/v1/payments/sale/0UV619993K905211J/refund",
+				"rel": "refund",
+				"method": "POST"
+			},
+			{
+				"href": "https://api.paypal.com/v1/payments/payment/PAY-9SM48294F4717633YKYKUXNQ",
+				"rel": "parent_payment",
+				"method": "GET"
+			}
+		],
+		"protection_eligibility": "INELIGIBLE"
+	},
+	"links": [
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-4YP718828D2768154-96229356YL4818534",
+			"rel": "self",
+			"method": "GET",
+			"encType": "application/json"
+		},
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-4YP718828D2768154-96229356YL4818534/resend",
+			"rel": "resend",
+			"method": "POST",
+			"encType": "application/json"
+		}
+	],
+	"event_version": "1.0"
+}

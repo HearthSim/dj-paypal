@@ -1,0 +1,54 @@
+{
+	"id": "WH-4LD06504YX473033L-1BK37060SA871635T",
+	"create_time": "2014-10-22T23:58:23Z",
+	"resource_type": "authorization",
+	"event_type": "PAYMENT.AUTHORIZATION.VOIDED",
+	"summary": "A payment authorization was voided for $ 0.48 USD",
+	"resource": {
+		"amount": {
+			"total": "0.48",
+			"currency": "USD",
+			"details": {
+				"subtotal": "0.32",
+				"tax": "0.09",
+				"shipping": "0.07"
+			}
+		},
+		"id": "8BG77986T3553280R",
+		"parent_payment": "PAY-8SP48354VW3242206KREEI5Q",
+		"update_time": "2014-10-22T23:57:48Z",
+		"state": "voided",
+		"payment_mode": "INSTANT_TRANSFER",
+		"create_time": "2014-10-22T23:57:42Z",
+		"links": [
+			{
+				"href": "https://api.paypal.com/v1/payments/authorization/8BG77986T3553280R",
+				"rel": "self",
+				"method": "GET"
+			},
+			{
+				"href": "https://api.paypal.com/v1/payments/payment/PAY-8SP48354VW3242206KREEI5Q",
+				"rel": "parent_payment",
+				"method": "GET"
+			}
+		],
+		"valid_until": "2014-11-20T23:57:42Z",
+		"protection_eligibility_type": "ITEM_NOT_RECEIVED_ELIGIBLE,UNAUTHORIZED_PAYMENT_ELIGIBLE",
+		"protection_eligibility": "ELIGIBLE"
+	},
+	"links": [
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-4LD06504YX473033L-1BK37060SA871635T",
+			"rel": "self",
+			"method": "GET",
+			"encType": "application/json"
+		},
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-4LD06504YX473033L-1BK37060SA871635T/resend",
+			"rel": "resend",
+			"method": "POST",
+			"encType": "application/json"
+		}
+	],
+	"event_version": "1.0"
+}

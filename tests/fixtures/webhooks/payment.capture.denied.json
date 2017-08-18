@@ -1,0 +1,50 @@
+{
+	"id": "WH-8Y6524781B2662740-6BA13970S75831204",
+	"create_time": "2015-10-07T16:58:15Z",
+	"resource_type": "capture",
+	"event_type": "PAYMENT.CAPTURE.DENIED",
+	"summary": "A EUR 0.5 EUR capture payment was denied",
+	"resource": {
+		"amount": {
+			"total": "0.50",
+			"currency": "EUR"
+		},
+		"id": "1YH34677BD7819356",
+		"parent_payment": "PAY-6AG64245W53716013KYKUWNI",
+		"update_time": "2015-10-07T16:42:57Z",
+		"state": "denied",
+		"create_time": "2015-10-07T16:42:50Z",
+		"links": [
+			{
+				"href": "https://api.paypal.com/v1/payments/capture/1YH34677BD7819356",
+				"rel": "self",
+				"method": "GET"
+			},
+			{
+				"href": "https://api.paypal.com/v1/payments/capture/1YH34677BD7819356/refund",
+				"rel": "refund",
+				"method": "POST"
+			},
+			{
+				"href": "https://api.paypal.com/v1/payments/payment/PAY-6AG64245W53716013KYKUWNI",
+				"rel": "parent_payment",
+				"method": "GET"
+			}
+		]
+	},
+	"links": [
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-8Y6524781B2662740-6BA13970S75831204",
+			"rel": "self",
+			"method": "GET",
+			"encType": "application/json"
+		},
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-8Y6524781B2662740-6BA13970S75831204/resend",
+			"rel": "resend",
+			"method": "POST",
+			"encType": "application/json"
+		}
+	],
+	"event_version": "1.0"
+}

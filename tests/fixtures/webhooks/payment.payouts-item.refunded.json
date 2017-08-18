@@ -1,0 +1,55 @@
+{
+	"id": "WH-68L35871MU875914X-8DM79009TB591331B",
+	"create_time": "2016-06-06T03:44:51Z",
+	"resource_type": "payouts_item",
+	"event_type": "PAYMENT.PAYOUTS-ITEM.REFUNDED",
+	"summary": "A payout item was refunded",
+	"resource": {
+		"transaction_status": "REFUNDED",
+		"payout_item_fee": {
+			"currency": "USD",
+			"value": "0.25"
+		},
+		"payout_batch_id": "Q8B9WFS7ZZJ4Q",
+		"payout_item": {
+			"recipient_type": "EMAIL",
+			"amount": {
+				"currency": "USD",
+				"value": "1.0"
+			},
+			"note": "First payout",
+			"receiver": "beamdaddy@paypal.com",
+			"sender_item_id": "Item1"
+		},
+		"links": [
+			{
+				"href": "https://api.paypal.com/v1/payments/payouts-item/AYNYWNCHBD8KS",
+				"rel": "self",
+				"method": "GET"
+			},
+			{
+				"href": "https://api.paypal.com/v1/payments/payouts/Q8B9WFS7ZZJ4Q",
+				"rel": "batch",
+				"method": "GET"
+			}
+		],
+		"payout_item_id": "AYNYWNCHBD8KS",
+		"time_processed": "2016-06-06T03:44:51Z",
+		"transaction_id": "57J64166G9424913F"
+	},
+	"links": [
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-68L35871MU875914X-8DM79009TB591331B",
+			"rel": "self",
+			"method": "GET",
+			"encType": "application/json"
+		},
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-68L35871MU875914X-8DM79009TB591331B/resend",
+			"rel": "resend",
+			"method": "POST",
+			"encType": "application/json"
+		}
+	],
+	"event_version": "1.0"
+}

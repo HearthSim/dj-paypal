@@ -1,0 +1,51 @@
+{
+	"id": "WH-2N242548W9943490U-1JU23391CS4765624",
+	"create_time": "2014-10-31T15:42:24Z",
+	"resource_type": "sale",
+	"event_type": "PAYMENT.SALE.REFUNDED",
+	"summary": "A 0.01 USD sale payment was refunded",
+	"resource": {
+		"amount": {
+			"total": "-0.01",
+			"currency": "USD"
+		},
+		"id": "6YX43824R4443062K",
+		"parent_payment": "PAY-5437236047802405NKRJ22UA",
+		"update_time": "2014-10-31T15:41:51Z",
+		"state": "completed",
+		"create_time": "2014-10-31T15:41:51Z",
+		"links": [
+			{
+				"href": "https://api.paypal.com/v1/payments/refund/6YX43824R4443062K",
+				"rel": "self",
+				"method": "GET"
+			},
+			{
+				"href": "https://api.paypal.com/v1/payments/payment/PAY-5437236047802405NKRJ22UA",
+				"rel": "parent_payment",
+				"method": "GET"
+			},
+			{
+				"href": "https://api.paypal.com/v1/payments/sale/9T0916710M1105906",
+				"rel": "sale",
+				"method": "GET"
+			}
+		],
+		"sale_id": "9T0916710M1105906"
+	},
+	"links": [
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-2N242548W9943490U-1JU23391CS4765624",
+			"rel": "self",
+			"method": "GET",
+			"encType": "application/json"
+		},
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-2N242548W9943490U-1JU23391CS4765624/resend",
+			"rel": "resend",
+			"method": "POST",
+			"encType": "application/json"
+		}
+	],
+	"event_version": "1.0"
+}

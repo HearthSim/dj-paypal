@@ -1,0 +1,114 @@
+{
+	"id": "WH-0G571461Y8752214W-8RU19841BY148894W",
+	"create_time": "2017-02-27T23:14:14Z",
+	"resource_type": "invoices",
+	"event_type": "INVOICING.INVOICE.CREATED",
+	"summary": "An invoice has been created",
+	"resource": {
+		"total_amount": {
+			"currency": "USD",
+			"value": "500.00"
+		},
+		"status": "DRAFT",
+		"template_id": "TEMP-6MT19746YC041742U",
+		"links": [
+			{
+				"rel": "self",
+				"href": "https://api.paypal.com/v1/invoicing/invoices/INV2-3RK5-HZV6-35UP-3LLU",
+				"method": "GET"
+			},
+			{
+				"rel": "send",
+				"href": "https://api.paypal.com/v1/invoicing/invoices/INV2-3RK5-HZV6-35UP-3LLU/send",
+				"method": "POST"
+			},
+			{
+				"rel": "update",
+				"href": "https://api.paypal.com/v1/invoicing/invoices/INV2-3RK5-HZV6-35UP-3LLU/update",
+				"method": "PUT"
+			},
+			{
+				"rel": "delete",
+				"href": "https://api.paypal.com/v1/invoicing/invoices/INV2-3RK5-HZV6-35UP-3LLU",
+				"method": "DELETE"
+			}
+		],
+		"number": "8035",
+		"invoice_date": "2017-02-27 PDT",
+		"tax_inclusive": false,
+		"merchant_info": {
+			"email": "ppaas_default@paypal.com",
+			"first_name": "Dennis",
+			"last_name": "Doctor",
+			"business_name": "Medical Professionals, LLC",
+			"phone": {
+				"country_code": "001",
+				"national_number": "5032141716"
+			},
+			"address": {
+				"line1": "1234 Main St.",
+				"city": "Portland",
+				"state": "OR",
+				"postal_code": "97217",
+				"country_code": "US"
+			}
+		},
+		"billing_info": [
+			{
+				"email": "example@example.com"
+			}
+		],
+		"payment_term": {
+			"term_type": "NET_45",
+			"due_date": "2017-04-13 PDT"
+		},
+		"id": "INV2-3RK5-HZV6-35UP-3LLU",
+		"shipping_info": {
+			"first_name": "Sally",
+			"last_name": "Patient",
+			"business_name": "Not applicable",
+			"phone": {
+				"country_code": "001",
+				"national_number": "5039871234"
+			},
+			"address": {
+				"line1": "1234 Broad St.",
+				"city": "Portland",
+				"state": "OR",
+				"postal_code": "97216",
+				"country_code": "US"
+			}
+		},
+		"items": [
+			{
+				"name": "Sutures",
+				"quantity": 100,
+				"unit_price": {
+					"currency": "USD",
+					"value": "5.00"
+				}
+			}
+		],
+		"tax_calculated_after_discount": false,
+		"allow_tip": false,
+		"note": "Medical Invoice 27 Feb, 2017",
+		"metadata": {
+			"created_date": "2017-02-27 14:42:03 PDT"
+		}
+	},
+	"links": [
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-0G571461Y8752214W-8RU19841BY148894W",
+			"rel": "self",
+			"method": "GET",
+			"encType": "application/json"
+		},
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-0G571461Y8752214W-8RU19841BY148894W/resend",
+			"rel": "resend",
+			"method": "POST",
+			"encType": "application/json"
+		}
+	],
+	"event_version": "1.0"
+}

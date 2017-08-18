@@ -1,0 +1,133 @@
+{
+	"id": "WH-0RD44774E41721427-487281337V896051W",
+	"event_version": "1.0",
+	"create_time": "2016-04-28T11:37:14Z",
+	"resource_type": "Agreement",
+	"event_type": "BILLING.SUBSCRIPTION.SUSPENDED",
+	"summary": "A billing subscription was suspended",
+	"resource": {
+		"id": "I-PE7JWXKGVN0R",
+		"shipping_address": {
+			"recipient_name": "Cool Buyer",
+			"line1": "3rd st",
+			"line2": "cool",
+			"city": "San Jose",
+			"state": "CA",
+			"postal_code": "95112",
+			"country_code": "US"
+		},
+		"plan": {
+			"curr_code": "USD",
+			"links": [],
+			"payment_definitions": [
+				{
+					"type": "TRIAL",
+					"frequency": "Month",
+					"frequency_interval": "1",
+					"amount": {
+						"value": "5.00"
+					},
+					"cycles": "5",
+					"charge_models": [
+						{
+							"type": "TAX",
+							"amount": {
+								"value": "1.00"
+							}
+						},
+						{
+							"type": "SHIPPING",
+							"amount": {
+								"value": "1.00"
+							}
+						}
+					]
+				},
+				{
+					"type": "REGULAR",
+					"frequency": "Month",
+					"frequency_interval": "1",
+					"amount": {
+						"value": "10.00"
+					},
+					"cycles": "15",
+					"charge_models": [
+						{
+							"type": "TAX",
+							"amount": {
+								"value": "2.00"
+							}
+						},
+						{
+							"type": "SHIPPING",
+							"amount": {
+								"value": "1.00"
+							}
+						}
+					]
+				}
+			],
+			"merchant_preferences": {
+				"setup_fee": {
+					"value": "0.00"
+				},
+				"auto_bill_amount": "YES",
+				"max_fail_attempts": "21"
+			}
+		},
+		"payer": {
+			"payment_method": "paypal",
+			"status": "verified",
+			"payer_info": {
+				"email": "coolbuyer@example.com",
+				"first_name": "Cool",
+				"last_name": "Buyer",
+				"payer_id": "XLHKRXRA4H7QY",
+				"shipping_address": {
+					"recipient_name": "Cool Buyer",
+					"line1": "3rd st",
+					"line2": "cool",
+					"city": "San Jose",
+					"state": "CA",
+					"postal_code": "95112",
+					"country_code": "US"
+				}
+			}
+		},
+		"agreement_details": {
+			"outstanding_balance": {
+				"value": "0.00"
+			},
+			"num_cycles_remaining": "5",
+			"num_cycles_completed": "0",
+			"last_payment_date": "2016-04-28T11:29:54Z",
+			"last_payment_amount": {
+				"value": "1.00"
+			},
+			"final_payment_due_date": "1971-07-30T10:00:00Z",
+			"failed_payment_count": "0"
+		},
+		"description": "desc",
+		"state": "Suspended",
+		"links": [
+			{
+				"href": "https://api.paypal.com/v1/payments/billing-agreements/I-PE7JWXKGVN0R",
+				"rel": "self",
+				"method": "GET"
+			}
+		],
+		"start_date": "2016-04-30T07:00:00Z"
+	},
+	"links": [
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-0RD44774E41721427-487281337V896051W",
+			"rel": "self",
+			"method": "GET"
+		},
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-0RD44774E41721427-487281337V896051W/resend",
+			"rel": "resend",
+			"method": "POST"
+		}
+	]
+}

@@ -1,0 +1,49 @@
+{
+	"id": "WH-83C777576Y8332450-2L845887S3616745G",
+	"create_time": "2015-09-07T12:46:46Z",
+	"resource_type": "payouts",
+	"event_type": "PAYMENT.PAYOUTSBATCH.SUCCESS",
+	"summary": "Payouts batch completed successfully.",
+	"resource": {
+		"batch_header": {
+			"payout_batch_id": "CQGA9SFAU8WSN",
+			"batch_status": "SUCCESS",
+			"time_created": "2015-09-07T12:46:41Z",
+			"time_completed": "2015-09-07T12:46:45Z",
+			"sender_batch_header": {
+				"sender_batch_id": "REL1"
+			},
+			"amount": {
+				"currency": "CAD",
+				"value": "25.0"
+			},
+			"fees": {
+				"currency": "CAD",
+				"value": "0.5"
+			},
+			"payments": 1
+		},
+		"links": [
+			{
+				"href": "https://api.paypal.com/v1/payments/payouts/CQGA9SFAU8WSN",
+				"rel": "self",
+				"method": "GET"
+			}
+		]
+	},
+	"links": [
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-83C777576Y8332450-2L845887S3616745G",
+			"rel": "self",
+			"method": "GET",
+			"encType": "application/json"
+		},
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-83C777576Y8332450-2L845887S3616745G/resend",
+			"rel": "resend",
+			"method": "POST",
+			"encType": "application/json"
+		}
+	],
+	"event_version": "1.0"
+}

@@ -1,0 +1,61 @@
+{
+	"id": "WHPOC2017-9WY437509V4499423",
+	"create_time": "2017-02-14T18:28:16Z",
+	"resource_type": "order",
+	"event_type": "PAYMENT.ORDER.CREATED",
+	"summary": "A Payment order is created",
+	"resource": {
+		"amount": {
+			"total": "4.54",
+			"currency": "USD"
+		},
+		"id": "9WY437509V4499423",
+		"parent_payment": "PAY-8U555528BH195130VLCRUVPA",
+		"update_time": "2017-02-14T18:28:37Z",
+		"state": "completed",
+		"create_time": "2017-02-14T18:28:16Z",
+		"is_final_capture": true,
+		"links": [
+			{
+				"href": "https://www.api.paypal.com/v1/payments/capture/9WY437509V4499423",
+				"rel": "self",
+				"method": "GET"
+			},
+			{
+				"href": "https://www.api.paypal.com/v1/payments/capture/9WY437509V4499423/refund",
+				"rel": "refund",
+				"method": "POST"
+			},
+			{
+				"href": "https://www.api.paypal.com/v1/payments/orders/O-7K226695UU6131610",
+				"rel": "order",
+				"method": "GET"
+			},
+			{
+				"href": "https://www.api.paypal.com/v1/payments/payment/PAY-8U555528BH195130VLCRUVPA",
+				"rel": "parent_payment",
+				"method": "GET"
+			}
+		],
+		"reasonCode": "None",
+		"transaction_fee": {
+			"value": "0.43",
+			"currency": "USD"
+		}
+	},
+	"links": [
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WHPOC2017-9WY437509V4499423",
+			"rel": "self",
+			"method": "GET",
+			"encType": "application/json"
+		},
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WHPOC2017-9WY437509V4499423/resend",
+			"rel": "resend",
+			"method": "POST",
+			"encType": "application/json"
+		}
+	],
+	"event_version": "1.0"
+}

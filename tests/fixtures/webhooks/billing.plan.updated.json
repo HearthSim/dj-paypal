@@ -1,0 +1,109 @@
+{
+	"id": "WH-303507964T970970H-60Y688551M4794625",
+	"event_version": "1.0",
+	"create_time": "2016-04-28T11:23:52Z",
+	"resource_type": "plan",
+	"event_type": "BILLING.PLAN.UPDATED",
+	"summary": "A billing plan was updated",
+	"resource": {
+		"id": "P-7LT50814996943336LSNDODY",
+		"merchant_preferences": {
+			"setup_fee": {
+				"currency": "USD",
+				"value": "1"
+			},
+			"return_url": "http://www.paypal.com",
+			"cancel_url": "http://www.yahoo.com",
+			"auto_bill_amount": "YES",
+			"initial_fail_amount_action": "CONTINUE",
+			"max_fail_attempts": "21"
+		},
+		"update_time": "2016-04-28T11:23:27.568Z",
+		"description": "test web new",
+		"payment_definitions": [
+			{
+				"name": "Payment Definition-1",
+				"type": "REGULAR",
+				"frequency": "Month",
+				"frequency_interval": "1",
+				"amount": {
+					"currency": "USD",
+					"value": "10"
+				},
+				"cycles": "15",
+				"charge_models": [
+					{
+						"type": "TAX",
+						"amount": {
+							"currency": "USD",
+							"value": "2"
+						},
+						"id": "CHM-72N78855RJ303084YLSNDODY"
+					},
+					{
+						"type": "SHIPPING",
+						"amount": {
+							"currency": "USD",
+							"value": "1"
+						},
+						"id": "CHM-29V063578B632154XLSNDODY"
+					}
+				],
+				"id": "PD-28U66480VB469201XLSNDODY"
+			},
+			{
+				"name": "Payment Definition-2",
+				"type": "TRIAL",
+				"frequency": "Month",
+				"frequency_interval": "1",
+				"amount": {
+					"currency": "USD",
+					"value": "5"
+				},
+				"cycles": "5",
+				"charge_models": [
+					{
+						"type": "TAX",
+						"amount": {
+							"currency": "USD",
+							"value": "1"
+						},
+						"id": "CHM-38H015979N656741TLSNDODY"
+					},
+					{
+						"type": "SHIPPING",
+						"amount": {
+							"currency": "USD",
+							"value": "1"
+						},
+						"id": "CHM-4CT119433N5199501LSNDODY"
+					}
+				],
+				"id": "PD-99B78670BE878604GLSNDODY"
+			}
+		],
+		"name": "Fast Speed Plan",
+		"state": "ACTIVE",
+		"create_time": "2016-04-28T11:21:31.151Z",
+		"links": [
+			{
+				"href": "https://api.paypal.com/v1/payments/billing-plans/P-7LT50814996943336LSNDODY",
+				"rel": "self",
+				"method": "GET"
+			}
+		],
+		"type": "FIXED"
+	},
+	"links": [
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-303507964T970970H-60Y688551M4794625",
+			"rel": "self",
+			"method": "GET"
+		},
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-303507964T970970H-60Y688551M4794625/resend",
+			"rel": "resend",
+			"method": "POST"
+		}
+	]
+}

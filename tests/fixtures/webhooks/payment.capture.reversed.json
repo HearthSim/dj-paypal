@@ -1,0 +1,43 @@
+{
+	"id": "WH-1AU92623778135205-93610030KK8353450",
+	"create_time": "2014-10-22T23:50:33Z",
+	"resource_type": "capture",
+	"event_type": "PAYMENT.CAPTURE.REVERSED",
+	"summary": "A $ 0.35 USD capture payment was reversed",
+	"resource": {
+		"amount": {
+			"total": "-0.35",
+			"currency": "USD",
+			"details": {
+				"subtotal": "-0.51",
+				"tax": "0.09",
+				"shipping": "0.07"
+			}
+		},
+		"id": "1RJ65796SJ857301V",
+		"state": "completed",
+		"create_time": "2014-10-22T23:50:24Z",
+		"links": [
+			{
+				"href": "https://api.paypal.com/v1/payments/refund/1RJ65796SJ857301V",
+				"rel": "self",
+				"method": "GET"
+			}
+		]
+	},
+	"links": [
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-1AU92623778135205-93610030KK8353450",
+			"rel": "self",
+			"method": "GET",
+			"encType": "application/json"
+		},
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-1AU92623778135205-93610030KK8353450/resend",
+			"rel": "resend",
+			"method": "POST",
+			"encType": "application/json"
+		}
+	],
+	"event_version": "1.0"
+}

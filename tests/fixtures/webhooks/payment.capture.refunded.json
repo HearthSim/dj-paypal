@@ -1,0 +1,51 @@
+{
+	"id": "WH-2JG62852X9350413N-40V56408FN023574K",
+	"create_time": "2014-10-22T23:49:03Z",
+	"resource_type": "capture",
+	"event_type": "PAYMENT.CAPTURE.REFUNDED",
+	"summary": "A $ 0.15 USD capture payment was refunded",
+	"resource": {
+		"amount": {
+			"total": "-0.15",
+			"currency": "USD"
+		},
+		"id": "8VC964970N548345V",
+		"parent_payment": "PAY-7PD36489JY0066936KREEERQ",
+		"update_time": "2014-10-22T23:48:57Z",
+		"capture_id": "5LK72275CG489890D",
+		"state": "completed",
+		"create_time": "2014-10-22T23:48:57Z",
+		"links": [
+			{
+				"href": "https://api.paypal.com/v1/payments/refund/8VC964970N548345V",
+				"rel": "self",
+				"method": "GET"
+			},
+			{
+				"href": "https://api.paypal.com/v1/payments/payment/PAY-7PD36489JY0066936KREEERQ",
+				"rel": "parent_payment",
+				"method": "GET"
+			},
+			{
+				"href": "https://api.paypal.com/v1/payments/capture/5LK72275CG489890D",
+				"rel": "capture",
+				"method": "GET"
+			}
+		]
+	},
+	"links": [
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-2JG62852X9350413N-40V56408FN023574K",
+			"rel": "self",
+			"method": "GET",
+			"encType": "application/json"
+		},
+		{
+			"href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-2JG62852X9350413N-40V56408FN023574K/resend",
+			"rel": "resend",
+			"method": "POST",
+			"encType": "application/json"
+		}
+	],
+	"event_version": "1.0"
+}

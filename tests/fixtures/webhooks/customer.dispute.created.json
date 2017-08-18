@@ -1,0 +1,37 @@
+{
+	"id": "WH-82963375VM412172U-5NX91127UN1954721",
+	"event_version": "1.0",
+	"create_time": "2016-06-09T20:39:36Z",
+	"resource_type": "dispute",
+	"event_type": "CUSTOMER.DISPUTE.CREATED",
+	"summary": "A new dispute opened with Case # PP-000-001-341-393",
+	"resource": {
+		"dispute_id": "PP-000-001-341-393",
+		"disputed_transactions": [
+			{
+				"buyer_transaction_id": "9FN476350Y918024J",
+				"seller_transaction_id": "45V487086B989905H",
+				"seller_protection_eligible": true
+			}
+		],
+		"reason": "UNAUTHORIZED",
+		"status": "OPEN",
+		"dispute_amount": {
+			"currency_code": "USD",
+			"value": "11.56"
+		},
+		"create_time": "2016-06-09T20:38:52.000Z"
+	},
+	"links": [
+		{
+			"href": "https://10.24.121.37:14084/v1/notifications/webhooks-events/WH-82963375VM412172U-5NX91127UN1954721",
+			"rel": "self",
+			"method": "GET"
+		},
+		{
+			"href": "https://10.24.121.37:14084/v1/notifications/webhooks-events/WH-82963375VM412172U-5NX91127UN1954721/resend",
+			"rel": "resend",
+			"method": "POST"
+		}
+	]
+}
