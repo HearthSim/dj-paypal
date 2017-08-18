@@ -9,10 +9,13 @@ class CurrencyAmountField(JSONField):
 
 
 class PaypalObjectManager(models.Manager):
-	def sync_data(self, paypal_data):
+	def sync_data(self, paypal_data, fetch=True):
 		ret = []
 		for obj in paypal_data:
-			api_full_data = self.model.paypal_model.find(obj["id"])
+			if fetch:
+				api_full_data = self.model.paypal_model.find(obj["id"])
+			else:
+				api_full_data = obj
 			db_obj, _ = self.model.get_or_update_from_api_data(api_full_data)
 			ret.append(db_obj)
 		return ret
@@ -36,7 +39,8 @@ class PaypalObject(models.Model):
 			cleaned_data = data.to_dict()
 
 		# Delete links (only useful in the API itself)
-		cleaned_data.pop("links")
+		if "links" in cleaned_data:
+			del cleaned_data["links"]
 
 		# Extract the ID to return it separately
 		id = cleaned_data.pop("id")
@@ -91,8 +95,9 @@ class BillingPlan(PaypalObject):
 	def clean_api_data(cls, data):
 		id, cleaned_data = super().clean_api_data(data)
 
-		# TODO
-		cleaned_data.pop("payment_definitions")
+		payment_definitions = cleaned_data.pop("payment_definitions")
+		# Sync payment definitions but do not fetch them (we have them in full)
+		PaymentDefinition.objects.sync_data(payment_definitions, fetch=False)
 
 		return id, cleaned_data
 
@@ -106,6 +111,15 @@ class PaymentDefinition(PaypalObject):
 	)
 	cycles = models.PositiveSmallIntegerField()
 	amount = CurrencyAmountField()
+
+	@classmethod
+	def clean_api_data(cls, data):
+		id, cleaned_data = super().clean_api_data(data)
+
+		# TODO
+		cleaned_data.pop("charge_models")
+
+		return id, cleaned_data
 
 
 class Webhook(PaypalObject):
