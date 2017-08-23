@@ -30,6 +30,19 @@ class BillingPlan(PaypalObject):
 		return id, cleaned_data, m2ms
 
 
+class BillingAgreement(PaypalObject):
+	name = models.CharField(max_length=128, blank=True)
+	state = models.CharField(max_length=128, editable=False)
+	description = models.CharField(max_length=128)
+	start_date = models.DateTimeField()
+	agreement_details = JSONField()
+	payer = JSONField()
+	shipping_address = JSONField()
+	override_merchant_preferences = JSONField(default={})
+	override_charge_mode = JSONField(default={})
+	plan = JSONField()
+
+
 class PaymentDefinition(PaypalObject):
 	name = models.CharField(max_length=128)
 	type = models.CharField(max_length=20, choices=enums.PaymentDefinitionType.choices)

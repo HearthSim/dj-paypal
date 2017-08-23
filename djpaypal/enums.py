@@ -7,6 +7,16 @@ class PaypalBool(Enum):
 	NO = _("No")
 
 
+class BillingAgreementState(Enum):
+	Active = _("Active")
+	Cancelled = _("Cancelled")
+	Completed = _("Completed")
+	Created = _("Created")
+	Pending = _("Pending")
+	Reactivated = _("Reactivated")
+	Suspended = _("Suspended")
+
+
 class BillingPlanState(Enum):
 	CREATED = _("Created")
 	ACTIVE = _("Active")

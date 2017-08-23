@@ -1,7 +1,8 @@
-from .billing import BillingPlan, ChargeModel, PaymentDefinition
+from .billing import BillingAgreement, BillingPlan, ChargeModel, PaymentDefinition
 from .webhooks import Webhook
 
 
 __all__ = (
-	"BillingPlan", "ChargeModel", "PaymentDefinition", "Webhook"
+	"BillingAgreement", "BillingPlan", "ChargeModel", "PaymentDefinition",
+	"Webhook"
 )
