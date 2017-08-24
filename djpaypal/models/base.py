@@ -51,7 +51,7 @@ class PaypalObject(models.Model):
 		id, cleaned_data, m2ms = cls.clean_api_data(data)
 		db_obj, created = cls.objects.get_or_create(id=id, defaults=cleaned_data)
 		if always_sync or not created:
-			db_obj.sync_data(data)
+			db_obj.sync_data(cleaned_data)
 			db_obj.save()
 
 		for field, objs in m2ms.items():
@@ -74,6 +74,9 @@ class PaypalObject(models.Model):
 			return True
 
 		return False
+
+	def find_paypal_object(self):
+		return self.paypal_model.find(self.id)
 
 	def sync_data(self, obj):
 		obj = self.sdk_object_as_dict(obj)

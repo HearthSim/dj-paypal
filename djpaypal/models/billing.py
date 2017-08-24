@@ -35,15 +35,30 @@ class BillingPlan(PaypalObject):
 
 		return id, cleaned_data, m2ms
 
+	def activate(self):
+		"""
+		Activate an plan in a CREATED state.
+		"""
+		obj = self.find_paypal_object()
+		if obj.state == enums.BillingPlanState.CREATED:
+			success = obj.activate()
+			if not success:
+				raise PaypalApiError("Failed to activate plan: %r" % (obj.error))
+		# Resync the updated data to the database
+		self.get_or_update_from_api_data(obj, always_sync=True)
+		return obj
+
 	def create_agreement(self, user, start_date=now, payment_method="paypal"):
 		if callable(start_date):
-			start_date = start_date()
+			from datetime import timedelta
+			start_date = start_date() + timedelta(seconds=60)
 
 		billing_agreement = paypal_models.BillingAgreement({
 			"name": self.name,
 			"description": self.description,
 			"plan": {"id": self.id},
 			"payer": {"payment_method": payment_method},
+			"start_date": start_date.replace(microsecond=0).isoformat(),
 		})
 		if not billing_agreement.create():
 			raise PaypalApiError("Error creating Billing Agreement: %r" % (billing_agreement.error))
