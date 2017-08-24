@@ -143,7 +143,8 @@ class BillingAgreement(PaypalObject):
 		if ba.error:
 			raise PaypalApiError(str(ba.error))  # , ba.error)
 
-		return cls.get_or_update_from_api_data(ba, always_sync=True)
+		obj, created = cls.get_or_update_from_api_data(ba, always_sync=True)
+		return obj
 
 
 class PaymentDefinition(PaypalObject):
