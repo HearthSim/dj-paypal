@@ -72,11 +72,11 @@ class PreparedBillingAgreement(models.Model):
 		# In order to offer a way to securely tie the user to a token, we
 		# use it as a primary key in this model but we have to extract it
 		# from the HATEOAS urls first.
-		token_match = re.compile(r"/billing-agreements/([^/])/agreement-execute")
+		token_match = re.compile(r"/billing-agreements/([^/]+)/agreement-execute")
 		for link in data.get("links", []):
-			sre = token_match.match(link.get("href", ""))
+			sre = token_match.search(link.get("href", ""))
 			if sre:
-				return sre.groups(0)
+				return sre.groups(0)[0]
 		raise ValueError("Could not find token in billing agreement data")
 
 	@classmethod

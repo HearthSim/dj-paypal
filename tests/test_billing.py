@@ -43,3 +43,13 @@ def test_sync_executed_billing_agreement():
 	inst, created = models.BillingAgreement.get_or_update_from_api_data(ba, always_sync=True)
 	assert created
 	assert inst.id == ba["id"]
+
+
+def test_token_extract_billing_agreement():
+	token = "EC-XXXXXXXX00000000Z"
+	url = (
+		"https://api.sandbox.paypal.com/v1/payments/billing-agreements/" +
+		token + "/agreement-execute"
+	)
+	links = {"links": [{"href": url, "method": "POST", "rel": "execute"}]}
+	assert models.PreparedBillingAgreement._extract_token(links) == token
