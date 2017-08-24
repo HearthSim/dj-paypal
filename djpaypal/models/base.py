@@ -61,7 +61,7 @@ class PaypalObject(models.Model):
 		return db_obj, created
 
 	def __str__(self):
-		if hasattr(self, "name"):
+		if hasattr(self, "name") and self.name:
 			return self.name
 		return "<{}: {}>".format(self.__class__.__name__, self.id)
 

@@ -47,7 +47,7 @@ class BillingPlan(PaypalObject):
 		if not billing_agreement.create():
 			raise PaypalApiError("Error creating Billing Agreement: %r" % (billing_agreement.error))
 
-		return OutstandingBillingAgreement.create_from_data(billing_agreement, user)
+		return PreparedBillingAgreement.create_from_data(billing_agreement, user)
 
 
 class PreparedBillingAgreement(models.Model):
@@ -95,7 +95,9 @@ class PreparedBillingAgreement(models.Model):
 
 class BillingAgreement(PaypalObject):
 	name = models.CharField(max_length=128, blank=True)
-	state = models.CharField(max_length=128, editable=False)
+	state = models.CharField(
+		max_length=128, editable=False, choices=enums.BillingAgreementState.choices
+	)
 	description = models.CharField(max_length=128)
 	start_date = models.DateTimeField()
 	agreement_details = JSONField()
