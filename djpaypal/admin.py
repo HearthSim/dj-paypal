@@ -8,6 +8,20 @@ class BillingPlanAdmin(admin.ModelAdmin):
 	list_filter = ("type", "state", "create_time", "update_time", "livemode")
 
 
+@admin.register(models.BillingAgreement)
+class BillingAgreementAdmin(admin.ModelAdmin):
+	list_display = ("__str__", "user", "state", "livemode")
+	list_filter = ("state", )
+	raw_id_fields = ("user", )
+
+
+@admin.register(models.PreparedBillingAgreement)
+class PreparedBillingAgreementAdmin(admin.ModelAdmin):
+	list_display = ("__str__", "user", "livemode")
+	list_filter = ("livemode", )
+	raw_id_fields = ("user", )
+
+
 @admin.register(models.ChargeModel)
 class ChargeModelAdmin(admin.ModelAdmin):
 	list_filter = ("type", "livemode")

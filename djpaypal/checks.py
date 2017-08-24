@@ -1,4 +1,5 @@
 from django.core import checks
+
 from . import settings as djpaypal_settings
 
 
