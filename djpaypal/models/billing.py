@@ -8,6 +8,7 @@ from paypalrestsdk import payments as paypal_models
 from .. import enums
 from ..exceptions import PaypalApiError
 from ..fields import CurrencyAmountField, JSONField
+from ..settings import PAYPAL_MODE
 from .base import PaypalObject
 
 
@@ -59,6 +60,7 @@ class PreparedBillingAgreement(models.Model):
 		max_length=128, primary_key=True,
 		help_text="Same as the BillingAgreement token"
 	)
+	livemode = models.BooleanField()
 	user = models.ForeignKey(settings.AUTH_USER_MODEL)
 	data = JSONField()
 	created = models.DateTimeField(auto_now_add=True)
@@ -80,8 +82,9 @@ class PreparedBillingAgreement(models.Model):
 	@classmethod
 	def create_from_data(cls, data, user):
 		data = data.to_dict()
+		livemode = PAYPAL_MODE == "production"
 		return cls.objects.create(
-			id=cls._extract_token(data), user=user, data=data
+			id=cls._extract_token(data), livemode=livemode, user=user, data=data
 		)
 
 	def execute(self):
