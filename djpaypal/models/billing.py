@@ -2,6 +2,7 @@ from django.db import models
 from paypalrestsdk import payments as paypal_models
 
 from .. import enums
+from ..exceptions import PaypalApiError
 from ..fields import CurrencyAmountField, JSONField
 from .base import PaypalObject
 
@@ -41,6 +42,17 @@ class BillingAgreement(PaypalObject):
 	override_merchant_preferences = JSONField(default={})
 	override_charge_mode = JSONField(default={})
 	plan = JSONField()
+
+	@classmethod
+	def execute(cls, token):
+		if not token:
+			raise ValueError("Invalid token argument")
+
+		ba = paypal_models.BillingAgreement.execute(token)
+		if ba.error:
+			raise PaypalApiError(str(ba.error))  # , ba.error)
+
+		return cls.get_or_update_from_api_data(ba, always_sync=True)
 
 
 class PaymentDefinition(PaypalObject):

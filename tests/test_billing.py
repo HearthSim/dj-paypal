@@ -39,3 +39,11 @@ def test_sync_all_active_plans():
 			assert pd.name == definition["name"]
 			assert pd.type == getattr(enums.PaymentDefinitionType, definition["type"])
 			assert plan.payment_definitions.filter(id=pd.id).count() == 1
+
+
+@pytest.mark.django_db
+def test_sync_executed_billing_agreement():
+	ba = get_fixture("rest.billingagreement.execute.json")
+	inst, created = models.BillingAgreement.get_or_update_from_api_data(ba, always_sync=True)
+	assert created
+	assert inst.id == ba["id"]

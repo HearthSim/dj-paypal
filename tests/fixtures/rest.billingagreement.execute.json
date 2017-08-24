@@ -1,0 +1,112 @@
+{
+	"state": "Active",
+	"id": "I-VUU8W20FBPDR",
+	"payer": {
+		"payment_method": "paypal",
+		"payer_info": {
+			"payer_id": "ASDVAJS5TXSFQ",
+			"first_name": "test",
+			"email": "admin-buyer@hearthsim.net",
+			"last_name": "buyer",
+			"shipping_address": {
+				"state": "NY",
+				"country_code": "US",
+				"line1": "95 Lexington Ave",
+				"postal_code": "10016",
+				"recipient_name": "test buyer",
+				"city": "New York"
+			}
+		},
+		"status": "verified"
+	},
+	"plan": {
+		"links": [],
+		"merchant_preferences": {
+			"auto_bill_amount": "YES",
+			"setup_fee": {
+				"value": "25.00"
+			},
+			"max_fail_attempts": "1"
+		},
+		"currency_code": "USD",
+		"payment_definitions": [
+			{
+				"type": "TRIAL",
+				"frequency_interval": "1",
+				"cycles": "4",
+				"amount": {
+					"value": "20.00"
+				},
+				"frequency": "Month",
+				"charge_models": [
+					{
+						"amount": {
+							"value": "20.00"
+						},
+						"type": "TAX"
+					},
+					{
+						"amount": {
+							"value": "10.60"
+						},
+						"type": "SHIPPING"
+					}
+				]
+			},
+			{
+				"type": "REGULAR",
+				"frequency_interval": "1",
+				"cycles": "0",
+				"amount": {
+					"value": "100.00"
+				},
+				"frequency": "Month",
+				"charge_models": [
+					{
+						"amount": {
+							"value": "20.00"
+						},
+						"type": "TAX"
+					},
+					{
+						"amount": {
+							"value": "10.60"
+						},
+						"type": "SHIPPING"
+					}
+				]
+			}
+		]
+	},
+	"shipping_address": {
+		"state": "NY",
+		"country_code": "US",
+		"line1": "95 Lexington Ave",
+		"postal_code": "10016",
+		"recipient_name": "test buyer",
+		"city": "New York"
+	},
+	"links": [
+		{
+			"href": "https://api.sandbox.paypal.com/v1/payments/billing-agreements/I-VUU8W20FBPDR",
+			"method": "GET",
+			"rel": "self"
+		}
+	],
+	"description": "This is a test billing agreeement",
+	"start_date": "2017-08-24T07:00:00Z",
+	"agreement_details": {
+		"cycles_remaining": "4",
+		"failed_payment_count": "0",
+		"cycles_completed": "0",
+		"last_payment_date": "2017-08-24T11:47:17Z",
+		"next_billing_date": "2017-08-24T10:00:00Z",
+		"last_payment_amount": {
+			"value": "25.00"
+		},
+		"final_payment_date": "1970-01-01T00:00:00Z",
+		"outstanding_balance": {
+			"value": "0.00"
+		}
+	}
+}

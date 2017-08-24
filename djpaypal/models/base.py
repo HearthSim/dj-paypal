@@ -44,11 +44,11 @@ class PaypalObject(models.Model):
 		return id, cleaned_data, {}
 
 	@classmethod
-	def get_or_update_from_api_data(cls, data):
+	def get_or_update_from_api_data(cls, data, always_sync=False):
 		id, cleaned_data, m2ms = cls.clean_api_data(data)
 		db_obj, created = cls.objects.get_or_create(id=id, defaults=cleaned_data)
-		if not created:
-			db_obj.sync_data(id)
+		if always_sync or not created:
+			db_obj.sync_data(data)
 			db_obj.save()
 
 		for field, objs in m2ms.items():

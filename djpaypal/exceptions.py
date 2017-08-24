@@ -1,0 +1,2 @@
+class PaypalApiError(Exception):
+	pass
