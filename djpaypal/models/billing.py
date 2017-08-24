@@ -102,6 +102,13 @@ class PreparedBillingAgreement(models.Model):
 			id=cls._extract_token(data), livemode=livemode, user=user, data=data
 		)
 
+	@property
+	def approval_url(self):
+		for link in self.data.get("links", []):
+			if link["rel"] == "approval_url":
+				return link["href"]
+		return ""
+
 	def execute(self):
 		with transaction.atomic():
 			ret = BillingAgreement.execute(self.id)
