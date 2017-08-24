@@ -1,4 +1,8 @@
-from django.db import models
+import re
+
+from django.conf import settings
+from django.db import models, transaction
+from django.utils.timezone import now
 from paypalrestsdk import payments as paypal_models
 
 from .. import enums
@@ -30,6 +34,64 @@ class BillingPlan(PaypalObject):
 
 		return id, cleaned_data, m2ms
 
+	def create_agreement(self, user, start_date=now, payment_method="paypal"):
+		if callable(start_date):
+			start_date = start_date()
+
+		billing_agreement = paypal_models.BillingAgreement({
+			"name": self.name,
+			"description": self.description,
+			"plan": {"id": self.id},
+			"payer": {"payment_method": payment_method},
+		})
+		if not billing_agreement.create():
+			raise PaypalApiError("Error creating Billing Agreement: %r" % (billing_agreement.error))
+
+		return OutstandingBillingAgreement.create_from_data(billing_agreement, user)
+
+
+class PreparedBillingAgreement(models.Model):
+	"""
+	A class that stores a billing agreement execution token,
+	and ties it to the user who requested it.
+	"""
+	id = models.CharField(
+		max_length=128, primary_key=True,
+		help_text="Same as the BillingAgreement token"
+	)
+	user = models.ForeignKey(settings.AUTH_USER_MODEL)
+	data = JSONField()
+	created = models.DateTimeField(auto_now_add=True)
+	updated = models.DateTimeField(auto_now=True)
+
+	@staticmethod
+	def _extract_token(data):
+		# Paypal does not provide a clear field for the token.
+		# In order to offer a way to securely tie the user to a token, we
+		# use it as a primary key in this model but we have to extract it
+		# from the HATEOAS urls first.
+		token_match = re.compile(r"/billing-agreements/([^/])/agreement-execute")
+		for link in data.get("links", []):
+			sre = token_match.match(link.get("href", ""))
+			if sre:
+				return sre.groups(0)
+		raise ValueError("Could not find token in billing agreement data")
+
+	@classmethod
+	def create_from_data(cls, data, user):
+		data = data.to_dict()
+		return cls.objects.create(
+			id=cls._extract_token(data), user=user, data=data
+		)
+
+	def execute(self):
+		with transaction.atomic():
+			ret = BillingAgreement.execute(self.id)
+			ret.user = self.user
+			ret.save()
+
+		return ret
+
 
 class BillingAgreement(PaypalObject):
 	name = models.CharField(max_length=128, blank=True)
@@ -42,6 +104,8 @@ class BillingAgreement(PaypalObject):
 	override_merchant_preferences = JSONField(default={})
 	override_charge_mode = JSONField(default={})
 	plan = JSONField()
+
+	user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True)
 
 	@classmethod
 	def execute(cls, token):
