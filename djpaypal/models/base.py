@@ -23,13 +23,16 @@ class PaypalObject(models.Model):
 
 	objects = PaypalObjectManager()
 
+	@staticmethod
+	def sdk_object_as_dict(obj):
+		if isinstance(obj, dict):
+			return obj.copy()
+		# Paypal SDK object
+		return obj.to_dict()
+
 	@classmethod
 	def clean_api_data(cls, data):
-		if isinstance(data, dict):
-			cleaned_data = data.copy()
-		else:
-			# Paypal SDK object
-			cleaned_data = data.to_dict()
+		cleaned_data = cls.sdk_object_as_dict(data)
 
 		# Delete links (only useful in the API itself)
 		if "links" in cleaned_data:
@@ -73,6 +76,7 @@ class PaypalObject(models.Model):
 		return False
 
 	def sync_data(self, obj):
+		obj = self.sdk_object_as_dict(obj)
 		updated = False
 		for k, v in obj.items():
 			if self._sync_data_field(k, v):

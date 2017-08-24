@@ -4,10 +4,6 @@ from djpaypal import enums, models, settings
 from .conftest import get_fixture
 
 
-def amount(value, currency="USD"):
-	return {"value": str(value), "currency": currency.upper()}
-
-
 def test_settings():
 	assert settings.PAYPAL_MODE == "sandbox"
 
