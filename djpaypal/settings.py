@@ -5,6 +5,8 @@ PAYPAL_MODE = getattr(settings, "PAYPAL_MODE", None)
 PAYPAL_CLIENT_ID = getattr(settings, "PAYPAL_CLIENT_ID", None)
 PAYPAL_CLIENT_SECRET = getattr(settings, "PAYPAL_CLIENT_SECRET", None)
 
+PAYPAL_LIVE_MODE = PAYPAL_MODE == "live"
+
 
 PAYPAL_SETTINGS = {
 	"mode": PAYPAL_MODE,
