@@ -35,6 +35,19 @@ class BillingPlan(PaypalObject):
 
 		return id, cleaned_data, m2ms
 
+	@classmethod
+	def create(cls, data, activate=False):
+		obj = cls.paypal_model(data)
+		obj.create()
+		if not obj:
+			raise PaypalApiError("Could not create plan: %r" % (obj.error))
+
+		instance, created = cls.get_or_update_from_api_data(obj, always_sync=True)
+		if activate:
+			instance.activate()
+
+		return instance
+
 	def activate(self):
 		"""
 		Activate an plan in a CREATED state.
