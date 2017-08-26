@@ -1,0 +1,45 @@
+{
+	"redirect_urls": {
+		"cancel_url": "https://example.com/cancel",
+		"return_url": "https://example.com/return?paymentId=PAY-1PA12106FU478450MKRETS4A"
+	},
+	"state": "created",
+	"id": "PAY-1PA12106FU478450MKRETS4A",
+	"cart": "2L1399238L9679226",
+	"intent": "authorize",
+	"payer": {
+		"payment_method": "paypal"
+	},
+	"links": [
+		{
+			"rel": "self",
+			"method": "GET",
+			"href": "https://api.sandbox.paypal.com/v1/payments/payment/PAY-1PA12106FU478450MKRETS4A"
+		},
+		{
+			"rel": "execute",
+			"method": "POST",
+			"href": "https://api.sandbox.paypal.com/v1/payments/payment/PAY-1PA12106FU478450MKRETS4A/execute"
+		},
+		{
+			"rel": "approval_url",
+			"method": "REDIRECT",
+			"href": "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-2L1399238L967XXXX"
+		}
+	],
+	"create_time": "2017-08-26T18:33:38Z",
+	"transactions": [
+		{
+			"payee": {
+				"merchant_id": "YNZSFPXXXXXXX",
+				"email": "admin-facilitator@example.com"
+			},
+			"related_resources": [],
+			"amount": {
+				"currency": "USD",
+				"total": "0.17"
+			}
+		}
+	],
+	"update_time": "2017-08-26T18:35:01Z"
+}
