@@ -60,6 +60,12 @@ class PaypalObject(models.Model):
 
 		return db_obj, created
 
+	@classmethod
+	def find_and_sync(cls, id):
+		obj = cls.paypal_model.find(id)
+		db_obj, created = cls.get_or_update_from_api_data(obj, always_sync=True)
+		return db_obj
+
 	def __str__(self):
 		if hasattr(self, "name") and self.name:
 			return self.name
