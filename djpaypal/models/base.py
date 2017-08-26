@@ -18,7 +18,7 @@ class PaypalObject(models.Model):
 	class Meta:
 		abstract = True
 
-	id = models.CharField(max_length=128, primary_key=True)
+	id = models.CharField(max_length=128, primary_key=True, editable=False)
 	livemode = models.BooleanField()
 
 	objects = PaypalObjectManager()
