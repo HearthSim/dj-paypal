@@ -40,14 +40,14 @@ class Sale(PaypalObject):
 		max_length=56, choices=enums.SaleProtectionEligibilityType.choices, editable=False
 	)
 	clearing_time = models.DateTimeField(null=True, editable=False)
-	transaction_fee = CurrencyAmountField(editable=False)
+	transaction_fee = CurrencyAmountField(editable=False, null=True)
 	receivable_amount = CurrencyAmountField(null=True, editable=False)
 	exchange_rate = models.CharField(max_length=64, editable=False)
 	fmf_details = JSONField(null=True, editable=False)
 	receipt_id = models.CharField(max_length=19, db_index=True, editable=False)
 	parent_payment = models.ForeignKey("Payment", null=True, editable=False)
 	processor_response = JSONField(null=True, editable=False)
-	billing_agreement = models.ForeignKey("BillingAgreement", editable=False)
+	billing_agreement = models.ForeignKey("BillingAgreement", editable=False, null=True)
 	create_time = models.DateTimeField(editable=False)
 	update_time = models.DateTimeField(editable=False)
 
