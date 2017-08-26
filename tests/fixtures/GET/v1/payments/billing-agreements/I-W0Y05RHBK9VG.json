@@ -1,0 +1,113 @@
+{
+	"shipping_address": {
+		"city": "San Jose",
+		"line1": "1 Main St",
+		"postal_code": "95131",
+		"country_code": "US",
+		"state": "CA",
+		"recipient_name": "test buyer"
+	},
+	"state": "Active",
+	"id": "I-W0Y05RHBK9VG",
+	"start_date": "2017-08-25T07:00:00Z",
+	"agreement_details": {
+		"cycles_completed": "1",
+		"last_payment_date": "2017-08-25T17:55:10Z",
+		"failed_payment_count": "0",
+		"cycles_remaining": "18446744073709551615",
+		"last_payment_amount": {
+			"currency": "USD",
+			"value": "4.99"
+		},
+		"final_payment_date": "1970-01-01T00:00:00Z",
+		"outstanding_balance": {
+			"currency": "USD",
+			"value": "0.00"
+		},
+		"next_billing_date": "2017-09-25T10:00:00Z"
+	},
+	"payer": {
+		"payment_method": "paypal",
+		"payer_info": {
+			"email": "admin-buyer@example.com",
+			"last_name": "buyer",
+			"first_name": "test",
+			"shipping_address": {
+				"city": "San Jose",
+				"line1": "1 Main St",
+				"postal_code": "95131",
+				"country_code": "US",
+				"state": "CA",
+				"recipient_name": "test buyer"
+			},
+			"payer_id": "ASDVAJS5TXSFQ"
+		},
+		"status": "verified"
+	},
+	"description": "Advanced Hearthstone statistics on HSReplay.net.",
+	"plan": {
+		"payment_definitions": [
+			{
+				"amount": {
+					"currency": "USD",
+					"value": "4.99"
+				},
+				"type": "REGULAR",
+				"charge_models": [
+					{
+						"amount": {
+							"currency": "USD",
+							"value": "0.00"
+						},
+						"type": "TAX"
+					},
+					{
+						"amount": {
+							"currency": "USD",
+							"value": "0.00"
+						},
+						"type": "SHIPPING"
+					}
+				],
+				"cycles": "0",
+				"frequency_interval": "1",
+				"frequency": "Month"
+			}
+		],
+		"merchant_preferences": {
+			"setup_fee": {
+				"currency": "USD",
+				"value": "0.00"
+			},
+			"max_fail_attempts": "1",
+			"auto_bill_amount": "YES"
+		}
+	},
+	"links": [
+		{
+			"href": "https://api.sandbox.paypal.com/v1/payments/billing-agreements/I-W0Y05RHBK9VG/suspend",
+			"rel": "suspend",
+			"method": "POST"
+		},
+		{
+			"href": "https://api.sandbox.paypal.com/v1/payments/billing-agreements/I-W0Y05RHBK9VG/re-activate",
+			"rel": "re_activate",
+			"method": "POST"
+		},
+		{
+			"href": "https://api.sandbox.paypal.com/v1/payments/billing-agreements/I-W0Y05RHBK9VG/cancel",
+			"rel": "cancel",
+			"method": "POST"
+		},
+		{
+			"href": "https://api.sandbox.paypal.com/v1/payments/billing-agreements/I-W0Y05RHBK9VG/bill-balance",
+			"rel": "self",
+			"method": "POST"
+		},
+		{
+			"href": "https://api.sandbox.paypal.com/v1/payments/billing-agreements/I-W0Y05RHBK9VG/set-balance",
+			"rel": "self",
+			"method": "POST"
+		}
+	]
+}
