@@ -8,6 +8,7 @@ from .base import PaypalObject
 
 class Payment(PaypalObject):
 	intent = models.CharField(max_length=9, choices=enums.PaymentIntent.choices)
+	cart = models.CharField(max_length=127, db_index=True, null=True)
 	payer = JSONField()
 	transactions = JSONField()
 	state = models.CharField(max_length=8, choices=enums.PaymentState.choices)
