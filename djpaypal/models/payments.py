@@ -20,6 +20,8 @@ class Payment(PaypalObject):
 		max_length=30, choices=enums.PaymentFailureReason.choices
 	)
 
+	paypal_model = paypal_models.Payment
+
 
 class Sale(PaypalObject):
 	amount = CurrencyAmountField(editable=False)
