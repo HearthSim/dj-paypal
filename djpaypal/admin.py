@@ -49,12 +49,12 @@ class SaleAdmin(admin.ModelAdmin):
 	date_hierarchy = "create_time"
 	list_display = ("__str__", "state", "create_time", "update_time", "livemode")
 	list_filter = ("state", "payment_mode", "livemode")
-	raw_id_fields = ("billing_agreement", )
+	raw_id_fields = ("billing_agreement", "parent_payment")
 	readonly_fields = (
 		"id", "amount", "payment_mode", "state", "reason_code",
 		"protection_eligibility", "protection_eligibility_type",
 		"clearing_time", "transaction_fee", "receivable_amount",
-		"exchange_rate", "fmf_details", "receipt_id",  # "parent_payment",
+		"exchange_rate", "fmf_details", "receipt_id", "parent_payment",
 		"processor_response", "billing_agreement", "create_time",
 		"update_time",
 	)

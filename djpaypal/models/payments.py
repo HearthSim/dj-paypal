@@ -42,7 +42,7 @@ class Sale(PaypalObject):
 	exchange_rate = models.CharField(max_length=64, editable=False)
 	fmf_details = JSONField(null=True, editable=False)
 	receipt_id = models.CharField(max_length=19, db_index=True, editable=False)
-	# parent_payment = models.ForeignKey("Payment", editable=False)
+	parent_payment = models.ForeignKey("Payment", null=True, editable=False)
 	processor_response = JSONField(null=True, editable=False)
 	billing_agreement = models.ForeignKey("BillingAgreement", editable=False)
 	create_time = models.DateTimeField(editable=False)
@@ -62,5 +62,17 @@ class Sale(PaypalObject):
 			BillingAgreement.objects.get(id=ba_id)
 		except BillingAgreement.DoesNotExist:
 			BillingAgreement.find_and_sync(ba_id)
+
+		# Ensure the parent payment exists in the db
+		if "parent_payment" in cleaned_data:
+			pp_id = cleaned_data["parent_payment"]
+			try:
+				Payment.objects.get(id=pp_id)
+			except Payment.DoesNotExist:
+				Payment.find_and_sync(pp_id)
+
+			# Replace the parent_payment in the cleaned data with parent_payment_id
+			cleaned_data["parent_payment_id"] = pp_id
+			del cleaned_data["parent_payment"]
 
 		return id, cleaned_data, m2ms
