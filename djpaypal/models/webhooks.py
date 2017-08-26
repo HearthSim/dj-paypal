@@ -17,7 +17,7 @@ class WebhookEvent(PaypalObject):
 	resource = JSONField()
 	status = models.CharField(max_length=64)
 	summary = models.CharField(max_length=256)
-	transmissions = JSONField()
+	transmissions = JSONField(null=True)
 
 	paypal_model = paypal_models.WebhookEvent
 
