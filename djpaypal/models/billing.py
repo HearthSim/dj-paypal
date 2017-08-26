@@ -89,7 +89,7 @@ class PreparedBillingAgreement(models.Model):
 		help_text="Same as the BillingAgreement token"
 	)
 	livemode = models.BooleanField()
-	user = models.ForeignKey(settings.AUTH_USER_MODEL)
+	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 	data = JSONField()
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
@@ -145,7 +145,7 @@ class BillingAgreement(PaypalObject):
 	override_charge_mode = JSONField(default={})
 	plan = JSONField()
 
-	user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True)
+	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
 
 	paypal_model = paypal_models.BillingAgreement
 

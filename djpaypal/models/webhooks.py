@@ -42,7 +42,9 @@ class WebhookEventTrigger(models.Model):
 	processed = models.BooleanField(default=False)
 	exception = models.CharField(max_length=128)
 	traceback = models.TextField()
-	webhook_event = models.ForeignKey("WebhookEvent", null=True)
+	webhook_event = models.ForeignKey(
+		"WebhookEvent", on_delete=models.SET_NULL, null=True
+	)
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 
