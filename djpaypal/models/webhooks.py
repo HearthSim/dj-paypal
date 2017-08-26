@@ -24,7 +24,14 @@ class WebhookEvent(PaypalObject):
 	@classmethod
 	def process(cls, data):
 		ret, created = cls.get_or_update_from_api_data(data)
+		ret.create_or_update_resource()
 		return ret
+
+	def create_or_update_resource(self):
+		if self.resource_type == "sale":
+			from .payments import Sale
+			return Sale.get_or_update_from_api_data(self.resource)
+		raise NotImplementedError(self.resource_type)
 
 
 class WebhookEventTrigger(models.Model):
