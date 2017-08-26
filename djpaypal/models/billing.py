@@ -178,6 +178,7 @@ class PaymentDefinition(PaypalObject):
 	def clean_api_data(cls, data):
 		id, cleaned_data, m2ms = super().clean_api_data(data)
 
+		cleaned_data["frequency"] = cleaned_data["frequency"].upper()
 		charge_models = cleaned_data.pop("charge_models")
 		# Sync payment definitions but do not fetch them (we have them in full)
 		m2ms["charge_models"] = ChargeModel.objects.sync_data(charge_models, fetch=False)
