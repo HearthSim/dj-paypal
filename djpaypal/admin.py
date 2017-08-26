@@ -39,6 +39,26 @@ class PaymentDefinitionAdmin(admin.ModelAdmin):
 	list_filter = ("type", "frequency", "livemode")
 
 
+@admin.register(models.Sale)
+class SaleAdmin(admin.ModelAdmin):
+	date_hierarchy = "create_time"
+	list_display = ("__str__", "state", "create_time", "update_time", "livemode")
+	list_filter = ("state", "payment_mode", "livemode")
+	raw_id_fields = ("billing_agreement", )
+	readonly_fields = (
+		"id", "amount", "payment_mode", "state", "reason_code",
+		"protection_eligibility", "protection_eligibility_type",
+		"clearing_time", "transaction_fee", "receivable_amount",
+		"exchange_rate", "fmf_details", "receipt_id",  # "parent_payment",
+		"processor_response", "billing_agreement", "create_time",
+		"update_time",
+	)
+	search_fields = ("id", "receipt_id")
+
+	def has_add_permission(self, request):
+		return False
+
+
 @admin.register(models.Webhook)
 class WebhookAdmin(admin.ModelAdmin):
 	list_filter = ("create_time", "livemode")
