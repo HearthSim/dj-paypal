@@ -64,8 +64,8 @@ class SaleAdmin(admin.ModelAdmin):
 		return False
 
 
-@admin.register(models.Webhook)
-class WebhookAdmin(admin.ModelAdmin):
+@admin.register(models.WebhookEvent)
+class WebhookEventAdmin(admin.ModelAdmin):
 	list_filter = ("create_time", "livemode")
 
 	def has_add_permission(self, request):
