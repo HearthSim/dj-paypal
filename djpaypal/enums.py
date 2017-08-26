@@ -46,6 +46,27 @@ class PaymentDefinitionType(Enum):
 	REGULAR = _("Regular")
 
 
+class PaymentFailureReason(Enum):
+	UNABLE_TO_COMPLETE_TRANSACTION = _("Unable to complete transaction")
+	INVALID_PAYMENT_METHOD = _("Invalid payment method")
+	PAYER_CANNOT_PAY = _("Payer cannot pay")
+	CANNOT_PAY_THIS_PAYEE = _("Cannot pay this payee")
+	REDIRECT_REQUIRED = _("Redirect required")
+	PAYEE_FILTER_RESTRICTIONS = _("Payee filter restrictions")
+
+
+class PaymentIntent(Enum):
+	sale = _("Sale")
+	authorize = _("Authorize")
+	order = _("Order")
+
+
+class PaymentState(Enum):
+	created = _("Created")
+	approved = _("Approved")
+	failed = _("Failed")
+
+
 class TermsType(Enum):
 	WEEKLY = _("Weekly")
 	MONTHLY = _("Monthly")
