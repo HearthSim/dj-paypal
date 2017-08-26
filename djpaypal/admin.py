@@ -31,12 +31,17 @@ class PreparedBillingAgreementAdmin(admin.ModelAdmin):
 
 @admin.register(models.ChargeModel)
 class ChargeModelAdmin(admin.ModelAdmin):
+	list_display = ("__str__", "type", "livemode")
 	list_filter = ("type", "livemode")
 
 
 @admin.register(models.PaymentDefinition)
 class PaymentDefinitionAdmin(admin.ModelAdmin):
+	list_display = (
+		"__str__", "type", "frequency", "frequency_interval", "cycles", "livemode"
+	)
 	list_filter = ("type", "frequency", "livemode")
+	raw_id_fields = ("charge_models", )
 
 
 @admin.register(models.Sale)
