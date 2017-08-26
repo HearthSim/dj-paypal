@@ -147,6 +147,8 @@ class BillingAgreement(PaypalObject):
 
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True)
 
+	paypal_model = paypal_models.BillingAgreement
+
 	@classmethod
 	def execute(cls, token):
 		if not token:
