@@ -48,6 +48,12 @@ class BillingPlan(PaypalObject):
 
 		return instance
 
+	@property
+	def human_readable_price(self):
+		return self.payment_definitions.get(
+			type=enums.PaymentDefinitionType.REGULAR
+		).human_readable_price
+
 	def activate(self):
 		"""
 		Activate an plan in a CREATED state.
@@ -199,6 +205,27 @@ class PaymentDefinition(PaypalObject):
 		m2ms["charge_models"] = ChargeModel.objects.sync_data(charge_models, fetch=False)
 
 		return id, cleaned_data, m2ms
+
+	@property
+	def human_readable_price(self):
+		from ..utils import get_friendly_currency_amount
+
+		amount = get_friendly_currency_amount(self.amount["value"], self.amount["currency"])
+		interval_count = self.frequency_interval
+
+		if interval_count == 1:
+			interval = self.frequency.lower()
+			template = "{amount}/{interval}"
+		else:
+			interval = {
+				enums.PaymentDefinitionFrequency.DAY: "days",
+				enums.PaymentDefinitionFrequency.WEEK: "weeks",
+				enums.PaymentDefinitionFrequency.MONTH: "months",
+				enums.PaymentDefinitionFrequency.YEAR: "years",
+			}[self.frequency]
+			template = "{amount} every {interval_count} {interval}"
+
+		return template.format(amount=amount, interval=interval, interval_count=interval_count)
 
 
 class ChargeModel(PaypalObject):

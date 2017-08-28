@@ -13,3 +13,17 @@ def fix_django_headers(meta):
 			continue
 
 		ret[k.lower().replace("_", "-")] = v
+
+
+CURRENCY_SIGILS = {
+	"CAD": "$",
+	"EUR": "€",
+	"GBP": "£",
+	"USD": "$",
+}
+
+
+def get_friendly_currency_amount(amount, currency):
+	currency = currency.upper()
+	sigil = CURRENCY_SIGILS.get(currency, "")
+	return "{sigil}{amount} {currency}".format(sigil=sigil, amount=amount, currency=currency)
