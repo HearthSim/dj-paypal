@@ -25,8 +25,9 @@ class BillingAgreementAdmin(admin.ModelAdmin):
 
 @admin.register(models.PreparedBillingAgreement)
 class PreparedBillingAgreementAdmin(admin.ModelAdmin):
-	list_display = ("__str__", "user", "livemode")
+	list_display = ("__str__", "user", "created", "updated", "livemode")
 	list_filter = ("livemode", )
+	readonly_fields = ("id", "created", "updated")
 	raw_id_fields = ("user", )
 
 
