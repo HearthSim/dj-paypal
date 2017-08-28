@@ -35,6 +35,13 @@ class WebhookEvent(PaypalObject):
 			from .billing import BillingAgreement
 			return BillingAgreement.get_or_update_from_api_data(self.resource)
 		if self.resource_type == "dispute":
+			if self.event_type.lower().startswith("risk.dispute."):
+				# risk.dispute.* events are different dispute object.
+				# Also, who the **** knows what these objects actually are.
+				# TODO: Get/Create the actual dispute object.
+				# Depends on SDK implementation which is currently missing:
+				# https://github.com/paypal/PayPal-Python-SDK/issues/216
+				return
 			from .disputes import Dispute
 			return Dispute.get_or_update_from_api_data(self.resource)
 		raise NotImplementedError(self.resource_type)

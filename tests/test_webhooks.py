@@ -29,6 +29,17 @@ def test_webhook_customer_dispute_created():
 
 
 @pytest.mark.django_db
+def test_webhook_risk_dispute_created():
+	data = get_fixture("webhooks/risk.dispute.created.json")
+	webhook = models.WebhookEventTrigger(headers={}, body=json.dumps(data))
+	webhook.save()
+	webhook.process()
+	assert webhook.webhook_event.id == data["id"]
+	# TODO: ensure actual Dispute object is created
+	# Depends on https://github.com/paypal/PayPal-Python-SDK/issues/216
+
+
+@pytest.mark.django_db
 def test_webhook_payment_sale_completed():
 	data = get_fixture("webhooks/payment.sale.completed.json")
 	resource = data["resource"]
