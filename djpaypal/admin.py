@@ -45,6 +45,14 @@ class DisputeAdmin(admin.ModelAdmin):
 	)
 
 
+@admin.register(models.Payer)
+class PayerAdmin(admin.ModelAdmin):
+	list_display = (
+		"__str__", "first_name", "last_name", "email", "livemode"
+	)
+	search_fields = ("id", "first_name", "last_name", "email")
+
+
 @admin.register(models.PaymentDefinition)
 class PaymentDefinitionAdmin(admin.ModelAdmin):
 	list_display = (
