@@ -35,6 +35,16 @@ class ChargeModelAdmin(admin.ModelAdmin):
 	list_filter = ("type", "livemode")
 
 
+@admin.register(models.Dispute)
+class DisputeAdmin(admin.ModelAdmin):
+	list_display = ("__str__", "status", "reason", "create_time", "livemode")
+	list_filter = ("status", "reason")
+	readonly_fields = (
+		"create_time", "update_time", "disputed_transactions", "reason",
+		"dispute_amount", "dispute_outcome", "seller_response_due_date", "dispute_flow"
+	)
+
+
 @admin.register(models.PaymentDefinition)
 class PaymentDefinitionAdmin(admin.ModelAdmin):
 	list_display = (
