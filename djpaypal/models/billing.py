@@ -8,7 +8,7 @@ from paypalrestsdk import payments as paypal_models
 from .. import enums
 from ..exceptions import PaypalApiError
 from ..fields import CurrencyAmountField, JSONField
-from ..settings import PAYPAL_MODE
+from ..settings import PAYPAL_LIVE_MODE
 from .base import PaypalObject
 
 
@@ -110,9 +110,8 @@ class PreparedBillingAgreement(models.Model):
 	@classmethod
 	def create_from_data(cls, data, user):
 		data = data.to_dict()
-		livemode = PAYPAL_MODE == "production"
 		return cls.objects.create(
-			id=cls._extract_token(data), livemode=livemode, user=user, data=data
+			id=cls._extract_token(data), livemode=PAYPAL_LIVE_MODE, user=user, data=data
 		)
 
 	@property

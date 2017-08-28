@@ -1,5 +1,7 @@
 from django.db import models
 
+from ..settings import PAYPAL_LIVE_MODE
+
 
 class PaypalObjectManager(models.Manager):
 	def sync_data(self, paypal_data, fetch=True):
@@ -47,7 +49,7 @@ class PaypalObject(models.Model):
 		id = cleaned_data.pop(cls.id_field_name)
 
 		# Set the livemode
-		cleaned_data["livemode"] = False
+		cleaned_data["livemode"] = PAYPAL_LIVE_MODE
 
 		return id, cleaned_data, {}
 
