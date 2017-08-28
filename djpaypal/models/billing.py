@@ -145,6 +145,7 @@ class BillingAgreement(PaypalObject):
 	override_charge_mode = JSONField(default={})
 	plan = JSONField()
 
+	payer_model = models.ForeignKey("Payer", on_delete=models.SET_NULL, null=True)
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
 
 	paypal_model = paypal_models.BillingAgreement
@@ -160,6 +161,21 @@ class BillingAgreement(PaypalObject):
 
 		obj, created = cls.get_or_update_from_api_data(ba, always_sync=True)
 		return obj
+
+	def save(self, **kwargs):
+		from .payer import Payer
+
+		# On save, get the payer_info object and do a best effort attempt at
+		# saving a Payer model and relation into the db.
+		payer_info = self.payer.get("payer_info", {})
+		if payer_info and "payer_id" in payer_info:
+			payer_id = payer_info.pop("payer_id")
+			payer_info["user"] = self.user
+			payer_info["livemode"] = self.livemode
+			self.payer_model, created = Payer.objects.update_or_create(
+				id=payer_id, defaults=payer_info
+			)
+		return super().save(**kwargs)
 
 
 class PaymentDefinition(PaypalObject):
