@@ -34,6 +34,54 @@ class ChargeModelType(Enum):
 	SHIPPING = _("Shipping")
 
 
+class DisputeFlow(Enum):
+	ACH_RETURNS = _("ACH returns")
+	ACCOUNT_ISSUES = _("Account issues")
+	ADMIN_FRAUD_REVERSAL = _("Admin fraud reversal")
+	BILLING = _("Billing")
+	CHARGEBACKS = _("Chargebacks")
+	COMPLAINT_RESOLUTION = _("Complaint resolution")
+	CORRECTION = _("Correction")
+	DEBIT_CARD_CHARGEBACK = _("Debit card chargeback")
+	FAX_ROUTING = _("Fax routing")
+	MIPS_COMPLAINT_ITEM = _("MIPS complaint item")
+	MIPS_COMPLAINT = _("MIPS complaint")
+	OPS_VERIFICATION_FLOW = _("OPS verification flow")
+	PAYPAL_DISPUTE_RESOLUTION = _("Paypal dispute resolution")
+	PINLESS_DEBIT_RETURN = _("Pinless debit return")
+	PRICING_ADJUSTMENT = _("Pricing adjustment")
+	SPOOF_UNAUTH_CHILD = _("Spoof Unauth Child")
+	SPOOF_UNAUTH_PARENT = _("Spoof Unauth Parent")
+	THIRD_PARTY_CLAIM = _("Third party claim")
+	THIRD_PARTY_DISPUTE = _("Third party dispute")
+	TICKET_RETRIEVAL = _("Ticket retrieval")
+	UK_EXPRESS_RETURNS = _("UK Express returns")
+	UNKNOWN_FAXES = _("Unknown faxes")
+	VETTING = _("Vetting")
+	OTHER = _("Other")
+
+
+class DisputeReason(Enum):
+	MERCHANDISE_OR_SERVICE_NOT_RECEIVED = _("Merchandise or service not received")
+	MERCHANDISE_OR_SERVICE_NOT_AS_DESCRIBED = _("Merchandise or service not as described")
+	UNAUTHORISED = _("Unauthorized")
+	CREDIT_NOT_PROCESSED = _("Credit not processed")
+	DUPLICATE_TRANSACTION = _("Duplicate transaction")
+	INCORRECT_AMOUNT = _("Incorrect amount")
+	PAYMENT_BY_OTHER_MEANS = _("Payment by other means")
+	CANCELED_RECURRING_BILLING = _("Canceled recurring billing")
+	OTHER = _("Other")
+
+
+class DisputeStatus(Enum):
+	OPEN = _("Open")
+	WAITING_FOR_BUYER_RESPONSE = _("Waiting for buyer response")
+	WAITING_FOR_SELLER_RESPONSE = _("Waiting for seller response")
+	UNDER_REVIEW = _("Under review")
+	RESOLVED = _("Resolved")
+	OTHER = _("Other")
+
+
 class PaymentDefinitionFrequency(Enum):
 	DAY = _("Day")
 	WEEK = _("Week")
