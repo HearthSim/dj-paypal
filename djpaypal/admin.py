@@ -12,6 +12,7 @@ def activate_plans(admin, request, queryset):
 class BillingPlanAdmin(admin.ModelAdmin):
 	list_display = ("__str__", "state", "type", "create_time", "livemode")
 	list_filter = ("type", "state", "create_time", "update_time", "livemode")
+	raw_id_fields = ("payment_definitions", )
 	actions = (activate_plans, )
 
 
