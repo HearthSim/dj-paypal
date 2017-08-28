@@ -97,6 +97,11 @@ class PreparedBillingAgreement(models.Model):
 	livemode = models.BooleanField()
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 	data = JSONField()
+	executed_agreement = models.ForeignKey(
+		"BillingAgreement", on_delete=models.SET_NULL, null=True,
+		related_name="prepared_agreements"
+	)
+	executed_at = models.DateTimeField(null=True)
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 
@@ -132,6 +137,9 @@ class PreparedBillingAgreement(models.Model):
 			ret = BillingAgreement.execute(self.id)
 			ret.user = self.user
 			ret.save()
+			self.executed_agreement = ret
+			self.executed_at = now()
+			self.save()
 
 		return ret
 
