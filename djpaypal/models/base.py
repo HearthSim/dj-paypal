@@ -23,6 +23,8 @@ class PaypalObject(models.Model):
 
 	objects = PaypalObjectManager()
 
+	id_field_name = "id"
+
 	@staticmethod
 	def sdk_object_as_dict(obj):
 		if isinstance(obj, dict):
@@ -39,7 +41,7 @@ class PaypalObject(models.Model):
 			del cleaned_data["links"]
 
 		# Extract the ID to return it separately
-		id = cleaned_data.pop("id")
+		id = cleaned_data.pop(cls.id_field_name)
 
 		# Set the livemode
 		cleaned_data["livemode"] = False

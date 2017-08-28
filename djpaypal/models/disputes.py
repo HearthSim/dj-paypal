@@ -20,3 +20,5 @@ class Dispute(PaypalObject):
 	dispute_flow = models.CharField(
 		max_length=25, choices=enums.DisputeFlow.choices, editable=False
 	)
+
+	id_field_name = "dispute_id"

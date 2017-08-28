@@ -34,6 +34,9 @@ class WebhookEvent(PaypalObject):
 		if self.resource_type == "Agreement":
 			from .billing import BillingAgreement
 			return BillingAgreement.get_or_update_from_api_data(self.resource)
+		if self.resource_type == "dispute":
+			from .disputes import Dispute
+			return Dispute.get_or_update_from_api_data(self.resource)
 		raise NotImplementedError(self.resource_type)
 
 
