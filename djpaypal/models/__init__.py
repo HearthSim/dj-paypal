@@ -3,12 +3,13 @@ from .billing import (
 	PreparedBillingAgreement
 )
 from .disputes import Dispute
+from .payer import Payer
 from .payments import Payment, Sale
 from .webhooks import WebhookEvent, WebhookEventTrigger
 
 
 __all__ = (
 	"BillingAgreement", "BillingPlan", "ChargeModel", "Dispute", "Payment",
-	"PaymentDefinition", "PreparedBillingAgreement", "Sale", "WebhookEvent",
-	"WebhookEventTrigger"
+	"Payer", "PaymentDefinition", "PreparedBillingAgreement", "Sale",
+	"WebhookEvent", "WebhookEventTrigger"
 )
