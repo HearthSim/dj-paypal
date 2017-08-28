@@ -21,6 +21,9 @@ class PaypalObject(models.Model):
 	id = models.CharField(max_length=128, primary_key=True, editable=False)
 	livemode = models.BooleanField()
 
+	djpaypal_created = models.DateTimeField(auto_now_add=True)
+	djpaypal_updated = models.DateTimeField(auto_now=True)
+
 	objects = PaypalObjectManager()
 
 	id_field_name = "id"
