@@ -20,7 +20,8 @@ class BillingPlanAdmin(admin.ModelAdmin):
 class BillingAgreementAdmin(admin.ModelAdmin):
 	list_display = ("__str__", "user", "state", "livemode")
 	list_filter = ("state", )
-	raw_id_fields = ("user", )
+	raw_id_fields = ("user", "payer_model")
+	search_fields = ("user__username", "user__email")
 
 
 @admin.register(models.PreparedBillingAgreement)
