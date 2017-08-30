@@ -11,7 +11,8 @@ class Payer(models.Model):
 	email = models.CharField(max_length=127, db_index=True)
 	user = models.ForeignKey(
 		settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True,
-		related_name="paypal_payers"
+		related_name="paypal_payers",
+		help_text="The most recent Django user that transacted as this Payer (best-effort)."
 	)
 	shipping_address = JSONField(null=True)
 	livemode = models.BooleanField()
