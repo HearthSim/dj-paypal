@@ -102,6 +102,7 @@ class PreparedBillingAgreement(models.Model):
 		related_name="prepared_agreements"
 	)
 	executed_at = models.DateTimeField(null=True)
+	canceled_at = models.DateTimeField(null=True)
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 
@@ -131,6 +132,12 @@ class PreparedBillingAgreement(models.Model):
 			if link["rel"] == "approval_url":
 				return link["href"]
 		return ""
+
+	def cancel(self):
+		if self.executed_at:
+			raise ValueError("Agreement has already been executed")
+		self.canceled_at = now()
+		self.save()
 
 	def execute(self):
 		with transaction.atomic():
