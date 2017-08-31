@@ -130,7 +130,7 @@ class WebhookEventTrigger(models.Model):
 			webhook_id=webhook_id,
 			event_body=self.body,
 			cert_url=self.cert_url,
-			actual_signature=self.transmission_sig,
+			actual_sig=self.transmission_sig,
 			auth_algo=self.auth_algo,
 		)
 
