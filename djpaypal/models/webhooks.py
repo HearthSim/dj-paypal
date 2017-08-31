@@ -64,6 +64,19 @@ class WebhookEventTrigger(models.Model):
 
 	@classmethod
 	def from_request(cls, request, webhook_id=PAYPAL_WEBHOOK_ID):
+		"""
+		Create, validate and process a WebhookEventTrigger given a Django
+		request object.
+
+		The webhook_id parameter expects the ID of the Webhook that was
+		triggered (defaults to settings.PAYPAL_WEBHOOK_ID). This is required
+		for Webhook verification.
+
+		The process is three-fold:
+		1. Create a WebhookEventTrigger object from a Django request.
+		2. Verify the WebhookEventTrigger as a Paypal webhook using the SDK.
+		3. If valid, process it into a WebhookEvent object (and child resource).
+		"""
 		headers = fix_django_headers(request.META)
 		try:
 			body = request.body.decode(request.encoding or "utf-8")
