@@ -93,3 +93,13 @@ class WebhookEventAdmin(admin.ModelAdmin):
 
 	def has_add_permission(self, request):
 		return False
+
+
+@admin.register(models.WebhookEventTrigger)
+class WebhookEventTriggerAdmin(admin.ModelAdmin):
+	list_display = ("created", "updated", "valid", "processed", "exception")
+	list_filter = ("created", "valid", "processed")
+	raw_id_fields = ("webhook_event", )
+
+	def has_add_permission(self, request):
+		return False
