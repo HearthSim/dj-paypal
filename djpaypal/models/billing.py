@@ -91,7 +91,7 @@ class PreparedBillingAgreement(models.Model):
 	and ties it to the user who requested it.
 	"""
 	id = models.CharField(
-		max_length=128, primary_key=True,
+		max_length=128, primary_key=True, editable=False, serialize=True,
 		help_text="Same as the BillingAgreement token"
 	)
 	livemode = models.BooleanField()

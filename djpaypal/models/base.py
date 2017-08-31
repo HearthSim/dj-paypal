@@ -20,7 +20,7 @@ class PaypalObject(models.Model):
 	class Meta:
 		abstract = True
 
-	id = models.CharField(max_length=128, primary_key=True, editable=False)
+	id = models.CharField(max_length=128, primary_key=True, editable=False, serialize=True)
 	livemode = models.BooleanField()
 
 	djpaypal_created = models.DateTimeField(auto_now_add=True)
