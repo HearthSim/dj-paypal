@@ -51,13 +51,13 @@ class WebhookEvent(PaypalObject):
 class WebhookEventTrigger(models.Model):
 	id = models.BigAutoField(primary_key=True)
 	headers = JSONField()
-	body = models.TextField()
+	body = models.TextField(blank=True)
 	valid = models.BooleanField(default=False)
 	processed = models.BooleanField(default=False)
-	exception = models.CharField(max_length=128)
-	traceback = models.TextField()
+	exception = models.CharField(max_length=128, blank=True)
+	traceback = models.TextField(blank=True)
 	webhook_event = models.ForeignKey(
-		"WebhookEvent", on_delete=models.SET_NULL, null=True
+		"WebhookEvent", on_delete=models.SET_NULL, null=True, blank=True
 	)
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
