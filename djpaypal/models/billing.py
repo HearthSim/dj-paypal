@@ -49,10 +49,15 @@ class BillingPlan(PaypalObject):
 		return instance
 
 	@property
+	def regular_payment_definition(self):
+		return self.payment_definitions.get(type=enums.PaymentDefinitionType.REGULAR)
+
+	@property
 	def human_readable_price(self):
-		return self.payment_definitions.get(
-			type=enums.PaymentDefinitionType.REGULAR
-		).human_readable_price
+		pd = self.regular_payment_definition
+		if pd:
+			return pd.human_readable_price
+		return ""
 
 	def activate(self):
 		"""
