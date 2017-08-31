@@ -14,6 +14,8 @@ def fix_django_headers(meta):
 
 		ret[k.lower().replace("_", "-")] = v
 
+	return ret
+
 
 CURRENCY_SIGILS = {
 	"CAD": "$",

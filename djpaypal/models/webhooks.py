@@ -78,6 +78,7 @@ class WebhookEventTrigger(models.Model):
 		3. If valid, process it into a WebhookEvent object (and child resource).
 		"""
 		headers = fix_django_headers(request.META)
+		assert headers
 		try:
 			body = request.body.decode(request.encoding or "utf-8")
 		except Exception:
