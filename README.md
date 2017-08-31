@@ -45,6 +45,15 @@ of Paypal billing plans to create.
 See `example_settings.py` for an example of plans to create.
 
 
+## Webhooks
+
+The `djpaypal.views.ProcessWebhookView` view should be hooked up to an URL endpoint
+which you then set up in Paypal as a webhook endpoint (https://developer.paypal.com).
+
+In order to verify webhooks being transmitted to your app, dj-paypal needs to know the
+ID of the webhook that is expected at that URL. Set it in the setting `PAYPAL_WEBHOOK_ID`.
+
+
 ## Sandbox vs. Live
 
 All models have a `livemode` boolean attribute. That attribute is set to `True` if created

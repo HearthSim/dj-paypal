@@ -5,6 +5,7 @@ from django.utils.functional import cached_property
 from paypalrestsdk import notifications as paypal_models
 
 from ..fields import JSONField
+from ..settings import PAYPAL_WEBHOOK_ID
 from ..utils import fix_django_headers
 from .base import PaypalObject
 
@@ -62,7 +63,7 @@ class WebhookEventTrigger(models.Model):
 	updated = models.DateTimeField(auto_now=True)
 
 	@classmethod
-	def from_request(cls, request):
+	def from_request(cls, request, webhook_id=PAYPAL_WEBHOOK_ID):
 		headers = fix_django_headers(request.META)
 		try:
 			body = request.body.decode(request.encoding or "utf-8")
@@ -70,7 +71,7 @@ class WebhookEventTrigger(models.Model):
 			body = "(error decoding body)"
 		obj = cls.objects.create(headers=headers, body=body)
 		try:
-			obj.valid = obj.verify()
+			obj.valid = obj.verify(PAYPAL_WEBHOOK_ID)
 			if obj.valid:
 				obj.process()
 		except Exception as e:
