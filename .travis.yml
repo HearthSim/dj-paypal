@@ -1,0 +1,36 @@
+# https://travis-ci.org/dj-stripe/dj-stripe/
+dist: trusty
+sudo: false
+language: python
+
+python: "3.6"
+
+addons:
+  postgresql: "9.6"
+
+env:
+  - TOXENV=py34-django111
+  - TOXENV=py36-django111
+  - TOXENV=py36-djangomaster
+  - TOXENV=py36-checkmigrations
+  - TOXENV=flake8
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - env: TOXENV=py36-djangomaster
+
+install:
+  - pip install --upgrade pip setuptools wheel
+  - pip install tox
+
+before_script:
+  - psql -U postgres -c 'CREATE DATABASE "test_djpaypal";'
+
+script:
+  - tox
+
+notifications:
+  email:
+    on_failure: always
+    on_success: change
