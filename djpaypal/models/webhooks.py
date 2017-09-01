@@ -22,6 +22,9 @@ class WebhookEvent(PaypalObject):
 
 	paypal_model = paypal_models.WebhookEvent
 
+	def __str__(self):
+		return self.summary or super().__str__()
+
 	@classmethod
 	def process(cls, data):
 		ret, created = cls.get_or_update_from_api_data(data)
