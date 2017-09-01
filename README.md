@@ -70,8 +70,7 @@ Deleting or editing objects (be it from the admin or in the database) does not a
 change any of the upstream Paypal data.
 
 
-## License
+## License and Sponsorship
 
-This project is licensed under the MIT license. The full license text is
-available in the LICENSE file.
-
+This project was designed and developed by [HearthSim](https://hearthsim.net). It is
+licensed under the MIT license. The full license text is available in the LICENSE file.
