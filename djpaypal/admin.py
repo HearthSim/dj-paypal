@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from . import models
+from .settings import PAYPAL_WEBHOOK_ID
 
 
 def activate_plans(admin, request, queryset):
@@ -101,5 +102,20 @@ class WebhookEventTriggerAdmin(admin.ModelAdmin):
 	list_filter = ("created", "valid", "processed")
 	raw_id_fields = ("webhook_event", )
 
+	def reverify(self, request, queryset):
+		for trigger in queryset:
+			if trigger.verify(webhook_id=PAYPAL_WEBHOOK_ID):
+				trigger.valid = True
+				trigger.save()
+
+	def reprocess(self, request, queryset):
+		for trigger in queryset:
+			if not trigger.valid:
+				# Skip invalid webhooks (never process them)
+				continue
+			trigger.process()
+
 	def has_add_permission(self, request):
 		return False
+
+	actions = (reverify, reprocess)
