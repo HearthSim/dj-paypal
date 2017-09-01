@@ -103,11 +103,11 @@ class PreparedBillingAgreement(models.Model):
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 	data = JSONField()
 	executed_agreement = models.ForeignKey(
-		"BillingAgreement", on_delete=models.SET_NULL, null=True,
+		"BillingAgreement", on_delete=models.SET_NULL, null=True, blank=True,
 		related_name="prepared_agreements"
 	)
-	executed_at = models.DateTimeField(null=True)
-	canceled_at = models.DateTimeField(null=True)
+	executed_at = models.DateTimeField(null=True, blank=True)
+	canceled_at = models.DateTimeField(null=True, blank=True)
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 
@@ -178,8 +178,12 @@ class BillingAgreement(PaypalObject):
 	override_charge_mode = JSONField(default={})
 	plan = JSONField()
 
-	payer_model = models.ForeignKey("Payer", on_delete=models.SET_NULL, null=True)
-	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
+	payer_model = models.ForeignKey(
+		"Payer", on_delete=models.SET_NULL, null=True, blank=True
+	)
+	user = models.ForeignKey(
+		settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True
+	)
 
 	paypal_model = paypal_models.BillingAgreement
 

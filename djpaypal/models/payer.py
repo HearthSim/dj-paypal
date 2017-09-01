@@ -10,11 +10,11 @@ class Payer(models.Model):
 	last_name = models.CharField(max_length=64, db_index=True)
 	email = models.CharField(max_length=127, db_index=True)
 	user = models.ForeignKey(
-		settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True,
-		related_name="paypal_payers",
+		settings.AUTH_USER_MODEL, on_delete=models.SET_NULL,
+		null=True, blank=True, related_name="paypal_payers",
 		help_text="The most recent Django user that transacted as this Payer (best-effort)."
 	)
-	shipping_address = JSONField(null=True)
+	shipping_address = JSONField(null=True, blank=True)
 	livemode = models.BooleanField()
 	djpaypal_created = models.DateTimeField(auto_now_add=True)
 	djpaypal_updated = models.DateTimeField(auto_now=True)

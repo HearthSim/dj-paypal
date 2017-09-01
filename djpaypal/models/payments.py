@@ -8,8 +8,8 @@ from .base import PaypalObject
 
 class Payment(PaypalObject):
 	intent = models.CharField(max_length=9, choices=enums.PaymentIntent.choices)
-	cart = models.CharField(max_length=127, db_index=True, null=True)
-	payer = JSONField(null=True)
+	cart = models.CharField(max_length=127, db_index=True, null=True, blank=True)
+	payer = JSONField(null=True, blank=True)
 	transactions = JSONField()
 	state = models.CharField(max_length=8, choices=enums.PaymentState.choices)
 	experience_profile_id = models.CharField(max_length=127, db_index=True)
@@ -39,18 +39,18 @@ class Sale(PaypalObject):
 	protection_eligibility_type = models.CharField(
 		max_length=56, choices=enums.SaleProtectionEligibilityType.choices, editable=False
 	)
-	clearing_time = models.DateTimeField(null=True, editable=False)
-	transaction_fee = CurrencyAmountField(editable=False, null=True)
-	receivable_amount = CurrencyAmountField(null=True, editable=False)
+	clearing_time = models.DateTimeField(null=True, blank=True, editable=False)
+	transaction_fee = CurrencyAmountField(null=True, blank=True, editable=False)
+	receivable_amount = CurrencyAmountField(null=True, blank=True, editable=False)
 	exchange_rate = models.CharField(max_length=64, editable=False)
-	fmf_details = JSONField(null=True, editable=False)
+	fmf_details = JSONField(null=True, blank=True, editable=False)
 	receipt_id = models.CharField(max_length=19, db_index=True, editable=False)
 	parent_payment = models.ForeignKey(
-		"Payment", on_delete=models.PROTECT, null=True, editable=False
+		"Payment", on_delete=models.PROTECT, null=True, blank=True, editable=False
 	)
-	processor_response = JSONField(null=True, editable=False)
+	processor_response = JSONField(null=True, blank=True, editable=False)
 	billing_agreement = models.ForeignKey(
-		"BillingAgreement", on_delete=models.PROTECT, null=True, editable=False
+		"BillingAgreement", on_delete=models.PROTECT, null=True, blank=True, editable=False
 	)
 	create_time = models.DateTimeField(editable=False)
 	update_time = models.DateTimeField(editable=False)

@@ -11,14 +11,14 @@ from .base import PaypalObject
 
 
 class WebhookEvent(PaypalObject):
-	event_version = models.CharField(max_length=8)
-	create_time = models.DateTimeField()
-	event_type = models.CharField(max_length=64)
-	resource_type = models.CharField(max_length=64)
-	resource = JSONField()
-	status = models.CharField(max_length=64)
-	summary = models.CharField(max_length=256)
-	transmissions = JSONField(null=True)
+	event_version = models.CharField(max_length=8, editable=False)
+	create_time = models.DateTimeField(editable=False)
+	event_type = models.CharField(max_length=64, editable=False)
+	resource_type = models.CharField(max_length=64, editable=False)
+	resource = JSONField(editable=False)
+	status = models.CharField(max_length=64, blank=True, editable=False)
+	summary = models.CharField(max_length=256, editable=False)
+	transmissions = JSONField(null=True, blank=True, editable=False)
 
 	paypal_model = paypal_models.WebhookEvent
 
