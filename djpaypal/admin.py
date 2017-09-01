@@ -4,10 +4,37 @@ from . import models
 from .settings import PAYPAL_WEBHOOK_ID
 
 
+class BasePaypalObjectAdmin(admin.ModelAdmin):
+	_common_fields = ("id", "djpaypal_created", "djpaypal_updated", "livemode")
+
+	def get_fieldsets(self, request, obj=None):
+		# Have to remove the fields from the common set, otherwise they'll show up twice.
+		fields = [f for f in self.get_fields(request, obj) if f not in self._common_fields]
+		return (
+			(None, {"fields": self._common_fields}),
+			(self.model.__name__, {"fields": fields}),
+		)
+
+	def get_list_display(self, request):
+		return ("__str__", ) + self.list_display + self._common_fields[1:]
+
+	def get_list_filter(self, request):
+		return self.list_filter + ("livemode", )
+
+	def get_readonly_fields(self, request, obj=None):
+		return self.readonly_fields + self._common_fields
+
+	def get_search_fields(self, request):
+		return self.search_fields + ("id", )
+
+	def has_add_permission(self, request):
+		return False
+
+
 @admin.register(models.BillingPlan)
-class BillingPlanAdmin(admin.ModelAdmin):
-	list_display = ("__str__", "state", "type", "create_time", "livemode")
-	list_filter = ("type", "state", "create_time", "update_time", "livemode")
+class BillingPlanAdmin(BasePaypalObjectAdmin):
+	list_display = ("state", "type", "create_time")
+	list_filter = ("type", "state", "create_time", "update_time")
 	raw_id_fields = ("payment_definitions", )
 
 	def activate_plans(self, request, queryset):
@@ -18,11 +45,10 @@ class BillingPlanAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.BillingAgreement)
-class BillingAgreementAdmin(admin.ModelAdmin):
-	list_display = ("__str__", "user", "state", "livemode")
+class BillingAgreementAdmin(BasePaypalObjectAdmin):
+	list_display = ("user", "state")
 	list_filter = ("state", )
 	raw_id_fields = ("user", "payer_model")
-	search_fields = ("user__username", "user__email")
 
 
 @admin.register(models.PreparedBillingAgreement)
@@ -34,16 +60,19 @@ class PreparedBillingAgreementAdmin(admin.ModelAdmin):
 	readonly_fields = ("id", "created", "updated")
 	raw_id_fields = ("user", "executed_agreement")
 
+	def has_add_permission(self, request):
+		return False
+
 
 @admin.register(models.ChargeModel)
-class ChargeModelAdmin(admin.ModelAdmin):
-	list_display = ("__str__", "type", "livemode")
-	list_filter = ("type", "livemode")
+class ChargeModelAdmin(BasePaypalObjectAdmin):
+	list_display = ("type", )
+	list_filter = ("type", )
 
 
 @admin.register(models.Dispute)
-class DisputeAdmin(admin.ModelAdmin):
-	list_display = ("__str__", "status", "reason", "create_time", "livemode")
+class DisputeAdmin(BasePaypalObjectAdmin):
+	list_display = ("status", "reason", "create_time")
 	list_filter = ("status", "reason")
 	readonly_fields = (
 		"create_time", "update_time", "disputed_transactions", "reason",
@@ -59,42 +88,40 @@ class PayerAdmin(admin.ModelAdmin):
 	search_fields = ("id", "first_name", "last_name", "email")
 	raw_id_fields = ("user", )
 
+	def has_add_permission(self, request):
+		return False
+
 
 @admin.register(models.PaymentDefinition)
-class PaymentDefinitionAdmin(admin.ModelAdmin):
+class PaymentDefinitionAdmin(BasePaypalObjectAdmin):
 	list_display = (
-		"__str__", "type", "frequency", "frequency_interval", "cycles", "livemode"
+		"type", "frequency", "frequency_interval", "cycles",
 	)
-	list_filter = ("type", "frequency", "livemode")
+	list_filter = ("type", "frequency")
 	raw_id_fields = ("charge_models", )
 
 
 @admin.register(models.Sale)
-class SaleAdmin(admin.ModelAdmin):
+class SaleAdmin(BasePaypalObjectAdmin):
 	date_hierarchy = "create_time"
-	list_display = ("__str__", "state", "create_time", "update_time", "livemode")
-	list_filter = ("state", "payment_mode", "livemode")
+	list_display = ("state", "create_time", "update_time")
+	list_filter = ("state", "payment_mode")
 	raw_id_fields = ("billing_agreement", "parent_payment")
 	readonly_fields = (
-		"id", "amount", "payment_mode", "state", "reason_code",
+		"amount", "payment_mode", "state", "reason_code",
 		"protection_eligibility", "protection_eligibility_type",
 		"clearing_time", "transaction_fee", "receivable_amount",
 		"exchange_rate", "fmf_details", "receipt_id", "parent_payment",
 		"processor_response", "billing_agreement", "create_time",
 		"update_time",
 	)
-	search_fields = ("id", "receipt_id")
-
-	def has_add_permission(self, request):
-		return False
+	search_fields = ("receipt_id", )
 
 
 @admin.register(models.WebhookEvent)
-class WebhookEventAdmin(admin.ModelAdmin):
-	list_filter = ("create_time", "livemode")
-
-	def has_add_permission(self, request):
-		return False
+class WebhookEventAdmin(BasePaypalObjectAdmin):
+	list_display = ("id", "event_type", "resource_type", "create_time")
+	list_filter = ("create_time", )
 
 
 @admin.register(models.WebhookEventTrigger)
