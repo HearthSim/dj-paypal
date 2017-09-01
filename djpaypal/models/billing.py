@@ -202,6 +202,8 @@ class BillingAgreement(PaypalObject):
 		# saving a Payer model and relation into the db.
 		payer_info = self.payer.get("payer_info", {})
 		if payer_info and "payer_id" in payer_info:
+			# Copy the payer_info dict before mutating it
+			payer_info = payer_info.copy()
 			payer_id = payer_info.pop("payer_id")
 			payer_info["user"] = self.user
 			payer_info["livemode"] = self.livemode
