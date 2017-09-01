@@ -4,16 +4,16 @@ from . import models
 from .settings import PAYPAL_WEBHOOK_ID
 
 
-def activate_plans(admin, request, queryset):
-	for obj in queryset:
-		obj.activate()
-
-
 @admin.register(models.BillingPlan)
 class BillingPlanAdmin(admin.ModelAdmin):
 	list_display = ("__str__", "state", "type", "create_time", "livemode")
 	list_filter = ("type", "state", "create_time", "update_time", "livemode")
 	raw_id_fields = ("payment_definitions", )
+
+	def activate_plans(self, request, queryset):
+		for obj in queryset:
+			obj.activate()
+
 	actions = (activate_plans, )
 
 
