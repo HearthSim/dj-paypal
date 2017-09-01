@@ -92,7 +92,8 @@ class WebhookEventTrigger(models.Model):
 		try:
 			obj.valid = obj.verify(PAYPAL_WEBHOOK_ID)
 			if obj.valid:
-				obj.process()
+				# Process the item (do not save it, it'll get saved below)
+				obj.process(save=False)
 		except Exception as e:
 			obj.exception = str(e)
 			obj.traceback = format_exc()
@@ -139,7 +140,10 @@ class WebhookEventTrigger(models.Model):
 			auth_algo=self.auth_algo,
 		)
 
-	def process(self):
+	def process(self, save=True):
 		obj = WebhookEvent.process(self.data)
 		self.webhook_event = obj
+		self.processed = True
+		if save:
+			self.save()
 		return obj
