@@ -52,7 +52,7 @@ def test_webhook_payment_sale_completed():
 
 
 @pytest.mark.django_db
-def test_webhook_payment_sae_completed_from_subscription():
+def test_webhook_payment_sale_completed_from_subscription():
 	data = get_fixture("webhooks/payment.sale.completed--from-subscription.json")
 	resource = data["resource"]
 	webhook = models.WebhookEventTrigger(headers={}, body=json.dumps(data))
