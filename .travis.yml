@@ -12,7 +12,7 @@ env:
   - TOXENV=py34-django111
   - TOXENV=py36-django111
   - TOXENV=py36-djangomaster
-  - TOXENV=py36-checkmigrations
+  - TOXENV=checkmigrations
   - TOXENV=flake8
 
 matrix:
