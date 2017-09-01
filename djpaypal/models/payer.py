@@ -18,3 +18,8 @@ class Payer(models.Model):
 	livemode = models.BooleanField()
 	djpaypal_created = models.DateTimeField(auto_now_add=True)
 	djpaypal_updated = models.DateTimeField(auto_now=True)
+
+	def __str__(self):
+		return "{first_name} {last_name} <{email}>".format(
+			first_name=self.first_name, last_name=self.last_name, email=self.email
+		)
