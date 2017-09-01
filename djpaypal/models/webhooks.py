@@ -35,6 +35,9 @@ class WebhookEvent(PaypalObject):
 		if self.resource_type == "Agreement":
 			from .billing import BillingAgreement
 			return BillingAgreement.get_or_update_from_api_data(self.resource)
+		if self.resource_type == "plan":
+			from .billing import BillingPlan
+			return BillingPlan.get_or_update_from_api_data(self.resource)
 		if self.resource_type == "dispute":
 			if self.event_type.lower().startswith("risk.dispute."):
 				# risk.dispute.* events are different dispute object.
