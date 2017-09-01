@@ -117,7 +117,7 @@ class WebhookEventTrigger(models.Model):
 
 	@property
 	def transmission_sig(self):
-		return self.headers.get("Paypal-Transmission-Sig", "")
+		return self.headers.get("paypal-transmission-sig", "")
 
 	@property
 	def transmission_time(self):
