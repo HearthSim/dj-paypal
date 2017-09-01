@@ -6,7 +6,7 @@ from paypalrestsdk import notifications as paypal_models
 
 from ..fields import JSONField
 from ..settings import PAYPAL_WEBHOOK_ID
-from ..utils import fix_django_headers
+from ..utils import fix_django_headers, get_version
 from .base import PaypalObject
 
 
@@ -58,6 +58,11 @@ class WebhookEventTrigger(models.Model):
 	traceback = models.TextField(blank=True)
 	webhook_event = models.ForeignKey(
 		"WebhookEvent", on_delete=models.SET_NULL, null=True, blank=True
+	)
+	djpaypal_version = models.CharField(
+		max_length=32,
+		default=get_version,
+		help_text="The version of dj-paypal when the webhook was received"
 	)
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)

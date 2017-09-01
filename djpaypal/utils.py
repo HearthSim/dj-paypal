@@ -29,3 +29,11 @@ def get_friendly_currency_amount(amount, currency):
 	currency = currency.upper()
 	sigil = CURRENCY_SIGILS.get(currency, "")
 	return "{sigil}{amount} {currency}".format(sigil=sigil, amount=amount, currency=currency)
+
+
+def get_version():
+	"""
+	Returns the current dj-paypal version
+	"""
+	from . import __version__
+	return __version__
