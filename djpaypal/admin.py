@@ -57,6 +57,7 @@ class PayerAdmin(admin.ModelAdmin):
 		"__str__", "first_name", "last_name", "email", "livemode"
 	)
 	search_fields = ("id", "first_name", "last_name", "email")
+	raw_id_fields = ("user", )
 
 
 @admin.register(models.PaymentDefinition)
