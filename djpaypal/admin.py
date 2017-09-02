@@ -120,8 +120,9 @@ class SaleAdmin(BasePaypalObjectAdmin):
 
 @admin.register(models.WebhookEvent)
 class WebhookEventAdmin(BasePaypalObjectAdmin):
-	list_display = ("id", "event_type", "resource_type", "create_time")
+	list_display = ("event_type", "resource_type", "create_time")
 	list_filter = ("create_time", )
+	ordering = ("-create_time", )
 	readonly_fields = (
 		"summary", "event_type", "resource_type", "create_time",
 		"event_version", "resource", "status", "transmissions",
@@ -130,7 +131,9 @@ class WebhookEventAdmin(BasePaypalObjectAdmin):
 
 @admin.register(models.WebhookEventTrigger)
 class WebhookEventTriggerAdmin(admin.ModelAdmin):
-	list_display = ("created", "updated", "valid", "processed", "exception")
+	list_display = (
+		"created", "updated", "valid", "processed", "exception", "webhook_event"
+	)
 	list_filter = ("created", "valid", "processed")
 	raw_id_fields = ("webhook_event", )
 
