@@ -17,7 +17,7 @@ def test_webhook_billing_plan_created():
 
 
 @pytest.mark.django_db
-def test_webhook_billing_subscription_created():
+def test_webhook_billing_subscription_created_then_cancelled():
 	data = get_fixture("webhooks/billing.subscription.created.json")
 	resource = data["resource"]
 	webhook = models.WebhookEventTrigger(headers={}, body=json.dumps(data))
@@ -26,6 +26,17 @@ def test_webhook_billing_subscription_created():
 	assert webhook.webhook_event.id == data["id"]
 	assert webhook.webhook_event.resource["id"] == resource["id"]
 	assert models.BillingAgreement.objects.get(id=resource["id"])
+	assert models.BillingAgreement.objects.get(id=resource["id"]).state == "Pending"
+
+	# Cancel the subscription
+	data = get_fixture("webhooks/billing.subscription.cancelled.json")
+	resource = data["resource"]
+	webhook = models.WebhookEventTrigger(headers={}, body=json.dumps(data))
+	webhook.save()
+	webhook.process()
+	assert webhook.webhook_event.id == data["id"]
+	assert webhook.webhook_event.resource["id"] == resource["id"]
+	assert models.BillingAgreement.objects.get(id=resource["id"]).state == "Cancelled"
 
 
 @pytest.mark.django_db
