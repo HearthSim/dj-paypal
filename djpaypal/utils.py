@@ -1,3 +1,6 @@
+from decimal import Decimal
+
+
 def fix_django_headers(meta):
 	"""
 	Fix this nonsensical API:
@@ -28,6 +31,9 @@ CURRENCY_SIGILS = {
 def get_friendly_currency_amount(amount, currency):
 	currency = currency.upper()
 	sigil = CURRENCY_SIGILS.get(currency, "")
+	# Always show two decimal places on the amount
+	# Note that amount is usually a string, so convert to Decimal first.
+	amount = "{:.2f}".format(Decimal(amount))
 	return "{sigil}{amount} {currency}".format(sigil=sigil, amount=amount, currency=currency)
 
 
