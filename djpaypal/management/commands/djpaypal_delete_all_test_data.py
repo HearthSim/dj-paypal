@@ -6,10 +6,11 @@ class Command(BaseCommand):
 	help = "Delete all locally-stored test data (sandbox data)"
 
 	def handle(self, *args, **options):
+		# The order of the models matters because of PROTECT foreignkeys
 		for model in (
+			models.PreparedBillingAgreement, models.Sale,
 			models.BillingAgreement, models.BillingPlan, models.ChargeModel,
 			models.Dispute, models.Payer, models.PaymentDefinition,
-			models.PreparedBillingAgreement, models.Sale,
 			models.WebhookEvent,
 		):
 			deleted, objs = model.objects.filter(livemode=False).delete()
