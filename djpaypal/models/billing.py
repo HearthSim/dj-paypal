@@ -177,6 +177,7 @@ class BillingAgreement(PaypalObject):
 	override_merchant_preferences = JSONField(default={})
 	override_charge_mode = JSONField(default={})
 	plan = JSONField()
+	merchant = JSONField(null=True)
 
 	payer_model = models.ForeignKey(
 		"Payer", on_delete=models.SET_NULL, null=True, blank=True
