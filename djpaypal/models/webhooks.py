@@ -12,7 +12,7 @@ from .base import PaypalObject
 
 class WebhookEvent(PaypalObject):
 	event_version = models.CharField(max_length=8, editable=False)
-	create_time = models.DateTimeField(editable=False)
+	create_time = models.DateTimeField(db_index=True, editable=False)
 	event_type = models.CharField(max_length=64, editable=False)
 	resource_type = models.CharField(max_length=64, editable=False)
 	resource = JSONField(editable=False)

@@ -6,8 +6,8 @@ from .base import PaypalObject
 
 
 class Dispute(PaypalObject):
-	create_time = models.DateTimeField(editable=False)
-	update_time = models.DateTimeField(null=True, blank=True, editable=False)
+	create_time = models.DateTimeField(db_index=True, editable=False)
+	update_time = models.DateTimeField(null=True, blank=True, db_index=True, editable=False)
 	disputed_transactions = JSONField(editable=False)
 	reason = models.CharField(
 		max_length=39, choices=enums.DisputeReason.choices, editable=False

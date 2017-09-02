@@ -14,8 +14,8 @@ class Payment(PaypalObject):
 	state = models.CharField(max_length=8, choices=enums.PaymentState.choices)
 	experience_profile_id = models.CharField(max_length=127, db_index=True)
 	note_to_payer = models.CharField(max_length=165)
-	create_time = models.DateTimeField(editable=False)
-	update_time = models.DateTimeField(editable=False)
+	create_time = models.DateTimeField(db_index=True, editable=False)
+	update_time = models.DateTimeField(db_index=True, editable=False)
 	redirect_urls = JSONField()
 	failure_reason = models.CharField(
 		max_length=30, choices=enums.PaymentFailureReason.choices
@@ -52,8 +52,8 @@ class Sale(PaypalObject):
 	billing_agreement = models.ForeignKey(
 		"BillingAgreement", on_delete=models.PROTECT, null=True, blank=True, editable=False
 	)
-	create_time = models.DateTimeField(editable=False)
-	update_time = models.DateTimeField(editable=False)
+	create_time = models.DateTimeField(db_index=True, editable=False)
+	update_time = models.DateTimeField(db_index=True, editable=False)
 
 	paypal_model = paypal_models.Sale
 

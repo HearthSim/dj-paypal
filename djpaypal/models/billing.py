@@ -17,8 +17,8 @@ class BillingPlan(PaypalObject):
 	description = models.CharField(max_length=127)
 	type = models.CharField(max_length=20, choices=enums.BillingPlanType.choices)
 	state = models.CharField(max_length=20, choices=enums.BillingPlanState.choices)
-	create_time = models.DateTimeField()
-	update_time = models.DateTimeField()
+	create_time = models.DateTimeField(db_index=True, editable=False)
+	update_time = models.DateTimeField(db_index=True, editable=False)
 	merchant_preferences = JSONField()
 
 	payment_definitions = models.ManyToManyField("PaymentDefinition")
@@ -108,8 +108,8 @@ class PreparedBillingAgreement(models.Model):
 	)
 	executed_at = models.DateTimeField(null=True, blank=True)
 	canceled_at = models.DateTimeField(null=True, blank=True)
-	created = models.DateTimeField(auto_now_add=True)
-	updated = models.DateTimeField(auto_now=True)
+	created = models.DateTimeField(auto_now_add=True, db_index=True)
+	updated = models.DateTimeField(auto_now=True, db_index=True)
 
 	@staticmethod
 	def _extract_token(data):
@@ -170,7 +170,7 @@ class BillingAgreement(PaypalObject):
 		max_length=128, editable=False, choices=enums.BillingAgreementState.choices
 	)
 	description = models.CharField(max_length=128)
-	start_date = models.DateTimeField()
+	start_date = models.DateTimeField(db_index=True)
 	agreement_details = JSONField()
 	payer = JSONField()
 	shipping_address = JSONField()
