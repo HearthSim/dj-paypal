@@ -41,6 +41,9 @@ class WebhookEvent(PaypalObject):
 		if self.resource_type == "plan":
 			from .billing import BillingPlan
 			return BillingPlan.get_or_update_from_api_data(self.resource)
+		if self.resource_type == "refund":  # payment.sale.refunded (wh simulator is wrong)
+			from .payments import Refund
+			return Refund.get_or_update_from_api_data(self.resource)
 		if self.resource_type == "dispute":
 			if self.event_type.lower().startswith("risk.dispute."):
 				# risk.dispute.* events are different dispute object.
