@@ -112,8 +112,8 @@ class SaleAdmin(BasePaypalObjectAdmin):
 		"protection_eligibility", "protection_eligibility_type",
 		"clearing_time", "transaction_fee", "receivable_amount",
 		"exchange_rate", "fmf_details", "receipt_id", "parent_payment",
-		"processor_response", "billing_agreement", "create_time",
-		"update_time",
+		"processor_response", "billing_agreement", "soft_descriptor",
+		"create_time", "update_time",
 	)
 	search_fields = ("receipt_id", )
 

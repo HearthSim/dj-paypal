@@ -54,6 +54,7 @@ class Sale(PaypalObject):
 	)
 	create_time = models.DateTimeField(db_index=True, editable=False)
 	update_time = models.DateTimeField(db_index=True, editable=False)
+	soft_descriptor = models.CharField(max_length=127, blank=True, editable=False)
 
 	paypal_model = paypal_models.Sale
 
