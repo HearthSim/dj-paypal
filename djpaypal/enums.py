@@ -135,6 +135,48 @@ class PaypalAction(Enum):
 	CANCEL = _("Cancel")
 
 
+class RefundFundingType(Enum):
+	PAYOUT = _("Payout")
+
+
+class RefundPendingReasonCode(Enum):
+	ECHECK = _("eCheck")
+
+
+class RefundReasonCode(Enum):
+	ADJUSTMENT_REVERSAL = _("Adjustment reversal")
+	ADMIN_FRAUD_REVERSAL = _("Admin fraud reversal")
+	ADMIN_REVERSAL = _("Admin reversal")
+	APPEAL = _("Appeal")
+	BUYER_COMPLAINT = _("Buyer complaint")
+	CHARGEBACK = _("Chargeback")
+	CHARGEBACK_SETTLEMENT = _("Chargeback settlement")
+	DENIED = _("Denied")
+	DISPUTE_PAYOUT = _("Dispute payout")
+	FUNDING = _("Funding")
+	GUARANTEE = _("Guarantee")
+	LIMITS = _("Limits")
+	NO_FAULT = _("No fault")
+	OTHER = _("Other")
+	REFUND = _("Refund")
+	REGULATORY_BLOCK = _("Regulatory block")
+	REGULATORY_REJECT = _("Regulatory reject")
+	REGULATORY_REVIEW_EXCEEDING_SLA = _("Regulatory review exceeding SLA")
+	RISK = _("Risk")
+	SELLER_FAULT = _("Seller fault")
+	SELLER_VOLUNTARY = _("Seller voluntary")
+	THIRDPARTY_LOGISTICS_FAULT = _("Third-party logistics fault")
+	UNAUTH_CLAIM = _("Unauth claim")
+	UNAUTH_SPOOF = _("Unauth spoof")
+
+
+class RefundState(Enum):
+	pending = _("Pending")
+	completed = _("Completed")
+	cancelled = _("Cancelled")
+	failed = _("Failed")
+
+
 class SalePaymentMode(Enum):
 	INSTANT_TRANSFER = _("Instant transfer")
 	MANUAL_BANK_TRANSFER = _("Manual bank transfer")

@@ -24,6 +24,55 @@ class Payment(PaypalObject):
 	paypal_model = paypal_models.Payment
 
 
+class Refund(PaypalObject):
+	amount = CurrencyAmountField(
+		help_text=(
+			"The refund amount. Includes both the amount refunded to the "
+			"payer and amount of the fee refunded to the payee."
+		)
+	)
+	state = models.CharField(
+		max_length=9, choices=enums.RefundState.choices, editable=False,
+		help_text="The state of the refund."
+	)
+	reason = models.TextField(
+		blank=True, help_text="The reason that the transaction is being refunded."
+	)
+	invoice_number = models.CharField(
+		max_length=127, blank=True, help_text="Your own invoice or tracking ID number."
+	)
+	sale = models.ForeignKey(
+		"Sale", on_delete=models.PROTECT, related_name="refunds", editable=False,
+		help_text="The sale transaction being refunded."
+	)
+	# TODO
+	# capture = models.ForeignKey("Capture", null=True, related_name="refunds")
+	parent_payment = models.ForeignKey(
+		"Payment", on_delete=models.PROTECT, null=True, related_name="refunds", editable=False,
+		help_text="The payment on which this transaction is based"
+	)
+	description = models.TextField(blank=True, help_text="The refund description.")
+	create_time = models.DateTimeField(db_index=True, editable=False)
+	update_time = models.DateTimeField(db_index=True, editable=False)
+	reason_code = models.CharField(
+		max_length=6, choices=enums.RefundPendingReasonCode.choices, editable=False,
+		help_text="The reason code for the pending refund state."
+	)
+	refund_reason_code = models.CharField(
+		max_length=31, choices=enums.RefundReasonCode.choices, editable=False,
+		help_text="The PayPal-assigned reason codes for the refund."
+	)
+	refund_funding_type = models.CharField(
+		max_length=6, choices=enums.RefundFundingType.choices, editable=False,
+		help_text=(
+			"Indicates whether the refund amount is funded by the payee's "
+			"funding account or another funding account."
+		)
+	)
+
+	paypal_model = paypal_models.Refund
+
+
 class Sale(PaypalObject):
 	amount = CurrencyAmountField(editable=False)
 	payment_mode = models.CharField(

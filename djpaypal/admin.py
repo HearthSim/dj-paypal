@@ -101,6 +101,20 @@ class PaymentDefinitionAdmin(BasePaypalObjectAdmin):
 	raw_id_fields = ("charge_models", )
 
 
+@admin.register(models.Refund)
+class RefundAdmin(BasePaypalObjectAdmin):
+	date_hierarchy = "create_time"
+	list_display = (
+		"state", "invoice_number", "refund_reason_code", "create_time",
+	)
+	list_filter = ("refund_reason_code", )
+	raw_id_fields = ("sale", "parent_payment")
+	readonly_fields = (
+		"state", "sale", "parent_payment", "refund_reason_code",
+		"refund_funding_type", "create_time", "update_time",
+	)
+
+
 @admin.register(models.Sale)
 class SaleAdmin(BasePaypalObjectAdmin):
 	date_hierarchy = "create_time"
