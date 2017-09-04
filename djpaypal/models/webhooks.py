@@ -81,30 +81,37 @@ class WebhookEvent(PaypalObject):
 		ret.create_or_update_resource()
 		return ret
 
-	def create_or_update_resource(self):
-		if self.resource_type == "sale":
-			from .payments import Sale
-			return Sale.get_or_update_from_api_data(self.resource)
-		if self.resource_type == "Agreement":
+	@property
+	def resource_model(self):
+		resource_type = self.resource_type.lower()
+		if resource_type == "agreement":
 			from .billing import BillingAgreement
-			return BillingAgreement.get_or_update_from_api_data(self.resource)
-		if self.resource_type == "plan":
-			from .billing import BillingPlan
-			return BillingPlan.get_or_update_from_api_data(self.resource)
-		if self.resource_type == "refund":  # payment.sale.refunded (wh simulator is wrong)
-			from .payments import Refund
-			return Refund.get_or_update_from_api_data(self.resource)
-		if self.resource_type == "dispute":
-			if self.event_type.lower().startswith("risk.dispute."):
-				# risk.dispute.* events are different dispute object.
-				# Also, who the **** knows what these objects actually are.
-				# TODO: Get/Create the actual dispute object.
-				# Depends on SDK implementation which is currently missing:
-				# https://github.com/paypal/PayPal-Python-SDK/issues/216
-				return
+			return BillingAgreement
+		elif resource_type == "dispute":
 			from .disputes import Dispute
-			return Dispute.get_or_update_from_api_data(self.resource)
-		raise NotImplementedError(self.resource_type)
+			return Dispute
+		elif resource_type == "plan":
+			from .billing import BillingPlan
+			return BillingPlan
+		elif resource_type == "refund":
+			from .payments import Refund
+			return Refund
+		if resource_type == "sale":
+			from .payments import Sale
+			return Sale
+		raise NotImplementedError("Unimplemented webhook resource: %r" % (self.resource_type))
+
+	def create_or_update_resource(self):
+		if self.event_type.lower().startswith("risk.dispute."):
+			# risk.dispute.* events are a different kind of dispute object.
+			# Also, who the **** knows what these objects actually are.
+			# TODO: Get/Create the actual dispute object.
+			# Depends on SDK implementation which is currently missing:
+			# https://github.com/paypal/PayPal-Python-SDK/issues/216
+			return
+
+		model = self.resource_model
+		return model.get_or_update_from_api_data(self.resource)
 
 
 class WebhookEventTrigger(models.Model):
