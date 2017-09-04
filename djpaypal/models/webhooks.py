@@ -113,6 +113,10 @@ class WebhookEvent(PaypalObject):
 		model = self.resource_model
 		return model.get_or_update_from_api_data(self.resource)
 
+	def get_resource(self):
+		cls = self.resource_model
+		return cls.objects.get(id=self.resource[cls.id_field_name])
+
 
 class WebhookEventTrigger(models.Model):
 	id = models.BigAutoField(primary_key=True)
