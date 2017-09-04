@@ -1,6 +1,7 @@
 import json
 from traceback import format_exc
 from django.db import models
+from django.dispatch import Signal
 from django.utils.functional import cached_property
 from paypalrestsdk import notifications as paypal_models
 
@@ -59,6 +60,10 @@ WEBHOOK_EVENT_TYPES = set([
 	"vault.credit-card.updated",
 ])
 
+WEBHOOK_SIGNALS = {
+	hook: Signal(providing_args=["event"]) for hook in WEBHOOK_EVENT_TYPES
+}
+
 
 class WebhookEvent(PaypalObject):
 	event_version = models.CharField(max_length=8, editable=False)
@@ -79,6 +84,8 @@ class WebhookEvent(PaypalObject):
 	def process(cls, data):
 		ret, created = cls.get_or_update_from_api_data(data)
 		ret.create_or_update_resource()
+		if created:
+			ret.send_signal()
 		return ret
 
 	@property
@@ -116,6 +123,11 @@ class WebhookEvent(PaypalObject):
 	def get_resource(self):
 		cls = self.resource_model
 		return cls.objects.get(id=self.resource[cls.id_field_name])
+
+	def send_signal(self):
+		signal = WEBHOOK_SIGNALS.get(self.event_type)
+		if signal:
+			return signal.send(sender=self.__class__, event=self)
 
 
 class WebhookEventTrigger(models.Model):
