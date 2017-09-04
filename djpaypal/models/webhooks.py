@@ -10,6 +10,56 @@ from ..utils import fix_django_headers, get_version
 from .base import PaypalObject
 
 
+WEBHOOK_EVENT_TYPES = set([
+	"billing.plan.created",
+	"billing.plan.updated",
+	"billing.subscription.cancelled",
+	"billing.subscription.created",
+	"billing.subscription.re-activated",
+	"billing.subscription.suspended",
+	"billing.subscription.updated",
+	"customer.dispute.created",
+	"customer.dispute.resolved",
+	"identity.authorization-consent.revoked",
+	"invoicing.invoice.cancelled",
+	"invoicing.invoice.created",
+	"invoicing.invoice.paid",
+	"invoicing.invoice.refunded",
+	"invoicing.invoice.updated",
+	"merchant.onboarding.completed",
+	"payment.authorization.created",
+	"payment.authorization.voided",
+	"payment.capture.completed",
+	"payment.capture.denied",
+	"payment.capture.pending",
+	"payment.capture.refunded",
+	"payment.capture.reversed",
+	"payment.order.cancelled",
+	"payment.order.created",
+	"payment.payoutsbatch.denied",
+	"payment.payoutsbatch.processing",
+	"payment.payoutsbatch.success",
+	"payment.payouts-item.blocked",
+	"payment.payouts-item.canceled",
+	"payment.payouts-item.denied",
+	"payment.payouts-item.failed",
+	"payment.payouts-item.held",
+	"payment.payouts-item.refunded",
+	"payment.payouts-item.returned",
+	"payment.payouts-item.succeeded",
+	"payment.payouts-item.unclaimed",
+	"payment.sale.completed",
+	"payment.sale.denied",
+	"payment.sale.pending",
+	"payment.sale.refunded",
+	"payment.sale.reversed",
+	"risk.dispute.created",
+	"vault.credit-card.created",
+	"vault.credit-card.deleted",
+	"vault.credit-card.updated",
+])
+
+
 class WebhookEvent(PaypalObject):
 	event_version = models.CharField(max_length=8, editable=False)
 	create_time = models.DateTimeField(db_index=True, editable=False)
