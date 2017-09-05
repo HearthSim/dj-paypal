@@ -1,12 +1,12 @@
 import json
 import pytest
 from djpaypal import models
-from djpaypal.models.webhooks import webhook_handler, WebhookEvent
+from djpaypal.models.webhooks import webhook_handler
 from unittest import mock
 from .conftest import get_fixture
 
 
-def signal_template(sender, event):
+def signal_template(sender, event, **kwargs):
 	pass
 
 
@@ -17,14 +17,14 @@ def make_fake_signal(*event_types):
 
 
 always_triggers = make_fake_signal("*")
-on_sub = make_fake_signal("billing.subscription.*")
-on_sub_created = make_fake_signal("billing.subscription.created")
+on_subscription = make_fake_signal("billing.subscription.*")
+on_subscription_created = make_fake_signal("billing.subscription.created")
 
 
 def get_webhook_from_fixture(event_type):
 	always_triggers.reset_mock()
-	on_sub.reset_mock()
-	on_sub_created.reset_mock()
+	on_subscription.reset_mock()
+	on_subscription_created.reset_mock()
 	data = get_fixture("webhooks/{event_type}.json".format(event_type=event_type))
 	webhook = models.WebhookEventTrigger(headers={}, body=json.dumps(data))
 	webhook.save()
@@ -35,9 +35,9 @@ def get_webhook_from_fixture(event_type):
 @pytest.mark.django_db
 def test_webhook_billing_plan_created():
 	data, resource, webhook = get_webhook_from_fixture("billing.plan.created")
-	always_triggers.assert_called_once_with(sender=WebhookEvent, event=webhook.webhook_event)
-	on_sub.assert_not_called()
-	on_sub_created.assert_not_called()
+	always_triggers.assert_called_once()
+	on_subscription.assert_not_called()
+	on_subscription_created.assert_not_called()
 	assert webhook.webhook_event.id == data["id"]
 	assert webhook.webhook_event.resource["id"] == resource["id"]
 	assert models.BillingPlan.objects.get(id=resource["id"])
@@ -46,9 +46,9 @@ def test_webhook_billing_plan_created():
 @pytest.mark.django_db
 def test_webhook_billing_subscription_created_then_cancelled():
 	data, resource, webhook = get_webhook_from_fixture("billing.subscription.created")
-	always_triggers.assert_called_once_with(sender=WebhookEvent, event=webhook.webhook_event)
-	on_sub.assert_called_once_with(sender=WebhookEvent, event=webhook.webhook_event)
-	on_sub_created.assert_called_once_with(sender=WebhookEvent, event=webhook.webhook_event)
+	always_triggers.assert_called_once()
+	on_subscription.assert_called_once()
+	on_subscription_created.assert_called_once()
 	assert webhook.webhook_event.id == data["id"]
 	assert webhook.webhook_event.resource["id"] == resource["id"]
 	assert models.BillingAgreement.objects.get(id=resource["id"])

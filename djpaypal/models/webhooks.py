@@ -86,7 +86,7 @@ class WebhookEvent(PaypalObject):
 		ret, created = cls.get_or_update_from_api_data(data)
 		ret.create_or_update_resource()
 		if created:
-			ret.send_signals()
+			ret.send_signal()
 		return ret
 
 	@property
@@ -125,13 +125,11 @@ class WebhookEvent(PaypalObject):
 		cls = self.resource_model
 		return cls.objects.get(id=self.resource[cls.id_field_name])
 
-	def send_signals(self):
+	def send_signal(self):
 		event_type = self.event_type.lower()
 		signal = WEBHOOK_SIGNALS.get(event_type)
 		if signal:
 			signal.send(sender=self.__class__, event=self)
-		for handler in _registrations.get(event_type, []):
-			handler(sender=self.__class__, event=self)
 
 
 class WebhookEventTrigger(models.Model):
@@ -235,9 +233,6 @@ class WebhookEventTrigger(models.Model):
 		return obj
 
 
-_registrations = {}
-
-
 def webhook_handler(*event_types):
 	"""
 	Decorator that registers a function as a webhook handler.
@@ -281,9 +276,7 @@ def webhook_handler(*event_types):
 	# Now register them
 	def decorator(func):
 		for event_type in event_types_to_register:
-			if event_type not in _registrations:
-				_registrations[event_type] = []
-			_registrations[event_type].append(func)
+			WEBHOOK_SIGNALS[event_type].connect(func)
 		return func
 
 	return decorator
