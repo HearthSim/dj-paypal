@@ -12,7 +12,7 @@ from ..utils import fix_django_headers, get_version
 from .base import PaypalObject
 
 
-WEBHOOK_EVENT_TYPES = set([
+WEBHOOK_EVENT_TYPES = {
 	"billing.plan.created",
 	"billing.plan.updated",
 	"billing.subscription.cancelled",
@@ -59,7 +59,7 @@ WEBHOOK_EVENT_TYPES = set([
 	"vault.credit-card.created",
 	"vault.credit-card.deleted",
 	"vault.credit-card.updated",
-])
+}
 
 WEBHOOK_SIGNALS = {
 	hook: Signal(providing_args=["event"]) for hook in WEBHOOK_EVENT_TYPES
