@@ -86,7 +86,7 @@ class WebhookEvent(PaypalObject):
 		ret, created = cls.get_or_update_from_api_data(data)
 		ret.create_or_update_resource()
 		if created:
-			ret.send_signal()
+			ret.send_signals()
 		return ret
 
 	@property
@@ -125,10 +125,13 @@ class WebhookEvent(PaypalObject):
 		cls = self.resource_model
 		return cls.objects.get(id=self.resource[cls.id_field_name])
 
-	def send_signal(self):
-		signal = WEBHOOK_SIGNALS.get(self.event_type.lower())
+	def send_signals(self):
+		event_type = self.event_type.lower()
+		signal = WEBHOOK_SIGNALS.get(event_type)
 		if signal:
-			return signal.send(sender=self.__class__, event=self)
+			signal.send(sender=self.__class__, event=self)
+		for handler in _registrations.get(event_type, []):
+			handler(sender=self.__class__, event=self)
 
 
 class WebhookEventTrigger(models.Model):
