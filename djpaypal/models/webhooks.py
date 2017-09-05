@@ -126,7 +126,7 @@ class WebhookEvent(PaypalObject):
 		return cls.objects.get(id=self.resource[cls.id_field_name])
 
 	def send_signal(self):
-		signal = WEBHOOK_SIGNALS.get(self.event_type)
+		signal = WEBHOOK_SIGNALS.get(self.event_type.lower())
 		if signal:
 			return signal.send(sender=self.__class__, event=self)
 
@@ -263,6 +263,8 @@ def webhook_handler(*event_types):
 	# First expand all wildcards and verify the event types are valid
 	event_types_to_register = set()
 	for event_type in event_types:
+		# Always convert to lowercase
+		event_type = event_type.lower()
 		if "*" in event_type:
 			# expand it
 			for t in WEBHOOK_EVENT_TYPES:
