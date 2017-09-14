@@ -8,7 +8,7 @@ from paypalrestsdk import payments as paypal_models
 from .. import enums
 from ..exceptions import PaypalApiError
 from ..fields import CurrencyAmountField, JSONField
-from ..settings import PAYPAL_LIVE_MODE
+from ..settings import AGREEMENT_START_DATE_DELTA, PAYPAL_LIVE_MODE
 from .base import PaypalObject
 
 
@@ -75,7 +75,7 @@ class BillingPlan(PaypalObject):
 	def create_agreement(self, user, start_date=now, payment_method="paypal"):
 		if callable(start_date):
 			from datetime import timedelta
-			start_date = start_date() + timedelta(seconds=60)
+			start_date = start_date() + timedelta(seconds=AGREEMENT_START_DATE_DELTA)
 
 		billing_agreement = paypal_models.BillingAgreement({
 			"name": self.name,
