@@ -1,6 +1,7 @@
 from django.core.management import BaseCommand
-from djpaypal import models
 from paypalrestsdk import payments as paypal_models
+
+from djpaypal import models
 
 
 class Command(BaseCommand):

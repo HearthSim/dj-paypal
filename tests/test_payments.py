@@ -1,6 +1,7 @@
 import pytest
-from djpaypal import models
 from paypalrestsdk import payments as paypal_models
+
+from djpaypal import models
 
 
 @pytest.mark.django_db

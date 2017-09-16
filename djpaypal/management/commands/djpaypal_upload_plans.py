@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.core.management import BaseCommand
+
 from djpaypal import models
 
 

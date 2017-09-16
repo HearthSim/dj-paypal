@@ -1,8 +1,11 @@
 import json
+from unittest import mock
+
 import pytest
+
 from djpaypal import models
 from djpaypal.models.webhooks import webhook_handler
-from unittest import mock
+
 from .conftest import get_fixture
 
 
