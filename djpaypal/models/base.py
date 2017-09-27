@@ -29,6 +29,7 @@ class PaypalObject(models.Model):
 	objects = PaypalObjectManager()
 
 	id_field_name = "id"
+	dashboard_url_template = ""
 
 	@staticmethod
 	def sdk_object_as_dict(obj):
@@ -77,6 +78,14 @@ class PaypalObject(models.Model):
 		if hasattr(self, "name") and self.name:
 			return self.name
 		return "<{}: {}>".format(self.__class__.__name__, self.id)
+
+	@property
+	def dashboard_url(self):
+		return self.dashboard_url_template.format(
+			paypal="https://www.paypal.com",
+			webscr="https://www.paypal.com/cgi-bin/webscr",
+			id=getattr(self, self.id_field_name)
+		)
 
 	def _sync_data_field(self, k, v):
 		if k == "links":

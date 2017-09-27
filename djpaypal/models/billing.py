@@ -187,6 +187,9 @@ class BillingAgreement(PaypalObject):
 	)
 
 	paypal_model = paypal_models.BillingAgreement
+	dashboard_url_template = (
+		"{webscr}?cmd=_profile-recurring-payments&encrypted_profile_id={id}"
+	)
 
 	@classmethod
 	def execute(cls, token):

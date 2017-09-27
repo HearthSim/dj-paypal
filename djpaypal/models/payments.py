@@ -106,6 +106,7 @@ class Sale(PaypalObject):
 	soft_descriptor = models.CharField(max_length=127, blank=True, editable=False)
 
 	paypal_model = paypal_models.Sale
+	dashboard_url_template = "{paypal}/activity/payment/63819926JU0458337"
 
 	@classmethod
 	def clean_api_data(cls, data):

@@ -22,3 +22,4 @@ class Dispute(PaypalObject):
 	)
 
 	id_field_name = "dispute_id"
+	dashboard_url_template = "{paypal}/resolutioncenter/achcb/case/{id}"
