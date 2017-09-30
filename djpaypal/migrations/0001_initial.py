@@ -34,10 +34,10 @@ class Migration(migrations.Migration):
                 ('agreement_details', django.contrib.postgres.fields.jsonb.JSONField()),
                 ('payer', django.contrib.postgres.fields.jsonb.JSONField()),
                 ('shipping_address', django.contrib.postgres.fields.jsonb.JSONField()),
-                ('override_merchant_preferences', django.contrib.postgres.fields.jsonb.JSONField(default={})),
-                ('override_charge_mode', django.contrib.postgres.fields.jsonb.JSONField(default={})),
+                ('override_merchant_preferences', django.contrib.postgres.fields.jsonb.JSONField(default={}, blank=True)),
+                ('override_charge_mode', django.contrib.postgres.fields.jsonb.JSONField(default={}, blank=True)),
                 ('plan', django.contrib.postgres.fields.jsonb.JSONField()),
-                ('merchant', django.contrib.postgres.fields.jsonb.JSONField(null=True)),
+                ('merchant', django.contrib.postgres.fields.jsonb.JSONField(null=True, blank=True)),
             ],
             options={
                 'abstract': False,
