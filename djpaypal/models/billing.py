@@ -134,6 +134,9 @@ class PreparedBillingAgreement(models.Model):
 			id=cls._extract_token(data), livemode=PAYPAL_LIVE_MODE, user=user, data=data
 		)
 
+	def __str__(self):
+		return "<{}: {}>".format(self.__class__.__name__, self.id)
+
 	@property
 	def approval_url(self):
 		for link in self.data.get("links", []):
