@@ -81,9 +81,13 @@ class PaypalObject(models.Model):
 
 	@property
 	def dashboard_url(self):
+		if self.livemode:
+			paypal_url = "https://www.paypal.com"
+		else:
+			paypal_url = "https://www.sandbox.paypal.com"
+
 		return self.dashboard_url_template.format(
-			paypal="https://www.paypal.com",
-			webscr="https://www.paypal.com/cgi-bin/webscr",
+			paypal=paypal_url, webscr=paypal_url + "/cgi-bin/webscr",
 			id=getattr(self, self.id_field_name)
 		)
 
