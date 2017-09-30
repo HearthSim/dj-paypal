@@ -262,6 +262,25 @@ class PaymentDefinition(PaypalObject):
 
 		return template.format(amount=amount, interval=interval, interval_count=interval_count)
 
+	@property
+	def frequency_delta(self):
+		"""
+		Helper property that returns a dateutil.relativedelta.relativedelta
+		object which represents a full billing period.
+
+		https://dateutil.readthedocs.io/en/stable/relativedelta.html
+		"""
+		from dateutil.relativedelta import relativedelta
+
+		frequency = {
+			enums.PaymentDefinitionFrequency.DAY: "days",
+			enums.PaymentDefinitionFrequency.WEEK: "weeks",
+			enums.PaymentDefinitionFrequency.MONTH: "months",
+			enums.PaymentDefinitionFrequency.YEAR: "years",
+		}[self.frequency]
+
+		return relativedelta(**{frequency: self.frequency_interval})
+
 
 class ChargeModel(PaypalObject):
 	type = models.CharField(max_length=20, choices=enums.ChargeModelType.choices)
