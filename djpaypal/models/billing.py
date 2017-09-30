@@ -72,7 +72,10 @@ class BillingPlan(PaypalObject):
 		self.get_or_update_from_api_data(obj, always_sync=True)
 		return obj
 
-	def create_agreement(self, user, start_date, payment_method="paypal"):
+	def create_agreement(
+		self, user, start_date,
+		payment_method="paypal", override_merchant_preferences=None
+	):
 		billing_agreement = paypal_models.BillingAgreement({
 			"name": self.name,
 			"description": self.description,
@@ -80,6 +83,10 @@ class BillingPlan(PaypalObject):
 			"payer": {"payment_method": payment_method},
 			"start_date": start_date.replace(microsecond=0).isoformat(),
 		})
+
+		if override_merchant_preferences:
+			billing_agreement["override_merchant_preferences"] = override_merchant_preferences.copy()
+
 		if not billing_agreement.create():
 			raise PaypalApiError("Error creating Billing Agreement: %r" % (billing_agreement.error))
 
