@@ -6,6 +6,7 @@ from .settings import PAYPAL_WEBHOOK_ID
 
 class BasePaypalObjectAdmin(admin.ModelAdmin):
 	_common_fields = ("id", "djpaypal_created", "djpaypal_updated", "livemode")
+	change_form_template = "djpaypal/admin/change_form.html"
 
 	def get_fieldsets(self, request, obj=None):
 		# Have to remove the fields from the common set, otherwise they'll show up twice.
