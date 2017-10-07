@@ -6,7 +6,7 @@ from django.utils.timezone import now
 from paypalrestsdk import payments as paypal_models
 
 from .. import enums
-from ..exceptions import PaypalApiError
+from ..exceptions import AgreementAlreadyExecuted, PaypalApiError
 from ..fields import CurrencyAmountField, JSONField
 from ..settings import PAYPAL_LIVE_MODE
 from .base import PaypalObject
@@ -146,7 +146,7 @@ class PreparedBillingAgreement(models.Model):
 
 	def cancel(self):
 		if self.executed_at:
-			raise ValueError("Agreement has already been executed")
+			raise AgreementAlreadyExecuted("Agreement has already been executed")
 		self.canceled_at = now()
 		self.save()
 
