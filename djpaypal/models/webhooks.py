@@ -180,7 +180,7 @@ class WebhookEventTrigger(models.Model):
 				# Process the item (do not save it, it'll get saved below)
 				obj.process(save=False)
 		except Exception as e:
-			obj.exception = str(e)
+			obj.exception = str(e)[:128]
 			obj.traceback = format_exc()
 		finally:
 			obj.save()
