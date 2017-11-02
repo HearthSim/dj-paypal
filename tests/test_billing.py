@@ -45,6 +45,8 @@ def test_sync_executed_billing_agreement():
 	inst, created = models.BillingAgreement.get_or_update_from_api_data(ba, always_sync=True)
 	assert created
 	assert inst.id == ba["id"]
+	assert inst.last_payment_date == parse_date("2017-08-24T11:47:17Z")
+	assert inst.calculate_end_of_period() == parse_date("2017-09-24T11:47:17Z")
 
 
 def test_token_extract_billing_agreement():

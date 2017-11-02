@@ -1,5 +1,6 @@
 import re
 
+from dateutil.parser import parse
 from django.conf import settings
 from django.db import models, transaction
 from django.utils.timezone import now
@@ -10,6 +11,19 @@ from ..exceptions import AgreementAlreadyExecuted, PaypalApiError
 from ..fields import CurrencyAmountField, JSONField
 from ..settings import PAYPAL_LIVE_MODE
 from .base import PaypalObject
+
+
+def get_frequency_delta(frequency, frequency_interval):
+	from dateutil.relativedelta import relativedelta
+
+	frequency_kw = {
+		enums.PaymentDefinitionFrequency.DAY: "days",
+		enums.PaymentDefinitionFrequency.WEEK: "weeks",
+		enums.PaymentDefinitionFrequency.MONTH: "months",
+		enums.PaymentDefinitionFrequency.YEAR: "years",
+	}[frequency.upper()]
+
+	return relativedelta(**{frequency_kw: frequency_interval})
 
 
 class BillingPlan(PaypalObject):
@@ -191,6 +205,7 @@ class BillingAgreement(PaypalObject):
 	user = models.ForeignKey(
 		settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True
 	)
+	end_of_period = models.DateTimeField(db_index=True)
 
 	paypal_model = paypal_models.BillingAgreement
 	dashboard_url_template = (
@@ -224,7 +239,33 @@ class BillingAgreement(PaypalObject):
 			self.payer_model, created = Payer.objects.update_or_create(
 				id=payer_id, defaults=payer_info
 			)
+
+		self.end_of_period = self.calculate_end_of_period()
 		return super().save(**kwargs)
+
+	@property
+	def last_payment_date(self):
+
+		date = self.agreement_details.get("last_payment_date", "")
+		if date:
+			return parse(date)
+
+	def calculate_end_of_period(self):
+		# The next payment date is not reliably set.
+		# When a subscription is cancelled, we do not have access to it anymore...
+		# So instead, keep the end_of_period attribute up to date.
+		last_payment_date = self.last_payment_date
+		if not last_payment_date:
+			return parse("1970-01-01T00:00:00Z")
+
+		rpd = next(filter(
+			lambda pd: pd["type"] == enums.PaymentDefinitionType.REGULAR,
+			self.plan["payment_definitions"]
+		))
+
+		delta = get_frequency_delta(rpd["frequency"], int(rpd["frequency_interval"]))
+
+		return last_payment_date + delta
 
 
 class PaymentDefinition(PaypalObject):
@@ -280,16 +321,8 @@ class PaymentDefinition(PaypalObject):
 
 		https://dateutil.readthedocs.io/en/stable/relativedelta.html
 		"""
-		from dateutil.relativedelta import relativedelta
 
-		frequency = {
-			enums.PaymentDefinitionFrequency.DAY: "days",
-			enums.PaymentDefinitionFrequency.WEEK: "weeks",
-			enums.PaymentDefinitionFrequency.MONTH: "months",
-			enums.PaymentDefinitionFrequency.YEAR: "years",
-		}[self.frequency]
-
-		return relativedelta(**{frequency: self.frequency_interval})
+		return get_frequency_delta(self.frequency, self.frequency_interval)
 
 
 class ChargeModel(PaypalObject):
