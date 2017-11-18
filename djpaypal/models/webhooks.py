@@ -167,20 +167,24 @@ class WebhookEventTrigger(models.Model):
 		2. Verify the WebhookEventTrigger as a Paypal webhook using the SDK.
 		3. If valid, process it into a WebhookEvent object (and child resource).
 		"""
+
 		headers = fix_django_headers(request.META)
 		assert headers
 		try:
 			body = request.body.decode(request.encoding or "utf-8")
 		except Exception:
 			body = "(error decoding body)"
+
 		obj = cls.objects.create(headers=headers, body=body)
+
 		try:
 			obj.valid = obj.verify(PAYPAL_WEBHOOK_ID)
 			if obj.valid:
 				# Process the item (do not save it, it'll get saved below)
 				obj.process(save=False)
 		except Exception as e:
-			obj.exception = str(e)[:128]
+			max_length = WebhookEventTrigger._meta.get_field("exception").max_length
+			obj.exception = str(e)[:max_length]
 			obj.traceback = format_exc()
 		finally:
 			obj.save()
@@ -226,12 +230,12 @@ class WebhookEventTrigger(models.Model):
 		)
 
 	def process(self, save=True):
-		obj = WebhookEvent.process(self.data)
-		self.webhook_event = obj
+		self.webhook_event = WebhookEvent.process(self.data)
 		self.processed = True
 		if save:
 			self.save()
-		return obj
+
+		return self.webhook_event
 
 
 def webhook_handler(*event_types):
