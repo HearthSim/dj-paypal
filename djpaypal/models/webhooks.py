@@ -135,6 +135,9 @@ class WebhookEvent(PaypalObject):
 
 class WebhookEventTrigger(models.Model):
 	id = models.BigAutoField(primary_key=True)
+	remote_ip = models.GenericIPAddressField(
+		help_text="IP address of the request client."
+	)
 	headers = JSONField()
 	body = models.TextField(blank=True)
 	valid = models.BooleanField(default=False)
@@ -175,7 +178,8 @@ class WebhookEventTrigger(models.Model):
 		except Exception:
 			body = "(error decoding body)"
 
-		obj = cls.objects.create(headers=headers, body=body)
+		ip = request.META["REMOTE_ADDR"]
+		obj = cls.objects.create(headers=headers, body=body, remote_ip=ip)
 
 		try:
 			obj.valid = obj.verify(PAYPAL_WEBHOOK_ID)

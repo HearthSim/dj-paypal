@@ -29,7 +29,9 @@ def get_webhook_from_fixture(event_type):
 	on_subscription.reset_mock()
 	on_subscription_created.reset_mock()
 	data = get_fixture("webhooks/{event_type}.json".format(event_type=event_type))
-	webhook = models.WebhookEventTrigger(headers={}, body=json.dumps(data))
+	webhook = models.WebhookEventTrigger(
+		headers={}, body=json.dumps(data), remote_ip="0.0.0.0"
+	)
 	webhook.save()
 	webhook.process()
 	return data, data["resource"], webhook
@@ -90,11 +92,9 @@ def test_webhook_payment_sale_completed():
 
 @pytest.mark.django_db
 def test_webhook_payment_sale_completed_from_subscription():
-	data = get_fixture("webhooks/payment.sale.completed--from-subscription.json")
-	resource = data["resource"]
-	webhook = models.WebhookEventTrigger(headers={}, body=json.dumps(data))
-	webhook.save()
-	webhook.process()
+	data, resource, webhook = get_webhook_from_fixture(
+		"payment.sale.completed--from-subscription"
+	)
 	assert webhook.webhook_event.id == data["id"]
 	assert webhook.webhook_event.resource["id"] == resource["id"]
 	assert models.Sale.objects.get(id=resource["id"])
