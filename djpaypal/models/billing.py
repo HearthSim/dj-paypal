@@ -245,7 +245,6 @@ class BillingAgreement(PaypalObject):
 
 	@property
 	def last_payment_date(self):
-
 		date = self.agreement_details.get("last_payment_date", "")
 		if date:
 			return parse(date)
