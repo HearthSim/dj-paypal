@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
 		migrations.AddField(
 			model_name="payer",
 			name="time_created",
-			field=models.DateTimeField(blank=True, null=True),
+			field=models.DateTimeField(blank=True, null=True, editable=False),
 		),
 	]

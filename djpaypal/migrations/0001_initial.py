@@ -229,12 +229,12 @@ class Migration(migrations.Migration):
 			name="Payer",
 			fields=[
 				("id", models.CharField(max_length=13, primary_key=True, serialize=False)),
-				("first_name", models.CharField(db_index=True, max_length=64)),
-				("last_name", models.CharField(db_index=True, max_length=64)),
-				("email", models.CharField(db_index=True, max_length=127)),
+				("first_name", models.CharField(db_index=True, max_length=64, editable=False)),
+				("last_name", models.CharField(db_index=True, max_length=64, editable=False)),
+				("email", models.CharField(db_index=True, max_length=127, editable=False)),
 				(
 					"shipping_address",
-					django.contrib.postgres.fields.jsonb.JSONField(blank=True, null=True)
+					django.contrib.postgres.fields.jsonb.JSONField(blank=True, null=True, editable=False)
 				),
 				("livemode", models.BooleanField()),
 				("djpaypal_created", models.DateTimeField(auto_now_add=True)),
