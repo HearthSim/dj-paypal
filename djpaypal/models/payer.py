@@ -15,6 +15,7 @@ class Payer(models.Model):
 		help_text="The most recent Django user that transacted as this Payer (best-effort)."
 	)
 	shipping_address = JSONField(null=True, blank=True)
+	time_created = models.DateTimeField(null=True, blank=True)
 	livemode = models.BooleanField()
 	djpaypal_created = models.DateTimeField(auto_now_add=True)
 	djpaypal_updated = models.DateTimeField(auto_now=True)
