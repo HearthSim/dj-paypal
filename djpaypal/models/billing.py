@@ -217,7 +217,7 @@ class BillingAgreement(PaypalObject):
 		if not token:
 			raise ValueError("Invalid token argument")
 
-		ba = paypal_models.BillingAgreement.execute(token)
+		ba = cls.paypal_model.execute(token)
 		if ba.error:
 			raise PaypalApiError(str(ba.error))  # , ba.error)
 
