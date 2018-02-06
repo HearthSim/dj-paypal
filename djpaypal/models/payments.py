@@ -117,10 +117,8 @@ class Sale(PaypalObject):
 		if "billing_agreement_id" in cleaned_data:
 			ba_id = cleaned_data["billing_agreement_id"]
 			# Ensure that the billing agreement exists in the db
-			try:
-				BillingAgreement.objects.get(id=ba_id)
-			except BillingAgreement.DoesNotExist:
-				BillingAgreement.find_and_sync(ba_id)
+			# If it exists, it will be updated with new data
+			BillingAgreement.find_and_sync(ba_id)
 
 		# Ensure the parent payment exists in the db
 		if "parent_payment" in cleaned_data:
