@@ -77,7 +77,7 @@ class PaypalObject(models.Model):
 	def __str__(self):
 		if hasattr(self, "name") and self.name:
 			return self.name
-		return "<{}: {}>".format(self.__class__.__name__, self.id)
+		return self.id
 
 	@property
 	def dashboard_url(self):
