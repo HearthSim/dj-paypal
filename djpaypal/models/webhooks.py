@@ -236,6 +236,7 @@ class WebhookEventTrigger(models.Model):
 	def process(self, save=True):
 		self.webhook_event = WebhookEvent.process(self.data)
 		self.processed = True
+		self.traceback = ""
 		if save:
 			self.save()
 
