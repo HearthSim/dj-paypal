@@ -11,7 +11,7 @@ Currently only supports subscriptions.
 ## Requirements
 
 - Python 3.6+
-- Django 1.11+
+- Django 2.0+
 - Postgres 9.6+ (Non-postgres engines not supported)
 
 

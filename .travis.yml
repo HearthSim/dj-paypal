@@ -1,5 +1,4 @@
 # https://travis-ci.org/dj-stripe/dj-stripe/
-dist: trusty
 sudo: false
 language: python
 
@@ -9,15 +8,10 @@ addons:
   postgresql: "9.6"
 
 env:
-  - TOXENV=py36-django111
+  - TOXENV=py36-django20
   - TOXENV=py36-djangomaster
   - TOXENV=checkmigrations
   - TOXENV=flake8
-
-matrix:
-  fast_finish: true
-  allow_failures:
-    - env: TOXENV=py36-djangomaster
 
 install:
   - pip install --upgrade pip setuptools wheel
