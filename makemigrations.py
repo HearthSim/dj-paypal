@@ -25,10 +25,8 @@ DEFAULT_SETTINGS = dict(
 		"django.contrib.sites",
 		APP_NAME,
 	],
-	ROOT_URLCONF="djstripe.urls",
 	SITE_ID=1,
 	TIME_ZONE="UTC",
-	USE_TZ=True,
 )
 
 
@@ -68,7 +66,7 @@ def check_migrations():
 
 def run(*args):
 	"""
-	Check and/or create dj-stripe Django migrations.
+	Check and/or create Django migrations.
 
 	If --check is present in the arguments then migrations are checked only.
 	"""
