@@ -80,6 +80,11 @@ class ChargeModelType(Enum):
 	SHIPPING = _("Shipping")
 
 
+class DisputeLifecycleStage(Enum):
+	INQUIRY = _("Inquiry")
+	CHARGEBACK = _("Chargeback")
+
+
 class DisputeFlow(Enum):
 	ACH_RETURNS = _("ACH returns")
 	ACCOUNT_ISSUES = _("Account issues")
