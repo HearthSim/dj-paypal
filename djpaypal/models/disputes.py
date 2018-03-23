@@ -6,6 +6,9 @@ from .base import PaypalObject
 
 
 class Dispute(PaypalObject):
+	dispute_id = models.CharField(
+		max_length=128, primary_key=True, editable=False, serialize=True
+	)
 	create_time = models.DateTimeField(db_index=True, editable=False)
 	update_time = models.DateTimeField(null=True, blank=True, db_index=True, editable=False)
 	disputed_transactions = JSONField(editable=False)
@@ -25,3 +28,7 @@ class Dispute(PaypalObject):
 
 	id_field_name = "dispute_id"
 	dashboard_url_template = "{paypal}/resolutioncenter/achcb/case/{id}"
+
+	@property
+	def id(self):
+		return self.dispute_id

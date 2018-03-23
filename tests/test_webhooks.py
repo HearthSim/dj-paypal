@@ -72,7 +72,7 @@ def test_webhook_customer_dispute_created():
 	webhook_resource = webhook.webhook_event.resource
 	assert webhook.webhook_event.id == data["id"]
 	assert webhook_resource["dispute_id"] == resource["dispute_id"]
-	assert models.Dispute.objects.get(id=resource["dispute_id"])
+	assert models.Dispute.objects.get(dispute_id=resource["dispute_id"])
 
 	# https://github.com/paypal/PayPal-REST-API-issues/issues/214
 	data, resource, webhook = get_webhook_from_fixture("customer.dispute.created--ppra214")
@@ -81,7 +81,7 @@ def test_webhook_customer_dispute_created():
 	assert webhook_resource["dispute_id"] == resource["dispute_id"]
 	assert webhook_resource["dispute_channel"] == resource["dispute_channel"]
 	assert webhook_resource["dispute_life_cycle_stage"] == resource["dispute_life_cycle_stage"]
-	assert models.Dispute.objects.get(id=resource["dispute_id"])
+	assert models.Dispute.objects.get(dispute_id=resource["dispute_id"])
 
 
 @pytest.mark.django_db
