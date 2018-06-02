@@ -17,6 +17,6 @@ class Migration(migrations.Migration):
 		migrations.AddField(
 			model_name="dispute",
 			name="dispute_life_cycle_stage",
-			field=models.CharField(blank=True, editable=False, max_length=10),
+			field=models.CharField(blank=True, editable=False, max_length=15),
 		),
 	]

@@ -83,6 +83,7 @@ class ChargeModelType(Enum):
 class DisputeLifecycleStage(Enum):
 	INQUIRY = _("Inquiry")
 	CHARGEBACK = _("Chargeback")
+	PRE_ARBITRATION = _("Pre-arbitration")
 
 
 class DisputeFlow(Enum):
