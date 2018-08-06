@@ -80,10 +80,16 @@ class ChargeModelType(Enum):
 	SHIPPING = _("Shipping")
 
 
+class DisputeChannel(Enum):
+	INTERNAL = _("Internal")
+	EXTERNAL = _("External")
+
+
 class DisputeLifecycleStage(Enum):
 	INQUIRY = _("Inquiry")
 	CHARGEBACK = _("Chargeback")
 	PRE_ARBITRATION = _("Pre-arbitration")
+	ARBITRATION = _("Arbitration")
 
 
 class DisputeFlow(Enum):
