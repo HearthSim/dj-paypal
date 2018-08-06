@@ -23,6 +23,11 @@ class Payment(PaypalObject):
 
 	paypal_model = paypal_models.Payment
 
+	@property
+	def refund_url(self):
+		base_url = "https://www.paypal.com/activity/actions/refund/issuerefund/"
+		return base_url + self.id
+
 
 class Refund(PaypalObject):
 	amount = CurrencyAmountField(
