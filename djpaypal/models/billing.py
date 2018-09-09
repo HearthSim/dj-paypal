@@ -194,8 +194,8 @@ class BillingAgreement(PaypalObject):
 	agreement_details = JSONField()
 	payer = JSONField()
 	shipping_address = JSONField()
-	override_merchant_preferences = JSONField(default={}, blank=True)
-	override_charge_mode = JSONField(default={}, blank=True)
+	override_merchant_preferences = JSONField(default=dict, blank=True)
+	override_charge_mode = JSONField(default=dict, blank=True)
 	plan = JSONField()
 	merchant = JSONField(null=True, blank=True)
 
