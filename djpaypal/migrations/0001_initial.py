@@ -159,6 +159,7 @@ class Migration(migrations.Migration):
 							("MERCHANDISE_OR_SERVICE_NOT_RECEIVED", "Merchandise or service not received"),
 							("OTHER", "Other"),
 							("PAYMENT_BY_OTHER_MEANS", "Payment by other means"),
+							("PROBLEM_WITH_REMITTANCE", "Problem occurred with the remittance"),
 							("UNAUTHORISED", "Unauthorized"),
 						],
 						editable=False,

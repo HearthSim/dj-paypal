@@ -128,6 +128,7 @@ class DisputeReason(Enum):
 	INCORRECT_AMOUNT = _("Incorrect amount")
 	PAYMENT_BY_OTHER_MEANS = _("Payment by other means")
 	CANCELED_RECURRING_BILLING = _("Canceled recurring billing")
+	PROBLEM_WITH_REMITTANCE = _("Problem occurred with the remittance")
 	OTHER = _("Other")
 
 
