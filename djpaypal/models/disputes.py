@@ -25,6 +25,7 @@ class Dispute(PaypalObject):
 	dispute_flow = models.CharField(
 		max_length=25, choices=enums.DisputeFlow.choices, editable=False
 	)
+	offer = JSONField(null=True, blank=True, editable=False)
 
 	id_field_name = "dispute_id"
 	dashboard_url_template = "{paypal}/resolutioncenter/achcb/case/{id}"
