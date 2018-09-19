@@ -1,4 +1,4 @@
-# https://travis-ci.org/dj-stripe/dj-stripe/
+# https://travis-ci.org/HearthSim/dj-paypal
 sudo: false
 language: python
 
@@ -13,6 +13,9 @@ env:
   - TOXENV=checkmigrations
   - TOXENV=flake8
 
+matrix:
+  fast_finish: true
+
 install:
   - pip install --upgrade pip setuptools wheel
   - pip install tox
@@ -23,7 +26,23 @@ before_script:
 script:
   - tox
 
-notifications:
-  email:
-    on_failure: always
-    on_success: change
+stages:
+  - name: test
+  - name: deploy
+    if: tag IS present
+
+jobs:
+  include:
+    - stage: deploy
+      install:
+        - pip install --upgrade pip setuptools wheel
+
+      script: echo Releasing $TRAVIS_TAG
+
+      deploy:
+        provider: pypi
+        user: $PYPI_USERNAME
+        password: $PYPI_PASSWORD
+        distributions: "sdist bdist_wheel"
+        on:
+          tags: true
