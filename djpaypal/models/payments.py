@@ -74,6 +74,24 @@ class Refund(PaypalObject):
 			"funding account or another funding account."
 		)
 	)
+	refund_from_transaction_fee = CurrencyAmountField(
+		null=True, editable=False, help_text=(
+			"The currency and amount of the transaction fee that is "
+			"refunded to original the recipient of payment."
+		)
+	)
+	refund_from_received_amount = CurrencyAmountField(
+		null=True, editable=False, help_text=(
+			"The currency and amount of the refund that is subtracted from "
+			"the original payment recipient's PayPal balance."
+		)
+	)
+	total_refunded_amount = CurrencyAmountField(
+		null=True, editable=False, help_text=(
+			"The currency and amount of the total refund from the original "
+			"purchase."
+		)
+	)
 
 	paypal_model = paypal_models.Refund
 
