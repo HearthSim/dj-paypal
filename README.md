@@ -1,6 +1,7 @@
 # dj-paypal
 
 [![Build Status](https://api.travis-ci.org/HearthSim/dj-paypal.svg?branch=master)](https://travis-ci.org/HearthSim/dj-paypal)
+[![PyPI](https://img.shields.io/pypi/v/dj-paypal.svg)](https://pypi.org/project/dj-paypal/)
 
 
 A Paypal integration for Django, inspired by [dj-stripe](https://github.com/dj-stripe/dj-stripe).
