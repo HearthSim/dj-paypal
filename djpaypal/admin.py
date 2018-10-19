@@ -75,6 +75,7 @@ class ChargeModelAdmin(BasePaypalObjectAdmin):
 class DisputeAdmin(BasePaypalObjectAdmin):
 	list_display = ("status", "reason", "create_time")
 	list_filter = ("status", "reason")
+	ordering = ("-create_time", )
 	readonly_fields = (
 		"create_time", "update_time", "disputed_transactions", "reason",
 		"dispute_amount", "dispute_outcome", "seller_response_due_date", "dispute_flow"
@@ -110,6 +111,7 @@ class RefundAdmin(BasePaypalObjectAdmin):
 	)
 	list_filter = ("refund_reason_code", )
 	raw_id_fields = ("sale", "parent_payment")
+	ordering = ("-create_time", )
 	readonly_fields = (
 		"state", "sale", "parent_payment", "refund_reason_code",
 		"refund_funding_type", "create_time", "update_time",
@@ -122,6 +124,7 @@ class SaleAdmin(BasePaypalObjectAdmin):
 	list_display = ("state", "create_time", "update_time")
 	list_filter = ("state", "payment_mode")
 	raw_id_fields = ("billing_agreement", "parent_payment")
+	ordering = ("-create_time", )
 	readonly_fields = (
 		"amount", "payment_mode", "state", "reason_code",
 		"protection_eligibility", "protection_eligibility_type",
