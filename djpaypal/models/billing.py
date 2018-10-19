@@ -243,6 +243,20 @@ class BillingAgreement(PaypalObject):
 		self.end_of_period = self.calculate_end_of_period()
 		return super().save(**kwargs)
 
+	def cancel(self, note):
+		obj = self.find_paypal_object()
+		obj.cancel({"note": note})
+		# Sync updated object back to to the database
+		obj, created = self.get_or_update_from_api_data(obj, always_sync=True)
+		return obj
+
+	def suspend(self, note):
+		obj = self.find_paypal_object()
+		obj.suspend({"note": note})
+		# Sync updated object back to to the database
+		obj, created = self.get_or_update_from_api_data(obj, always_sync=True)
+		return obj
+
 	@property
 	def last_payment_date(self):
 		date = self.agreement_details.get("last_payment_date", "")
