@@ -3,10 +3,10 @@
 	"create_time": "2014-10-31T15:42:24Z",
 	"resource_type": "sale",
 	"event_type": "PAYMENT.SALE.REFUNDED",
-	"summary": "A 0.01 USD sale payment was refunded",
+	"summary": "A 0.02 USD sale payment was refunded",
 	"resource": {
 		"amount": {
-			"total": "-0.01",
+			"total": "0.02",
 			"currency": "USD"
 		},
 		"id": "6YX43824R4443062K",
@@ -14,6 +14,24 @@
 		"update_time": "2014-10-31T15:41:51Z",
 		"state": "completed",
 		"create_time": "2014-10-31T15:41:51Z",
+		"invoice_number": "",
+		"refund_from_received_amount": {
+			"total": "0.01",
+			"currency": "USD"
+		},
+		"refund_from_transaction_fee": {
+			"total": "0.01",
+			"currency": "USD"
+		},
+		"refund_reason_code": "REFUND",
+		"refund_to_payer": {
+			"total": "0.02",
+			"currency": "USD"
+		},
+		"total_refunded_amount": {
+			"total": "0.02",
+			"currency": "USD"
+		},
 		"links": [
 			{
 				"href": "https://api.paypal.com/v1/payments/refund/6YX43824R4443062K",

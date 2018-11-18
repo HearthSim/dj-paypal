@@ -67,6 +67,7 @@ class Refund(PaypalObject):
 		max_length=31, choices=enums.RefundReasonCode.choices, editable=False,
 		help_text="The PayPal-assigned reason codes for the refund."
 	)
+	refund_to_payer = CurrencyAmountField(null=True, editable=False)
 	refund_funding_type = models.CharField(
 		max_length=6, choices=enums.RefundFundingType.choices, editable=False,
 		help_text=(
