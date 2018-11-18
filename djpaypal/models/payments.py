@@ -127,6 +127,9 @@ class Sale(PaypalObject):
 	create_time = models.DateTimeField(db_index=True, editable=False)
 	update_time = models.DateTimeField(db_index=True, editable=False)
 	soft_descriptor = models.CharField(max_length=127, blank=True, editable=False)
+	invoice_number = models.CharField(
+		max_length=127, blank=True, help_text="Your own invoice or tracking ID number."
+	)
 
 	paypal_model = paypal_models.Sale
 	dashboard_url_template = "{paypal}/activity/payment/63819926JU0458337"

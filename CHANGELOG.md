@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Sort various admin views by creation time
 
+### Fixed
+- Fix missing field "invoice_number" in Sale model
+
 ## [0.9.1] - 2018-10-18
 ### Fixed
 - Fix missing Refund fields
