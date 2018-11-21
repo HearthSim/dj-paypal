@@ -1,5 +1,4 @@
 # https://travis-ci.org/HearthSim/dj-paypal
-sudo: false
 language: python
 
 python: "3.6"
