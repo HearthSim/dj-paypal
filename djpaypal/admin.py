@@ -140,7 +140,7 @@ class SaleAdmin(BasePaypalObjectAdmin):
 @admin.register(models.WebhookEvent)
 class WebhookEventAdmin(BasePaypalObjectAdmin):
 	list_display = ("event_type", "resource_type", "resource_id_link", "create_time")
-	list_filter = ("create_time", )
+	list_filter = ("create_time", "event_type")
 	ordering = ("-create_time", )
 	readonly_fields = (
 		"summary", "event_type", "resource_type", "resource_id_link", "create_time",

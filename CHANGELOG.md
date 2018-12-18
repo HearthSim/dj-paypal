@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Added
 - Add "admin_url" property in PaypalObject model
 - Add link to resource in WebhookEvent admin
+- Add event type as filter to WebhookEventAdmin
 
 ## Fixed
 - Fix dashboard url in Sale model
