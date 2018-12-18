@@ -129,7 +129,7 @@ class WebhookEvent(PaypalObject):
 
 	def get_resource(self):
 		cls = self.resource_model
-		return cls.objects.get(id=self.resource_id)
+		return cls.objects.get(**{cls.id_field_name: self.resource_id})
 
 	def send_signal(self):
 		event_type = self.event_type.lower()
