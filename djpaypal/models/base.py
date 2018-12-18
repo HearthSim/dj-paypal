@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from ..settings import PAYPAL_LIVE_MODE
 
@@ -81,6 +82,15 @@ class PaypalObject(models.Model):
 		if hasattr(self, "name") and self.name:
 			return self.name
 		return self.id
+
+	@property
+	def admin_url(self):
+		return reverse(
+			"admin:{app_label}_{model_name}_change".format(
+				app_label=self._meta.app_label, model_name=self._meta.model_name
+			),
+			args=(self.id, )
+		)
 
 	@property
 	def dashboard_url(self):
