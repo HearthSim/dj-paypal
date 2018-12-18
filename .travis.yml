@@ -14,6 +14,8 @@ env:
 
 matrix:
   fast_finish: true
+  allow_failures:
+    - env: TOXENV=py36-djangomaster
 
 install:
   - pip install --upgrade pip setuptools wheel
