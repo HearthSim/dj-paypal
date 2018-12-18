@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.11.1] - 2018-12-18
 ## Fixed
 - Fix disputes breaking WebhookEvent admin
 
@@ -35,7 +37,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix missing Refund fields
 
-[Unreleased]: https://github.com/HearthSim/dj-paypal/compare/0.11.0...HEAD
+[Unreleased]: https://github.com/HearthSim/dj-paypal/compare/0.11.1...HEAD
+[0.11.1]: https://github.com/HearthSim/dj-paypal/compare/0.11.0...0.11.1
 [0.11.0]: https://github.com/HearthSim/dj-paypal/compare/0.10.1...0.11.0
 [0.10.1]: https://github.com/HearthSim/dj-paypal/compare/0.10.0...0.10.1
 [0.10.0]: https://github.com/HearthSim/dj-paypal/compare/0.9.1...0.10.0
