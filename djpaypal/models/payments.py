@@ -133,7 +133,7 @@ class Sale(PaypalObject):
 	)
 
 	paypal_model = paypal_models.Sale
-	dashboard_url_template = "{paypal}/activity/payment/63819926JU0458337"
+	dashboard_url_template = "{paypal}/activity/payment/{id}"
 
 	@classmethod
 	def clean_api_data(cls, data):
