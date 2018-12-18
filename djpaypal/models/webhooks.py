@@ -110,6 +110,11 @@ class WebhookEvent(PaypalObject):
 			return Sale
 		raise NotImplementedError("Unimplemented webhook resource: %r" % (self.resource_type))
 
+	@property
+	def resource_id(self):
+		cls = self.resource_model
+		return self.resource[cls.id_field_name]
+
 	def create_or_update_resource(self):
 		if self.event_type.lower().startswith("risk.dispute."):
 			# risk.dispute.* events are a different kind of dispute object.
@@ -124,7 +129,7 @@ class WebhookEvent(PaypalObject):
 
 	def get_resource(self):
 		cls = self.resource_model
-		return cls.objects.get(id=self.resource[cls.id_field_name])
+		return cls.objects.get(id=self.resource_id)
 
 	def send_signal(self):
 		event_type = self.event_type.lower()

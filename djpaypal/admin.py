@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.html import format_html
 
 from . import models
 from .settings import PAYPAL_WEBHOOK_ID
@@ -138,13 +139,21 @@ class SaleAdmin(BasePaypalObjectAdmin):
 
 @admin.register(models.WebhookEvent)
 class WebhookEventAdmin(BasePaypalObjectAdmin):
-	list_display = ("event_type", "resource_type", "create_time")
+	list_display = ("event_type", "resource_type", "resource_id_link", "create_time")
 	list_filter = ("create_time", )
 	ordering = ("-create_time", )
 	readonly_fields = (
-		"summary", "event_type", "resource_type", "create_time",
+		"summary", "event_type", "resource_type", "resource_id_link", "create_time",
 		"event_version", "resource", "status", "transmissions",
 	)
+
+	def resource_id_link(self, obj):
+		return format_html(
+			'<strong><a href="{}">{}</a></strong>',
+			obj.get_resource().admin_url,
+			obj.resource_id,
+		)
+	resource_id_link.short_description = "Resource Id"
 
 
 @admin.register(models.WebhookEventTrigger)
