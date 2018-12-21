@@ -97,6 +97,18 @@ class Refund(PaypalObject):
 	paypal_model = paypal_models.Refund
 	dashboard_url_template = "{paypal}/activity/payment/{id}"
 
+	@classmethod
+	def clean_api_data(cls, data):
+		id, cleaned_data, m2ms = super().clean_api_data(data)
+
+		if "sale_id" in cleaned_data:
+			sale_id = cleaned_data["sale_id"]
+			# Ensure that the refunded sale exists in the db
+			# If it exists, it will be updated with new data
+			Sale.find_and_sync(sale_id)
+
+		return id, cleaned_data, m2ms
+
 
 class Sale(PaypalObject):
 	amount = CurrencyAmountField(editable=False)

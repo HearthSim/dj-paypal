@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ## Fixed
 - Fix missing dashoard url in Refund model
+- Fix outdated properties in Sale model after a refund
 
 ## [0.11.1] - 2018-12-18
 ## Fixed
