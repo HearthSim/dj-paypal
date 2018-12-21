@@ -95,6 +95,7 @@ class Refund(PaypalObject):
 	)
 
 	paypal_model = paypal_models.Refund
+	dashboard_url_template = "{paypal}/activity/payment/{id}"
 
 
 class Sale(PaypalObject):
