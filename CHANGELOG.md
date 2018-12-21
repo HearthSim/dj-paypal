@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.11.2] - 2018-12-21
 ## Fixed
 - Fix missing dashoard url in Refund model
 - Fix outdated properties in Sale model after a refund
@@ -40,7 +42,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix missing Refund fields
 
-[Unreleased]: https://github.com/HearthSim/dj-paypal/compare/0.11.1...HEAD
+[Unreleased]: https://github.com/HearthSim/dj-paypal/compare/0.11.2...HEAD
+[0.11.2]: https://github.com/HearthSim/dj-paypal/compare/0.11.1...0.11.2
 [0.11.1]: https://github.com/HearthSim/dj-paypal/compare/0.11.0...0.11.1
 [0.11.0]: https://github.com/HearthSim/dj-paypal/compare/0.10.1...0.11.0
 [0.10.1]: https://github.com/HearthSim/dj-paypal/compare/0.10.0...0.10.1
