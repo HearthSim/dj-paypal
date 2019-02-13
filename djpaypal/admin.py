@@ -52,6 +52,12 @@ class BillingAgreementAdmin(BasePaypalObjectAdmin):
 	list_filter = ("state", )
 	raw_id_fields = ("user", "payer_model")
 
+	def cancel(self, request, queryset):
+		for agreement in queryset:
+			agreement.cancel(note="Cancelled by admin")
+
+	actions = (cancel, )
+
 
 @admin.register(models.PreparedBillingAgreement)
 class PreparedBillingAgreementAdmin(admin.ModelAdmin):

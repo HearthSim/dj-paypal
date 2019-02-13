@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ## Added
 - Start searching in WebhookEvent admin by resource id
+- Add "cancel" action to BillingAgreementAdmin
 
 ## [0.11.2] - 2018-12-21
 ## Fixed
