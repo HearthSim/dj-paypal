@@ -20,7 +20,9 @@ class Dispute(PaypalObject):
 	dispute_channel = models.CharField(max_length=8, blank=True, editable=False)
 	dispute_life_cycle_stage = models.CharField(max_length=15, blank=True, editable=False)
 	dispute_outcome = JSONField(null=True, blank=True, editable=False)
-	messages = JSONField(null=True, blank=True)
+	messages = JSONField(null=True, blank=True, editable=False)
+	refund_details = JSONField(null=True, blank=True, editable=False)
+	buyer_response_due_date = models.DateTimeField(null=True, blank=True, editable=False)
 	seller_response_due_date = models.DateTimeField(null=True, blank=True, editable=False)
 	dispute_flow = models.CharField(
 		max_length=25, choices=enums.DisputeFlow.choices, editable=False

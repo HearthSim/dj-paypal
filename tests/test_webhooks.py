@@ -83,6 +83,15 @@ def test_webhook_customer_dispute_created():
 	assert webhook_resource["dispute_life_cycle_stage"] == resource["dispute_life_cycle_stage"]
 	assert models.Dispute.objects.get(dispute_id=resource["dispute_id"])
 
+	data, resource, webhook = get_webhook_from_fixture("customer.dispute.created--2019-11")
+	webhook_resource = webhook.webhook_event.resource
+	assert webhook.webhook_event.id == data["id"]
+	assert webhook_resource["messages"] == resource["messages"]
+	assert webhook_resource["refund_details"] == resource["refund_details"]
+	assert webhook_resource["buyer_response_due_date"] == resource["buyer_response_due_date"]
+	assert webhook_resource["seller_response_due_date"] == resource["seller_response_due_date"]
+	assert models.Dispute.objects.get(dispute_id=resource["dispute_id"])
+
 
 @pytest.mark.django_db
 def test_webhook_risk_dispute_created():

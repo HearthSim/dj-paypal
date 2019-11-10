@@ -1,0 +1,67 @@
+{
+	"id": "WH-82963375VM412172U-5NX91127UN1954721",
+	"event_version": "1.0",
+	"create_time": "2016-06-09T20:39:36Z",
+	"resource_type": "dispute",
+	"event_type": "CUSTOMER.DISPUTE.CREATED",
+	"summary": "A new dispute opened with Case # PP-000-001-341-393",
+	"resource": {
+		"dispute_id": "PP-000-001-341-393",
+		"create_time": "2016-06-09T20:38:52.000Z",
+		"update_time": "2016-06-10T20:38:52.000Z",
+		"disputed_transactions": [
+			{
+				"seller_transaction_id": "45V487086B989905H",
+				"seller": {
+					"name": "ACME Corp."
+				},
+				"seller_protection_eligible": true
+			}
+		],
+		"reason": "UNAUTHORIZED",
+		"status": "UNDER_REVIEW",
+		"dispute_amount": {
+			"currency_code": "USD",
+			"value": "11.56"
+		},
+		"dispute_life_cycle_stage": "INQUIRY",
+		"dispute_channel": "INTERNAL",
+		"messages": [
+			{
+				"posted_by": "BUYER",
+				"time_posted": "2019-10-27T11:29:28.000Z",
+				"content": "I'm the buyer and I have this message."
+			},
+			{
+				"posted_by":"SELLER",
+				"time_posted":"2019-10-27T15:11:24.000Z",
+				"content": "I'm the seller and would like to respond"
+			}
+		],
+		"buyer_response_due_date": "2016-07-10T20:38:52.000",
+		"seller_response_due_date": "2016-07-10T20:38:52.000",
+		"refund_details": {
+			"allowed_refund_amount": {
+				"currency_code":"USD",
+				"value":"11.56"
+			}
+		},
+		"links": [
+			{
+				"href": "https://node-disputeapiserv-vip.example.com:19387/v1/customer/disputes/PP-000-001-341-393"
+			}
+		]
+	},
+	"links": [
+		{
+			"href": "https://10.24.121.37:14084/v1/notifications/webhooks-events/WH-82963375VM412172U-5NX91127UN1954721",
+			"rel": "self",
+			"method": "GET"
+		},
+		{
+			"href": "https://10.24.121.37:14084/v1/notifications/webhooks-events/WH-82963375VM412172U-5NX91127UN1954721/resend",
+			"rel": "resend",
+			"method": "POST"
+		}
+	]
+}
