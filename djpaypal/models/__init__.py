@@ -1,6 +1,5 @@
 from .billing import (
-	BillingAgreement, BillingPlan, ChargeModel, PaymentDefinition,
-	PreparedBillingAgreement
+	BillingAgreement, BillingPlan, ChargeModel, PaymentDefinition, PreparedBillingAgreement
 )
 from .disputes import Dispute
 from .payer import Payer
