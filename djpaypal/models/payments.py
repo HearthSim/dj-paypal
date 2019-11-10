@@ -126,6 +126,10 @@ class Sale(PaypalObject):
 		max_length=56, choices=enums.SaleProtectionEligibilityType.choices, editable=False
 	)
 	clearing_time = models.DateTimeField(null=True, blank=True, editable=False)
+	payment_hold_status = models.CharField(
+		max_length=8, choices=enums.SalePaymentHoldStatus.choices, editable=False, null=True
+	)
+	payment_hold_reasons = JSONField(null=True, blank=True, editable=False)
 	transaction_fee = CurrencyAmountField(null=True, blank=True, editable=False)
 	receivable_amount = CurrencyAmountField(null=True, blank=True, editable=False)
 	exchange_rate = models.CharField(max_length=64, editable=False)

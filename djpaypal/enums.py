@@ -279,3 +279,13 @@ class SaleProtectionEligibilityType(Enum):
 	ITEM_NOT_RECEIVED_ELIGIBLE = _("Item not received eligible")
 	UNAUTHORIZED_PAYMENT_ELIGIBLE = _("Unauthorized payment eligible")
 	BOTH = (_("Both"), "ITEM_NOT_RECEIVED_ELIGIBLE,UNAUTHORIZED_PAYMENT_ELIGIBLE")
+
+
+class SalePaymentHoldStatus(Enum):
+	HELD = _("Held")
+	RELEASED = _("Released")
+
+
+class SalePaymentHoldReason(Enum):
+	PAYMENT_HOLD = _("Payment hold")
+	SHIPPING_RISK_HOLD = _("Shipping risk hold")
