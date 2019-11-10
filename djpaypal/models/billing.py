@@ -193,7 +193,7 @@ class BillingAgreement(PaypalObject):
 	start_date = models.DateTimeField(db_index=True)
 	agreement_details = JSONField()
 	payer = JSONField()
-	shipping_address = JSONField()
+	shipping_address = JSONField(null=True)
 	override_merchant_preferences = JSONField(default=dict, blank=True)
 	override_charge_mode = JSONField(default=dict, blank=True)
 	plan = JSONField()
