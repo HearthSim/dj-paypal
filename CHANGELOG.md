@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.12.1] - 2019-11-10
+## Fixed
+- Fix required "shipping_adress" in BillingAgreement model
+- Fix missing payment hold fields in Sale model
+- Fix missing fields in Dispute model
+
 ## [0.12.0] - 2019-02-13
 ## Added
 - Start searching in WebhookEvent admin by resource id
@@ -47,7 +53,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix missing Refund fields
 
-[Unreleased]: https://github.com/HearthSim/dj-paypal/compare/0.12.0...HEAD
+[Unreleased]: https://github.com/HearthSim/dj-paypal/compare/0.12.1...HEAD
+[0.12.1]: https://github.com/HearthSim/dj-paypal/compare/0.12.0...0.12.1
 [0.12.0]: https://github.com/HearthSim/dj-paypal/compare/0.11.2...0.12.0
 [0.11.2]: https://github.com/HearthSim/dj-paypal/compare/0.11.1...0.11.2
 [0.11.1]: https://github.com/HearthSim/dj-paypal/compare/0.11.0...0.11.1
