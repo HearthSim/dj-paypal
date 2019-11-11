@@ -67,6 +67,9 @@ WEBHOOK_SIGNALS = {
 }
 
 
+webhook_error = Signal(providing_args=["exception"])
+
+
 class WebhookEvent(PaypalObject):
 	event_version = models.CharField(max_length=8, editable=False)
 	create_time = models.DateTimeField(db_index=True, editable=False)
@@ -195,6 +198,7 @@ class WebhookEventTrigger(models.Model):
 			max_length = WebhookEventTrigger._meta.get_field("exception").max_length
 			obj.exception = str(e)[:max_length]
 			obj.traceback = format_exc()
+			webhook_error.send(sender=obj, exception=e)
 		finally:
 			obj.save()
 
