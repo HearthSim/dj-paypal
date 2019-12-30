@@ -1,4 +1,5 @@
 import re
+from datetime import datetime
 
 from dateutil.parser import parse
 from django.conf import settings
@@ -253,11 +254,14 @@ class BillingAgreement(PaypalObject):
 		self.end_of_period = self.calculate_end_of_period()
 		return super().save(**kwargs)
 
-	def cancel(self, note):
+	def cancel(self, note, immediately=False):
 		obj = self.find_paypal_object()
 		obj.cancel({"note": note})
 		# Sync updated object back to to the database
 		obj, created = self.get_or_update_from_api_data(obj, always_sync=True)
+		if immediately:
+			obj.end_of_period = datetime.now()
+			obj.save()
 		return obj
 
 	def suspend(self, note):

@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib import admin
 from django.utils.html import format_html
 
@@ -54,9 +56,21 @@ class BillingAgreementAdmin(BasePaypalObjectAdmin):
 
 	def cancel(self, request, queryset):
 		for agreement in queryset:
-			agreement.cancel(note="Cancelled by admin")
+			agreement.cancel(note="Cancelled by admin", immediately=False)
+	cancel.short_description = "Cancel selected agreements at end of billing period"
 
-	actions = (cancel, )
+	def cancel_immediately(self, request, queryset):
+		for agreement in queryset:
+			agreement.cancel(note="Cancelled by admin", immediately=True)
+	cancel_immediately.short_description = "Cancel selected agreements immediately"
+
+	def expire(self, request, queryset):
+		for agreement in queryset:
+			agreement.end_of_period = datetime.now()
+			agreement.save()
+	expire.short_description = "Mark selected agreements as expired"
+
+	actions = (cancel, cancel_immediately, expire)
 
 
 @admin.register(models.PreparedBillingAgreement)
