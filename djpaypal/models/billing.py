@@ -213,6 +213,16 @@ class BillingAgreement(PaypalObject):
 	)
 
 	@classmethod
+	def clean_api_data(cls, data):
+		id, cleaned_data, m2ms = super().clean_api_data(data)
+
+		# Fix inconsistent US/UK spelling
+		if "state" in cleaned_data and cleaned_data["state"].lower() == "canceled":
+			cleaned_data["state"] = enums.BillingAgreementState.Cancelled
+
+		return id, cleaned_data, m2ms
+
+	@classmethod
 	def execute(cls, token):
 		if not token:
 			raise ValueError("Invalid token argument")

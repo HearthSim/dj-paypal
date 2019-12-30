@@ -49,6 +49,16 @@ def test_sync_executed_billing_agreement():
 	assert inst.calculate_end_of_period() == parse_date("2017-09-24T11:47:17Z")
 
 
+@pytest.mark.django_db
+def test_sync_canceled_billing_agreement():
+	ba = get_fixture("rest.billingagreement.execute.json")
+	ba["state"] = "Canceled"
+	inst, created = models.BillingAgreement.get_or_update_from_api_data(ba, always_sync=True)
+	assert created
+	assert inst.id == ba["id"]
+	assert inst.state == enums.BillingAgreementState.Cancelled
+
+
 def test_token_extract_billing_agreement():
 	token = "EC-XXXXXXXX00000000Z"
 	url = (
