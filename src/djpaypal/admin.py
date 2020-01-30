@@ -166,7 +166,7 @@ class WebhookEventAdmin(BasePaypalObjectAdmin):
 		"summary", "event_type", "resource_type", "resource_id_link", "create_time",
 		"event_version", "resource", "status", "transmissions",
 	)
-	search_fields = ("resource_id", )
+	search_fields = ("id", "resource__id")
 
 	def resource_id_link(self, obj):
 		return format_html(
