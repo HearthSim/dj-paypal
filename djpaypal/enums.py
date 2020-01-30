@@ -1,7 +1,7 @@
 import operator
 from collections import OrderedDict
 
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 
 class EnumMetaClass(type):
