@@ -1,0 +1,58 @@
+{
+	"name": "Test Plan",
+	"plan": {
+		"id": "P-123456789012345678901234",
+		"name": "Test Plan",
+		"type": "INFINITE",
+		"state": "ACTIVE",
+		"description": "This is a Test Plan.",
+		"payment_definitions": [
+			{
+				"id": "PD-123456789012345678901234",
+				"name": "Monthly",
+				"type": "REGULAR",
+				"amount": {
+					"value": "4.99",
+					"currency": "USD"
+				},
+				"cycles": "0",
+				"frequency": "Month",
+				"frequency_interval": "1"
+			}
+		],
+		"merchant_preferences": {
+			"setup_fee": {
+				"value": "5",
+				"currency": "USD"
+			},
+			"cancel_url": "https://example.com/cancel",
+			"return_url": "https://example.comreturn",
+			"auto_bill_amount": "YES",
+			"max_fail_attempts": "1",
+			"initial_fail_amount_action": "CANCEL"
+		}
+	},
+	"links": [
+		{
+			"rel": "approval_url",
+			"href": "https://www.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-12345678901234567",
+			"method": "REDIRECT"
+		},
+		{
+			"rel": "execute",
+			"href": "https://api.sandbox.paypal.com/v1/payments/billing-agreements/EC-12345678901234567/agreement-execute",
+			"method": "POST"
+		}
+	],
+	"payer": {
+		"payment_method": "paypal"
+	},
+	"start_date": "2020-07-30T11:00:00+00:00",
+	"description": "Test Plan",
+	"override_merchant_preferences": {
+		"setup_fee": {
+			"value": "4.99",
+			"currency": "USD"
+		}
+	}
+}

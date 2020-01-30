@@ -1,5 +1,6 @@
 import pytest
 from iso8601 import parse_date
+from paypalrestsdk import payments as paypal_models
 
 from djpaypal import enums, models, settings
 
@@ -59,11 +60,18 @@ def test_sync_canceled_billing_agreement():
 	assert inst.state == enums.BillingAgreementState.Cancelled
 
 
-def test_token_extract_billing_agreement():
-	token = "EC-XXXXXXXX00000000Z"
-	url = (
-		"https://api.sandbox.paypal.com/v1/payments/billing-agreements/" +
-		token + "/agreement-execute"
-	)
-	links = {"links": [{"href": url, "method": "POST", "rel": "execute"}]}
-	assert models.PreparedBillingAgreement._extract_token(links) == token
+class TestPreparedBillingAgreement:
+	@pytest.mark.django_db
+	def test_plan_id(self, user):
+		obj = paypal_models.BillingAgreement.find("EC-12345678901234567")
+		prepared_agreement = models.PreparedBillingAgreement.create_from_data(obj, user)
+		assert prepared_agreement.plan_id == "P-123456789012345678901234"
+
+	def test_extract_token(self):
+		token = "EC-XXXXXXXX00000000Z"
+		url = (
+			"https://api.sandbox.paypal.com/v1/payments/billing-agreements/" +
+			token + "/agreement-execute"
+		)
+		links = {"links": [{"href": url, "method": "POST", "rel": "execute"}]}
+		assert models.PreparedBillingAgreement._extract_token(links) == token

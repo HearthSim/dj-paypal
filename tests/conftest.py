@@ -1,6 +1,8 @@
 import json
 import os
 
+import pytest
+from django.contrib.auth import get_user_model
 from paypalrestsdk import api
 
 
@@ -45,3 +47,11 @@ class TestApi(api.Api):
 # That object is the entry point to all HTTP requests in the Paypal API.
 # We replace it with a mock handler which returns on-disk data.
 api.__api__ = TestApi(client_id=None, client_secret=None)
+
+
+@pytest.fixture(scope="function")
+def user(db):
+	return get_user_model().objects.create_user(
+		username="test_user@example.com",
+		email="test_user@example.com"
+	)

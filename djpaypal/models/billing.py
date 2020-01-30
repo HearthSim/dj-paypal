@@ -159,6 +159,10 @@ class PreparedBillingAgreement(models.Model):
 				return link["href"]
 		return ""
 
+	@property
+	def plan_id(self):
+		return self.data.get("plan", {}).get("id", None)
+
 	def cancel(self):
 		if self.executed_at:
 			raise AgreementAlreadyExecuted("Agreement has already been executed")
@@ -178,6 +182,7 @@ class PreparedBillingAgreement(models.Model):
 		with transaction.atomic():
 			ret = BillingAgreement.execute(self.id)
 			ret.user = self.user
+			ret.plan_model_id = self.plan_id
 			ret.save()
 			self.executed_agreement = ret
 			self.save()
@@ -201,7 +206,10 @@ class BillingAgreement(PaypalObject):
 	merchant = JSONField(null=True, blank=True)
 
 	payer_model = models.ForeignKey(
-		"Payer", on_delete=models.SET_NULL, null=True, blank=True
+		"Payer", on_delete=models.SET_NULL, null=True, blank=True,
+	)
+	plan_model = models.ForeignKey(
+		BillingPlan, on_delete=models.SET_NULL, null=True, blank=True,
 	)
 	user = models.ForeignKey(
 		settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True
