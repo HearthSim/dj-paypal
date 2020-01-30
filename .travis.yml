@@ -36,13 +36,12 @@ stages:
 jobs:
   include:
     - stage: deploy
-      install:
-        - pip install --upgrade pip setuptools wheel
-
-      script: echo Releasing $TRAVIS_TAG
-
+      install: pip install poetry
+      script: poetry build
       deploy:
-        provider: pypi
+        provider: script
+        script: poetry publish
+        skip_cleanup: true
         user: $PYPI_USERNAME
         password: $PYPI_PASSWORD
         distributions: "sdist bdist_wheel"
