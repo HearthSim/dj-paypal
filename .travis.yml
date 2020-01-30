@@ -1,8 +1,7 @@
-# https://travis-ci.org/HearthSim/dj-paypal
+version: ~> 1.0
+os: linux
 language: python
-
 python: "3.6"
-
 addons:
   postgresql: "9.6"
 
@@ -12,11 +11,6 @@ env:
   - TOXENV=py36-djangomaster
   - TOXENV=checkmigrations
   - TOXENV=flake8
-
-matrix:
-  fast_finish: true
-  allow_failures:
-    - env: TOXENV=py36-djangomaster
 
 install:
   - pip install --upgrade pip setuptools wheel
@@ -34,6 +28,9 @@ stages:
     if: tag IS present
 
 jobs:
+  allow_failures:
+    - env: TOXENV=py36-djangomaster
+  fast_finish: true
   include:
     - stage: deploy
       install: pip install poetry
@@ -42,8 +39,5 @@ jobs:
         provider: script
         script: poetry publish
         skip_cleanup: true
-        user: $PYPI_USERNAME
-        password: $PYPI_PASSWORD
-        distributions: "sdist bdist_wheel"
         on:
           tags: true
