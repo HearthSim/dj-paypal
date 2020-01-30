@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dj-paypal"
-version = "0.15.0-rc1"
+version = "0.15.0-rc2"
 description = "Django / Paypal integration (based on dj-stripe)"
 authors = [
 	"Benedict Etzel <benedict@hearthsim.net>",
