@@ -259,7 +259,13 @@ class BillingAgreement(PaypalObject):
 				id=payer_id, defaults=payer_info
 			)
 
-		self.end_of_period = self.calculate_end_of_period()
+		# Do not overwrite the end of period for cancelled subscriptions
+		if (
+			self.state != enums.BillingAgreementState.Cancelled or
+			self.end_of_period is None
+		):
+			self.end_of_period = self.calculate_end_of_period()
+
 		return super().save(**kwargs)
 
 	def cancel(self, note, immediately=False):
