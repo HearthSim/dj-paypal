@@ -272,7 +272,7 @@ class BillingAgreement(PaypalObject):
 		obj = self.find_paypal_object()
 		obj.cancel({"note": note})
 		# Ensure we've synced the latest state to the database
-		self.find_and_sync(self.id)
+		obj = self.find_and_sync(self.id)
 		if immediately:
 			obj.end_of_period = datetime.now()
 			obj.save()
@@ -282,7 +282,7 @@ class BillingAgreement(PaypalObject):
 		obj = self.find_paypal_object()
 		obj.suspend({"note": note})
 		# Ensure we've synced the latest state to the database
-		self.find_and_sync(self.id)
+		obj = self.find_and_sync(self.id)
 		return obj
 
 	@property
