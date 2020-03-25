@@ -9,61 +9,61 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix stale BillingAgreement state after calling "cancel" or "suspend"
 
 ## [0.15.1] - 2020-03-24
-## Fixed
+### Fixed
 - Fix broken search in WebhookEventAdmin
 - Fix overriding "end_of_period" for canceled billing agreements
 
 ## [0.15.0] - 2020-01-30
-## Added
+### Added
 - Add "plan_id" property to PreparedBillingAgreement
 - Add "plan_model" property to BillingAgreement
 
-## Changed
+### Changed
 - Test against Django 2.2 and 3.0
 
 ## [0.14.0] - 2019-12-30
-## Added
+### Added
 - Add "immediately" parameter to "cancel" method in BillingAgreement
 - Add "cancel_immediately" and "expire" actions to BillingAgreementAdmin
 
-## Fixed
+### Fixed
 - Fix "state" field having values of both "Canceled" and "Cancelled" in BillingAgreement model
 
 ## [0.13.0] - 2019-11-11
-## Added
+### Added
 - Add "webhook_error" signal for custom error logging
 
 ## [0.12.1] - 2019-11-10
-## Fixed
+### Fixed
 - Fix required "shipping_adress" in BillingAgreement model
 - Fix missing payment hold fields in Sale model
 - Fix missing fields in Dispute model
 
 ## [0.12.0] - 2019-02-13
-## Added
+### Added
 - Start searching in WebhookEvent admin by resource id
 - Add "cancel" action to BillingAgreementAdmin
 
 ## [0.11.2] - 2018-12-21
-## Fixed
+### Fixed
 - Fix missing dashoard url in Refund model
 - Fix outdated properties in Sale model after a refund
 
 ## [0.11.1] - 2018-12-18
-## Fixed
+### Fixed
 - Fix disputes breaking WebhookEvent admin
 
 ## [0.11.0] - 2018-12-18
-## Added
+### Added
 - Add "admin_url" property in PaypalObject model
 - Add link to resource in WebhookEvent admin
 - Add event type as filter to WebhookEventAdmin
 
-## Fixed
+### Fixed
 - Fix dashboard url in Sale model
 
 ## [0.10.1] - 2018-11-18
-## Fixed
+### Fixed
 - Fix missing field "refund_to_payer" in Refund model
 
 ## [0.10.0] - 2018-11-18
