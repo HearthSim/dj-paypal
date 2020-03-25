@@ -271,8 +271,8 @@ class BillingAgreement(PaypalObject):
 	def cancel(self, note, immediately=False):
 		obj = self.find_paypal_object()
 		obj.cancel({"note": note})
-		# Sync updated object back to to the database
-		obj, created = self.get_or_update_from_api_data(obj, always_sync=True)
+		# Ensure we've synced the latest state to the database
+		self.find_and_sync(self.id)
 		if immediately:
 			obj.end_of_period = datetime.now()
 			obj.save()
@@ -281,8 +281,8 @@ class BillingAgreement(PaypalObject):
 	def suspend(self, note):
 		obj = self.find_paypal_object()
 		obj.suspend({"note": note})
-		# Sync updated object back to to the database
-		obj, created = self.get_or_update_from_api_data(obj, always_sync=True)
+		# Ensure we've synced the latest state to the database
+		self.find_and_sync(self.id)
 		return obj
 
 	@property
