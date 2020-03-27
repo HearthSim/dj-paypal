@@ -1,5 +1,40 @@
 from decimal import Decimal
 
+from django.urls import NoReverseMatch, reverse
+from django.utils.html import format_html
+
+
+def admin_urlify(column, help_text=None):  # pragma: no cover
+	"""
+	Can be used to add a link to a model referenced in another admin.
+
+	Example:
+		fields = [admin_urlify("user")]
+	"""
+	def inner(*args):
+		if len(args) > 1:
+			obj = args[1]
+		else:
+			obj = args[0]
+		_obj = getattr(obj, column)
+		if _obj is None:
+			return "-"
+		try:
+			url = _obj.get_absolute_url()
+		except (AttributeError, NoReverseMatch):
+			url = ""
+		admin_pattern = "admin:%s_%s_change" % (_obj._meta.app_label, _obj._meta.model_name)
+		admin_url = reverse(admin_pattern, args=[_obj.pk])
+
+		ret = format_html('<a href="{url}">{obj}</a>', url=admin_url, obj=_obj)
+		if url:
+			ret += format_html(' (<a href="{url}">View</a>)', url=url)
+		return ret
+
+	inner.short_description = column.replace("_", " ")
+
+	return inner
+
 
 def fix_django_headers(meta):
 	"""

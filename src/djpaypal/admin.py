@@ -5,6 +5,7 @@ from django.utils.html import format_html
 
 from . import models
 from .settings import PAYPAL_WEBHOOK_ID
+from .utils import admin_urlify
 
 
 class BasePaypalObjectAdmin(admin.ModelAdmin):
@@ -50,8 +51,13 @@ class BillingPlanAdmin(BasePaypalObjectAdmin):
 
 @admin.register(models.BillingAgreement)
 class BillingAgreementAdmin(BasePaypalObjectAdmin):
-	list_display = ("user", "state")
+	list_display = (admin_urlify("user"), "state")
 	list_filter = ("state", )
+	search_fields = (
+		"user__id",
+		"user__username",
+		"user__email"
+	)
 	raw_id_fields = ("user", "payer_model")
 
 	def cancel(self, request, queryset):
