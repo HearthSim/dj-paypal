@@ -5,9 +5,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.16.0] - 2022-05-11
 ### Added
 - Added list-view link to user in BillingAgreement admin
 - Search more fields in BillingAgreement admin (user id, username, email)
+### Breaking
+- Django versions earlier than 3.1 are no longer supported
 
 ## [0.15.3] - 2020-03-25
 ### Fixed
@@ -89,7 +93,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix missing Refund fields
 
-[Unreleased]: https://github.com/HearthSim/dj-paypal/compare/0.15.3...HEAD
+[Unreleased]: https://github.com/HearthSim/dj-paypal/compare/0.16.0...HEAD
+[0.16.0]: https://github.com/HearthSim/dj-paypal/compare/0.15.3...0.16.0
 [0.15.3]: https://github.com/HearthSim/dj-paypal/compare/0.15.2...0.15.3
 [0.15.2]: https://github.com/HearthSim/dj-paypal/compare/0.15.1...0.15.2
 [0.15.1]: https://github.com/HearthSim/dj-paypal/compare/0.15.0...0.15.1
