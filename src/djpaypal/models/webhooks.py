@@ -62,12 +62,17 @@ WEBHOOK_EVENT_TYPES = {
 	"vault.credit-card.updated",
 }
 
+# Provides arguments:
+# - event
+
 WEBHOOK_SIGNALS = {
-	hook: Signal(providing_args=["event"]) for hook in WEBHOOK_EVENT_TYPES
+	hook: Signal() for hook in WEBHOOK_EVENT_TYPES
 }
 
+# Provides arguments:
+# - exception
 
-webhook_error = Signal(providing_args=["exception"])
+webhook_error = Signal()
 
 
 class WebhookEvent(PaypalObject):
