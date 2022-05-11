@@ -1,13 +1,13 @@
 version: ~> 1.0
 os: linux
 language: python
-python: "3.6"
+python: "3.9"
 addons:
   postgresql: "9.6"
 
 env:
-  - TOXENV=py36-django31
-  - TOXENV=py36-djangomaster
+  - TOXENV=py39-django31
+  - TOXENV=py39-djangomaster
   - TOXENV=checkmigrations
   - TOXENV=flake8
 
@@ -28,7 +28,7 @@ stages:
 
 jobs:
   allow_failures:
-    - env: TOXENV=py36-djangomaster
+    - env: TOXENV=py39-djangomaster
   fast_finish: true
   include:
     - stage: deploy
