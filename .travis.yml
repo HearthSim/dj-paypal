@@ -6,8 +6,7 @@ addons:
   postgresql: "9.6"
 
 env:
-  - TOXENV=py36-django22
-  - TOXENV=py36-django30
+  - TOXENV=py36-django31
   - TOXENV=py36-djangomaster
   - TOXENV=checkmigrations
   - TOXENV=flake8

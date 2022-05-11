@@ -12,7 +12,7 @@ Currently only supports subscriptions.
 ## Requirements
 
 - Python 3.6+
-- Django 2.0+
+- Django 3.1+
 - Postgres 9.6+ (Non-postgres engines not supported)
 
 
