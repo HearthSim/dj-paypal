@@ -3,7 +3,7 @@ name = "dj-paypal"
 version = "0.16.0"
 description = "Django / Paypal integration (based on dj-stripe)"
 authors = [
-	"Benedict Etzel <benedict@hearthsim.net>",
+	"Benedict Etzel",
 	"Jerome Leclanche <jerome@leclan.ch>"
 ]
 readme = "README.md"
