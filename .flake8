@@ -1,0 +1,5 @@
+[flake8]
+ignore = E117, W191, W504
+exclude = .venv/, src/djpaypal/migrations/
+inline-quotes = double
+max-line-length = 92
