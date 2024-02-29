@@ -89,4 +89,4 @@ jobs:
       - name: Build
         run: poetry build
       - name: Deploy
-        run: poetry deploy
+        run: poetry publish
