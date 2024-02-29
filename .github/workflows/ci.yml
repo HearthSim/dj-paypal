@@ -74,6 +74,8 @@ jobs:
   release:
     name: Release
     needs: [checkmigrations, lint, test]
+    permissions:
+      id-token: write
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/v')
     steps:
@@ -89,4 +91,4 @@ jobs:
       - name: Build
         run: poetry build
       - name: Deploy
-        run: poetry publish
+        uses: pypa/gh-action-pypi-publish@release/v1
