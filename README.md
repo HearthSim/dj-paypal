@@ -1,6 +1,6 @@
 # dj-paypal
 
-[![Build Status](https://travis-ci.com/HearthSim/dj-paypal.svg?branch=master)](https://travis-ci.com/HearthSim/dj-paypal)
+[![CI](https://github.com/HearthSim/dj-paypal/actions/workflows/ci.yml/badge.svg)](https://github.com/HearthSim/dj-paypal/actions/workflows/ci.yml)
 [![PyPI](https://img.shields.io/pypi/v/dj-paypal.svg)](https://pypi.org/project/dj-paypal/)
 
 
