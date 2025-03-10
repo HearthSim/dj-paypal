@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.16.1] - 2025-03-10
+### Changed
+- Switched CI to GitHub Actions
+
+### Fixed
+- Fixed setuptools compatability
+- Fixed pkg_resources compatability
+
 ## [0.16.0] - 2022-05-11
 ### Added
 - Added list-view link to user in BillingAgreement admin
@@ -93,7 +101,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix missing Refund fields
 
-[Unreleased]: https://github.com/HearthSim/dj-paypal/compare/0.16.0...HEAD
+[Unreleased]: https://github.com/HearthSim/dj-paypal/compare/0.16.1...HEAD
+[0.16.1]: https://github.com/HearthSim/dj-paypal/compare/0.16.0...0.16.1
 [0.16.0]: https://github.com/HearthSim/dj-paypal/compare/0.15.3...0.16.0
 [0.15.3]: https://github.com/HearthSim/dj-paypal/compare/0.15.2...0.15.3
 [0.15.2]: https://github.com/HearthSim/dj-paypal/compare/0.15.1...0.15.2
