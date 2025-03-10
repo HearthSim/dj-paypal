@@ -1,5 +1,5 @@
-import pkg_resources
+from importlib.metadata import version
 from . import checks  # noqa: Register the checks
 
 
-__version__ = pkg_resources.require("dj-paypal")[0].version
+__version__ = version("dj-paypal")
