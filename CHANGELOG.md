@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.16.2] - 2026-11-04
 ### Security
 - Only fetch webhook certificates from the PayPal API (with a timeout and no redirects)
 - Reject webhooks whose transmission time is older than `PAYPAL_WEBHOOK_MAX_AGE`
@@ -108,7 +110,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix missing Refund fields
 
-[Unreleased]: https://github.com/HearthSim/dj-paypal/compare/0.16.1...HEAD
+[Unreleased]: https://github.com/HearthSim/dj-paypal/compare/0.16.2...HEAD
+[0.16.2]: https://github.com/HearthSim/dj-paypal/compare/0.16.1...0.16.2
 [0.16.1]: https://github.com/HearthSim/dj-paypal/compare/0.16.0...0.16.1
 [0.16.0]: https://github.com/HearthSim/dj-paypal/compare/0.15.3...0.16.0
 [0.15.3]: https://github.com/HearthSim/dj-paypal/compare/0.15.2...0.15.3
