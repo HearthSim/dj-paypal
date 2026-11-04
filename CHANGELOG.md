@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Security
+- Only fetch webhook certificates from the PayPal API (with a timeout and no redirects)
+- Reject webhooks whose transmission time is older than `PAYPAL_WEBHOOK_MAX_AGE`
+- No longer store webhook triggers that fail these checks
+
+### Changed
+- Pinned paypalrestsdk to `<2` (webhook verification relies on its internals)
 
 ## [0.16.1] - 2025-03-10
 ### Changed

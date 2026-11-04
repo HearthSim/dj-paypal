@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.conf import settings
 
 
@@ -8,6 +10,7 @@ PAYPAL_CLIENT_SECRET = getattr(settings, "PAYPAL_CLIENT_SECRET", None)
 PAYPAL_LIVE_MODE = PAYPAL_MODE == "live"
 
 PAYPAL_WEBHOOK_ID = getattr(settings, "PAYPAL_WEBHOOK_ID", "")
+PAYPAL_WEBHOOK_MAX_AGE = getattr(settings, "PAYPAL_WEBHOOK_MAX_AGE", timedelta(minutes=15))
 
 PAYPAL_SETTINGS = {
 	"mode": PAYPAL_MODE,

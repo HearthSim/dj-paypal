@@ -1,14 +1,20 @@
 import json
+import re
 from fnmatch import fnmatch
 from traceback import format_exc
 
+import requests
+from dateutil.parser import isoparse
 from django.db import models
 from django.dispatch import Signal
+from django.utils import timezone
 from django.utils.functional import cached_property
+from OpenSSL import crypto
 from paypalrestsdk import notifications as paypal_models
 
+from ..exceptions import WebhookCertificateError
 from ..fields import JSONField
-from ..settings import PAYPAL_WEBHOOK_ID
+from ..settings import PAYPAL_LIVE_MODE, PAYPAL_WEBHOOK_ID, PAYPAL_WEBHOOK_MAX_AGE
 from ..utils import fix_django_headers, get_version
 from .base import PaypalObject
 
@@ -73,6 +79,17 @@ WEBHOOK_SIGNALS = {
 # - exception
 
 webhook_error = Signal()
+
+PAYPAL_CERT_HOST = "api.paypal.com" if PAYPAL_LIVE_MODE else "api.sandbox.paypal.com"
+PAYPAL_CERT_URL_PATTERN = re.compile(
+	r"https://" + re.escape(PAYPAL_CERT_HOST) + r"/v1/notifications/certs/[A-Za-z0-9-]+"
+)
+PAYPAL_CERT_FETCH_TIMEOUT = 10
+PAYPAL_CERT_MAX_SIZE = 64 * 1024
+PAYPAL_AUTH_ALGOS = {
+	"SHA256withRSA": "sha256WithRSAEncryption",
+	"SHA1withRSA": "sha1WithRSAEncryption",
+}
 
 
 class WebhookEvent(PaypalObject):
@@ -192,7 +209,11 @@ class WebhookEventTrigger(models.Model):
 			body = "(error decoding body)"
 
 		ip = request.META["REMOTE_ADDR"]
-		obj = cls.objects.create(headers=headers, body=body, remote_ip=ip)
+		obj = cls(headers=headers, body=body, remote_ip=ip)
+		if not obj.has_verifiable_headers:
+			# do not store requests that cannot have been sent by PayPal
+			return obj
+		obj.save()
 
 		try:
 			obj.valid = obj.verify(PAYPAL_WEBHOOK_ID)
@@ -236,15 +257,66 @@ class WebhookEventTrigger(models.Model):
 	def transmission_time(self):
 		return self.headers.get("paypal-transmission-time", "")
 
+	@property
+	def has_trusted_cert_url(self):
+		return bool(PAYPAL_CERT_URL_PATTERN.fullmatch(self.cert_url))
+
+	@property
+	def is_transmission_fresh(self):
+		try:
+			transmitted_at = isoparse(self.transmission_time)
+		except (ValueError, OverflowError):
+			return False
+		if transmitted_at.tzinfo is None:
+			return False
+		return abs(timezone.now() - transmitted_at) <= PAYPAL_WEBHOOK_MAX_AGE
+
+	@property
+	def has_verifiable_headers(self):
+		return (
+			self.auth_algo in PAYPAL_AUTH_ALGOS and
+			self.has_trusted_cert_url and
+			self.is_transmission_fresh
+		)
+
+	def fetch_cert(self):
+		response = requests.get(
+			self.cert_url,
+			timeout=PAYPAL_CERT_FETCH_TIMEOUT,
+			allow_redirects=False,
+			stream=True,
+		)
+		try:
+			if response.status_code != 200:
+				raise WebhookCertificateError(
+					"Unexpected status fetching certificate: %r" % (response.status_code)
+				)
+			content = b""
+			for chunk in response.iter_content(chunk_size=8192):
+				content += chunk
+				if len(content) > PAYPAL_CERT_MAX_SIZE:
+					raise WebhookCertificateError("Certificate response too large")
+		finally:
+			response.close()
+
+		return crypto.load_certificate(crypto.FILETYPE_PEM, content)
+
 	def verify(self, webhook_id):
-		return paypal_models.WebhookEvent.verify(
-			transmission_id=self.transmission_id,
-			timestamp=self.transmission_time,
-			webhook_id=webhook_id,
-			event_body=self.body,
-			cert_url=self.cert_url,
-			actual_sig=self.transmission_sig,
-			auth_algo=self.auth_algo,
+		# bypass the SDK's verify() (it fetches any cert URL without validation)
+		if not self.has_verifiable_headers:
+			return False
+
+		cert = self.fetch_cert()
+		return paypal_models.WebhookEvent._verify_certificate(cert) and (
+			paypal_models.WebhookEvent._verify_signature(
+				transmission_id=self.transmission_id,
+				timestamp=self.transmission_time,
+				webhook_id=webhook_id,
+				event_body=self.body,
+				cert=cert,
+				actual_sig=self.transmission_sig,
+				auth_algo=PAYPAL_AUTH_ALGOS[self.auth_algo],
+			)
 		)
 
 	def process(self, save=True):

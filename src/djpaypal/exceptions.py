@@ -9,3 +9,7 @@ class PaypalApiError(Exception):
 
 class AgreementAlreadyExecuted(Exception):
 	pass
+
+
+class WebhookCertificateError(Exception):
+	pass

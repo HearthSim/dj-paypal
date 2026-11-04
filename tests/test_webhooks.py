@@ -1,7 +1,9 @@
 import json
+from datetime import timedelta
 from unittest import mock
 
 import pytest
+from django.utils import timezone
 
 from djpaypal import models
 from djpaypal.models.webhooks import webhook_handler
@@ -117,3 +119,104 @@ def test_webhook_payment_sale_completed_from_subscription():
 	assert webhook.webhook_event.id == data["id"]
 	assert webhook.webhook_event.resource["id"] == resource["id"]
 	assert models.Sale.objects.get(id=resource["id"])
+
+
+SANDBOX_CERT_URL = (
+	"https://api.sandbox.paypal.com/v1/notifications/certs/CERT-00000000-00000000-00000000"
+)
+
+
+def format_transmission_time(dt):
+	return dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def post_webhook(client, body, cert_url=SANDBOX_CERT_URL, transmission_time=None):
+	if transmission_time is None:
+		transmission_time = format_transmission_time(timezone.now())
+	return client.post(
+		"/paypal/webhook/",
+		data=body,
+		content_type="application/json",
+		HTTP_PAYPAL_TRANSMISSION_ID="b2384410-f8d2-11e7-9a2d-4f8d6d2e8f9a",
+		HTTP_PAYPAL_TRANSMISSION_TIME=transmission_time,
+		HTTP_PAYPAL_TRANSMISSION_SIG="c2lnbmF0dXJl",
+		HTTP_PAYPAL_AUTH_ALGO="SHA256withRSA",
+		HTTP_PAYPAL_CERT_URL=cert_url,
+	)
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("cert_url", [
+	"",
+	"http://169.254.169.254/latest/meta-data/",
+	"http://api.sandbox.paypal.com/v1/notifications/certs/CERT-1",
+	"https://api.sandbox.paypal.com.example.com/v1/notifications/certs/CERT-1",
+	"https://example.com/?https://api.sandbox.paypal.com/v1/notifications/certs/CERT-1",
+	"https://user@api.sandbox.paypal.com/v1/notifications/certs/CERT-1",
+	"https://api.sandbox.paypal.com:8443/v1/notifications/certs/CERT-1",
+	"https://api.sandbox.paypal.com/v1/oauth2/token",
+	"https://api.sandbox.paypal.com/v1/notifications/certs/../../oauth2/token",
+	"https://api.sandbox.paypal.com/v1/notifications/certs/CERT-1?redirect=1",
+	"https://api.paypal.com/v1/notifications/certs/CERT-1",
+])
+def test_webhook_view_rejects_untrusted_cert_url_without_fetching(client, cert_url):
+	with mock.patch("requests.get") as requests_get:
+		response = post_webhook(client, "{}", cert_url=cert_url)
+
+	assert response.status_code == 400
+	requests_get.assert_not_called()
+	assert not models.WebhookEventTrigger.objects.exists()
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("transmission_time", [
+	"",
+	"not a date",
+	"2018-01-15T12:00:00",
+	format_transmission_time(timezone.now() - timedelta(hours=1)),
+	format_transmission_time(timezone.now() + timedelta(hours=1)),
+], ids=["empty", "invalid", "naive", "past", "future"])
+def test_webhook_view_rejects_stale_transmission_without_fetching(
+	client, transmission_time
+):
+	with mock.patch("requests.get") as requests_get:
+		response = post_webhook(client, "{}", transmission_time=transmission_time)
+
+	assert response.status_code == 400
+	requests_get.assert_not_called()
+	assert not models.WebhookEventTrigger.objects.exists()
+
+
+@pytest.mark.django_db
+def test_webhook_view_processes_verified_event(client):
+	data = get_fixture("webhooks/billing.subscription.created.json")
+	on_subscription_created.reset_mock()
+	cert_response = mock.Mock(status_code=200)
+	cert_response.iter_content.return_value = [b"-----BEGIN CERTIFICATE-----"]
+	cert = mock.sentinel.cert
+
+	sdk_webhook_event = models.webhooks.paypal_models.WebhookEvent
+
+	with mock.patch("requests.get", return_value=cert_response) as requests_get, \
+		mock.patch("OpenSSL.crypto.load_certificate", return_value=cert), \
+		mock.patch.object(sdk_webhook_event, "_verify_certificate") as verify_certificate, \
+		mock.patch.object(sdk_webhook_event, "_verify_signature") as verify_signature:
+		verify_certificate.return_value = True
+		verify_signature.return_value = True
+		response = post_webhook(client, json.dumps(data))
+
+	assert response.status_code == 200
+	requests_get.assert_called_once_with(
+		SANDBOX_CERT_URL, timeout=mock.ANY, allow_redirects=False, stream=True
+	)
+	verify_certificate.assert_called_once_with(cert)
+	assert verify_signature.call_args.kwargs["cert"] is cert
+	assert verify_signature.call_args.kwargs["auth_algo"] == "sha256WithRSAEncryption"
+
+	trigger = models.WebhookEventTrigger.objects.get()
+	assert response.content.decode() == str(trigger.id)
+	assert trigger.valid
+	assert trigger.processed
+	assert trigger.webhook_event.id == data["id"]
+	on_subscription_created.assert_called_once()
+	assert models.BillingAgreement.objects.get(id=data["resource"]["id"]).state == "Pending"

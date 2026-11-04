@@ -54,6 +54,10 @@ which you then set up in Paypal as a webhook endpoint (https://developer.paypal.
 In order to verify webhooks being transmitted to your app, dj-paypal needs to know the
 ID of the webhook that is expected at that URL. Set it in the setting `PAYPAL_WEBHOOK_ID`.
 
+Webhooks are only accepted if their certificate is hosted on the PayPal API host matching
+`PAYPAL_MODE` and if they were transmitted within `PAYPAL_WEBHOOK_MAX_AGE` (a `timedelta`,
+defaults to 15 minutes) of being received.
+
 
 ## Sandbox vs. Live
 
